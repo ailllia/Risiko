@@ -12,9 +12,13 @@ public class Player {
         playerArmys = armys;
         playernew = newarmys;
     }
-    
-	@Override
-	public String toString() {
-		return color + playerMission + playerArmys + playernew;
-	}
+
+    @Override
+    public String toString() {
+        return color + playerMission + playerArmys + playernew;
+    }
+
+    public boolean continentComplete(Continent continent) {
+        return false;
+    }
 }
