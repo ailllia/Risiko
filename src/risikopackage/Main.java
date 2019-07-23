@@ -8,6 +8,6 @@ public class Main {
         Player playerone = new Player("blue", "none", 0, 2);
         Player playertwo = new Player("green", "none", 0, 2);
         
-        PlayersGUI g = new PlayersGUI();	
+        //PlayersGUI g = new PlayersGUI();	
     }
 }
