@@ -9,5 +9,8 @@ public class Main {
         Player playertwo = new Player("green", "none", 0, 2);
         
         //PlayersGUI g = new PlayersGUI();	
+        
+        Test test = new Test();
+        test.printSometing();
     }
 }
