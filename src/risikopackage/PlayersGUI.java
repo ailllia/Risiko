@@ -76,7 +76,9 @@ public class PlayersGUI extends JFrame implements ActionListener {
 	}
 	
 	private void startfct() {
-//		Player.get().put((String)colorone.getSelectedItem(), playerone);
-//		Player.get().put((String)colortwo.getSelectedItem(), playertwo);
+		Main.playerOne = new Player((String)colorone.getSelectedItem());
+		Main.playerTwo = new Player((String)colortwo.getSelectedItem());
+//		Fenster schliessen
+// 		neues Fenster oeffnen
 	}
 }

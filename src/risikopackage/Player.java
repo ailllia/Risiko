@@ -9,11 +9,8 @@ public class Player {
     private int playernew;
     private List<String> countriesName;
 
-    public Player(String pcolor, String mission, int armys, int newarmys) {
+    public Player(String pcolor) {
         color = pcolor;
-        playerMission = mission;
-        playerArmys = armys;
-        playernew = newarmys;
     }
     
 	public boolean continentComplete(Continent continent) {
