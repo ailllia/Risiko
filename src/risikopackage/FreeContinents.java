@@ -3,7 +3,7 @@ package risikopackage;
 import java.util.List;
 
 public class FreeContinents extends Mission {
-    List<Continent> continents;
+    private List<Continent> continents;
 
     public FreeContinents(String name, String description, List<Continent> continents) {
         missionName = name;
@@ -17,10 +17,8 @@ public class FreeContinents extends Mission {
             if (player.continentComplete(continent))
                 counter++;
         }
-        if (counter == continents.size()) {
-            return true;
-        } else {
-            return false;
-        }
+        return (counter == continents.size());
     }
 }
+
+

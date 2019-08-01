@@ -12,17 +12,13 @@ public class Player {
     public Player(String pcolor) {
         color = pcolor;
     }
-    
-	public boolean continentComplete(Continent continent) {
-		if (continent.completeContinent(countriesName)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-    
-	@Override
-	public String toString() {
-		return color + playerMission + playerArmys + playernew;
-	}
+
+    public boolean continentComplete(Continent continent) {
+        return (continent.completeContinent(countriesName));
+    }
+
+    @Override
+    public String toString() {
+        return color + playerMission + playerArmys + playernew;
+    }
 }
