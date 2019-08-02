@@ -20,5 +20,3 @@ public class FreeContinents extends Mission {
         return (counter == continents.size());
     }
 }
-
-
