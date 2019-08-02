@@ -46,7 +46,7 @@ class BackgroundImagePanel extends JPanel {
      * @param fitImage bei Übergabe von true wird das Bild immer an die Größe des Panel angepasst (kann zu Verzerrung führen),
      *                 ansonsten wird immer das Original gezeichnet.
      */
-    void setImage(Image image, boolean fitImage) {
+    private void setImage(Image image, boolean fitImage) {
         this.image = image;
         this.fitImage = fitImage;
         validate();
