@@ -1,0 +1,23 @@
+Kontinente befreien
+Befreie die Kontinente Otea und Solva.
+Otea
+Solva
+.
+Kontinente befreien
+Befreie die Kontinente Solva und Priya.
+Solva
+Priya
+.
+Kontinente befreien
+Befreie die Kontinente Priya und Otea.
+Priya
+Otea
+.
+Laender befreien
+Befreie und besetze insgesamt 11 Laender.
+.
+Laender befreien
+Befreie und besetze insgesamt 11 Laender.
+.
+Laender befreien
+Befreie und besetze insgesamt 11 Laender.

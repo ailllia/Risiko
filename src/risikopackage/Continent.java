@@ -20,6 +20,10 @@ public class Continent {
 			bonusArmies = 2;
 	}
 	
+	public String getName() {
+		return continentName;
+	}
+	
 	public boolean completeContinent(List<String> countries) {
 		int matchingCountries = 0;
 		for (String country : belongingCountries) {
