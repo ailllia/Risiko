@@ -96,20 +96,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         System.exit(0);
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new FieldGUI();
-            }
-        });
-    }
-
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub

@@ -11,17 +11,17 @@ import javax.swing.SwingConstants;
 
 public class PlayersGUI extends JFrame implements ActionListener {
 
-    private final String[] colorsone = {"blau", "gelb"};
-    private final String[] colorstwo = {"rot", "lila"};
+    private final String[] colorsone = {"blau", "rot", "lila"};
+    private final String[] colorstwo = {"blau", "rot", "lila"};
     private JComboBox<String> colorone, colortwo;
-    private JLabel title, order, chooseone, choosetwo;
+    private JLabel title, order, chooseone, choosetwo, wrongcolor;
     private JButton startplaying;
 
     public PlayersGUI() {
 
         this.setLayout(null);
         this.setTitle("Risiko - Spielvorbereitung");
-        this.setSize(500, 500);
+        this.setSize(500, 300);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
@@ -45,6 +45,12 @@ public class PlayersGUI extends JFrame implements ActionListener {
         choosetwo.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         this.add(choosetwo);
         choosetwo.setBounds(250, 100, 250, 20);
+
+        wrongcolor = new JLabel("Die Spieler müssen unterschiedliche Farben wählen!", SwingConstants.CENTER);
+        wrongcolor.setFont(new Font("Sans-Serif", Font.BOLD, 12));
+        wrongcolor.setVisible(false);
+        this.add(wrongcolor);
+        wrongcolor.setBounds(90, 210, 300, 20);
 
         colorone = new JComboBox<String>(colorsone);
         colorone.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
@@ -71,9 +77,13 @@ public class PlayersGUI extends JFrame implements ActionListener {
 
     //create players, "close" PrepWindow, open playingfield
     private void startfct() {
-        Main.playerOne = new Player((String) colorone.getSelectedItem());
-        Main.playerTwo = new Player((String) colortwo.getSelectedItem());
-        this.setVisible(false);
-        new FieldGUI();
+        if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {
+            wrongcolor.setVisible(true);
+        } else {
+            Main.playerOne = new Player((String) colorone.getSelectedItem());
+            Main.playerTwo = new Player((String) colortwo.getSelectedItem());
+            this.setVisible(false);
+            new FieldGUI();
+        }
     }
 }

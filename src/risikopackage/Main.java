@@ -19,10 +19,9 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         //Das Einlesen
         String separator = ".";
-        readMissions(separator);
         readContinents(separator);
         readCountries(separator);
-
+        readMissions(separator);
 
         //Erste GUI, Startfenster
         PlayersGUI g = new PlayersGUI();
