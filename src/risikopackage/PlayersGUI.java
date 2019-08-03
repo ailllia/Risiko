@@ -37,7 +37,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
 	this.add(title);
 	title.setBounds(0, 20, 500, 20);
 	
-	order = new JLabel("Wählt eure Farbe", SwingConstants.CENTER);
+	order = new JLabel("WÃ¤hlt eure Farbe", SwingConstants.CENTER);
 	order.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
 	this.add(order);
 	order.setBounds(0, 60, 500, 20);
@@ -80,5 +80,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
 		Main.playerTwo = new Player((String)colortwo.getSelectedItem());
 //		Fenster schliessen
 // 		neues Fenster oeffnen
+		setVisible(false);
+		FieldGUI play = new FieldGUI();	
 	}
 }
