@@ -11,8 +11,8 @@ import javax.swing.SwingConstants;
 
 public class PlayersGUI extends JFrame implements ActionListener {
 
-    private final String[] colorsone = {"blau", "rot", "lila"};
-    private final String[] colorstwo = {"blau", "rot", "lila"};
+    private final String[] colorsone = {"blau", "rot", "lila", "pink", "grau"};
+    private final String[] colorstwo = {"blau", "rot", "lila", "pink", "grau"};
     private JComboBox<String> colorone, colortwo;
     private JLabel title, order, chooseone, choosetwo, wrongcolor;
     private JButton startplaying;
@@ -52,12 +52,12 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(wrongcolor);
         wrongcolor.setBounds(90, 210, 300, 20);
 
-        colorone = new JComboBox<String>(colorsone);
+        colorone = new JComboBox<>(colorsone);
         colorone.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(colorone);
         colorone.setBounds(75, 120, 100, 20);
 
-        colortwo = new JComboBox<String>(colorstwo);
+        colortwo = new JComboBox<>(colorstwo);
         colortwo.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(colortwo);
         colortwo.setBounds(325, 120, 100, 20);
