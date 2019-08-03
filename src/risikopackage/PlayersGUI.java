@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class RisikoGUIPrep extends JFrame implements ActionListener {
+public class PlayersGUI extends JFrame implements ActionListener {
 
     private final String[] colorsone = {"blau", "gelb"};
     private final String[] colorstwo = {"rot", "lila"};
@@ -17,7 +17,7 @@ public class RisikoGUIPrep extends JFrame implements ActionListener {
     private JLabel title, order, chooseone, choosetwo;
     private JButton startplaying;
 
-    public RisikoGUIPrep() {
+    public PlayersGUI() {
 
         this.setLayout(null);
         this.setTitle("Risiko - Spielvorbereitung");
@@ -74,6 +74,6 @@ public class RisikoGUIPrep extends JFrame implements ActionListener {
         Main.playerOne = new Player((String) colorone.getSelectedItem());
         Main.playerTwo = new Player((String) colortwo.getSelectedItem());
         this.setVisible(false);
-        new RisikoGUI();
+        new FieldGUI();
     }
 }
