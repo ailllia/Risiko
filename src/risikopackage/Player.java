@@ -11,6 +11,7 @@ public class Player {
     private List<Country> occupiedCountries;
 
     public Player(String pcolor) {
+    	
         color = pcolor;
     }
 
