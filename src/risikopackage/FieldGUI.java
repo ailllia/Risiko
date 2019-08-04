@@ -65,6 +65,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         playeronep1 = new JLabel(Main.playerOne.getColor(), SwingConstants.RIGHT);
         playeronep1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+        playeronep1.setForeground(setColor(Main.playerOne));
         frame.add(playeronep1);
         playeronep1.setBounds(95, 80, 90, 20);
 
@@ -135,6 +136,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         playertwop1 = new JLabel(Main.playerTwo.getColor(), SwingConstants.RIGHT);
         playertwop1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+        playertwop1.setForeground(setColor(Main.playerTwo));
         frame.add(playertwop1);
         playertwop1.setBounds(865, 80, 90, 20);
 
@@ -225,14 +227,14 @@ public class FieldGUI extends JFrame implements ActionListener {
         amraname = new JLabel("AMRA");
         amraname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
         frame.add(amraname);
-        amraname.setBounds(487, 70, 70, 15);
+        amraname.setBounds(487, 45, 70, 15);
         amraarmy = new JLabel("00");
         amraarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
         frame.add(amraarmy);
-        amraarmy.setBounds(487, 85, 70, 20);
+        amraarmy.setBounds(487, 60, 70, 20);
         amrahitbox = new JPanel();
         frame.add(amrahitbox);
-        amrahitbox.setBounds(482, 80, 30, 30);
+        amrahitbox.setBounds(482, 58, 30, 30);
         //amrahitbox.setVisible(true);
         amrahitbox.addMouseListener(testListener);
 
@@ -411,6 +413,38 @@ public class FieldGUI extends JFrame implements ActionListener {
       });
    }
    */
+    
+    //holt Schriftfarben
+    // "blau", "rot", "lila", "pink", "grau"
+    public Color setColor(Player playerNow) 
+    {
+    	Color color = new java.awt.Color(0, 0, 0);
+    	if (playerNow.getColor() == "blau")
+    	{
+    		color = new java.awt.Color(0, 0, 255);
+    	}
+    	else if (playerNow.getColor() == "rot")
+    	{
+    		color = new java.awt.Color(255, 0, 0);
+    	}
+    	else if (playerNow.getColor() == "lila")
+    	{
+    		color = new java.awt.Color(127, 0, 127);
+    	}
+    	else if (playerNow.getColor() == "pink")
+    	{
+    		color = new java.awt.Color(255, 0, 255);
+    	}
+    	else if (playerNow.getColor() == "grau")
+    	{
+    		color = new java.awt.Color(76, 76, 76);
+    	}
+    	else
+    	{
+    		color = new java.awt.Color(0, 0, 0);    		
+    	}
+    	return color;
+    }
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
