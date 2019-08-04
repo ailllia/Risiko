@@ -17,6 +17,10 @@ public class Player {
         return (continent.completeContinent(countriesName));
     }
 
+    public String getColor() {
+        return color;
+    }
+
     @Override
     public String toString() {
         return color + playerMission + playerArmys + playernew;
