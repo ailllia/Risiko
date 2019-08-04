@@ -1,13 +1,9 @@
 package risikopackage;
 
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class PlayersGUI extends JFrame implements ActionListener {
 
@@ -25,6 +21,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         title = new JLabel("Willkommen zu einer neuen Runde Risiko", SwingConstants.CENTER);
         title.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
@@ -80,8 +77,8 @@ public class PlayersGUI extends JFrame implements ActionListener {
         if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {
             wrongcolor.setVisible(true);
         } else {
-            Main.playerOne = new Player((String) colorone.getSelectedItem());
-            Main.playerTwo = new Player((String) colortwo.getSelectedItem());
+            Main.playerOne.setColor((String) colorone.getSelectedItem());
+            Main.playerTwo.setColor((String) colortwo.getSelectedItem());
             this.setVisible(false);
             new FieldGUI();
         }

@@ -41,4 +41,12 @@ public class Country {
         armiesInCountry += newArmies;
     }
 
+    public String getCountryName() {
+        return this.countryName;
+    }
+
+    public int getArmiesInCountry() {
+        return this.armiesInCountry;
+    }
+
 }

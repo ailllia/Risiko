@@ -1,12 +1,10 @@
 package risikopackage;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-
-import static java.io.File.separator;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.*;
 
 public class Main {
 
@@ -17,6 +15,10 @@ public class Main {
     public static List<Mission> missions = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException {
+
+        playerOne = new Player(null);
+        playerTwo = new Player(null);
+
         //Das Einlesen
         String separator = ".";
         readContinents(separator);
@@ -24,8 +26,26 @@ public class Main {
         readMissions(separator);
 
         //Erste GUI, Startfenster
-        PlayersGUI g = new PlayersGUI();
+        spreadCountries(playerOne, playerTwo, countries);
+        new PlayersGUI();
 
+    }
+
+    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries) {
+        List<Country> countriesCopy = countries;
+        Random chance = new Random();
+        int j = 13;
+
+        for (int i = 0; i < 7; i++) {
+            int k = chance.nextInt(j);
+            playerOne.addCountryToList(countriesCopy.get(k).getCountryName());
+            countriesCopy.remove(k);
+            j -= 1;
+        }
+
+        for (int i = 0; i < 7; i++) {
+            playerTwo.getCountryNames().add(countriesCopy.get(i).getCountryName());
+        }
     }
 
     private static void readCountries(String separator) throws FileNotFoundException {
@@ -33,15 +53,17 @@ public class Main {
         InputStream istream = new FileInputStream(f); //Anwendung wie in den Seminaren, keine Ahnung warum es nicht funktioniert
         Scanner reader = new Scanner(istream);
         while (reader.hasNext()) {
-            if (!reader.hasNext(separator)) {
+            if (reader.hasNext(separator))
+                reader.nextLine();
+            else {
                 String countryName = reader.nextLine();
                 List<String> neighboringCountries = new LinkedList<>();
-                while (!reader.hasNext(separator)) {
+                while (reader.hasNext() && !reader.hasNext(separator)) {
                     neighboringCountries.add(reader.nextLine());
                 }
                 Country country = new Country(countryName, neighboringCountries);
                 countries.add(country);
-            } else break;
+            }
         }
         reader.close();
     }
@@ -51,15 +73,17 @@ public class Main {
         InputStream istream = new FileInputStream(f);
         Scanner reader = new Scanner(istream);
         while (reader.hasNext()) {
-            if (!reader.hasNext(separator)) {
+            if (reader.hasNext(separator))
+                reader.nextLine();
+            else {
                 String continentName = reader.nextLine();
                 List<String> belongingCountries = new LinkedList<>();
-                while (!reader.hasNext(separator)) {
+                while (reader.hasNext() && !reader.hasNext(separator)) {
                     belongingCountries.add(reader.nextLine());
                 }
                 Continent continent = new Continent(continentName, belongingCountries);
                 continents.add(continent);
-            } else break;
+            }
         }
         reader.close();
     }
@@ -69,13 +93,15 @@ public class Main {
         InputStream istream = new FileInputStream(f);
         Scanner reader = new Scanner(istream);
         while (reader.hasNext()) {
-            if (!reader.hasNext(separator)) {
+            if (reader.hasNext(separator))
+                reader.nextLine();
+            else {
                 String missionName = reader.nextLine();
                 String missionDescription = reader.nextLine();
                 Mission mission;
                 if (missionName.equals("Kontinente befreien")) {
                     List<Continent> continentsInMission = new LinkedList<>();
-                    while (!reader.hasNext(separator)) {
+                    while (reader.hasNext() && !reader.hasNext(separator)) {
                         int index = 0;
                         String missionContinent = reader.nextLine();
                         for (int i = 0; i < continents.size(); i++) {
@@ -90,7 +116,7 @@ public class Main {
                 } else
                     mission = new FreeCountries(missionName, missionDescription);
                 missions.add(mission);
-            } else break;
+            }
         }
         reader.close();
     }
