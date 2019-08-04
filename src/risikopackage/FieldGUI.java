@@ -212,6 +212,14 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
                 JPanel panel = (JPanel) mouseEvent.getSource();
                 panel.setVisible(false);
+                JLabel countryNameLabel = (JLabel) panel.getComponent(0);
+
+                Country country = findCountry(countryNameLabel.getText());
+                if (country != null) {
+                    System.out.println(country.getCountryName() + " " + country.getArmiesInCountry());
+                } else {
+                    System.out.println("County not found");
+                }
             }
 
             @Override
@@ -224,19 +232,21 @@ public class FieldGUI extends JFrame implements ActionListener {
         };
 
         //Angaben Laender
-        amraname = new JLabel("AMRA");
-        amraname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(amraname);
-        amraname.setBounds(487, 45, 70, 15);
-        amraarmy = new JLabel("00");
-        amraarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(amraarmy);
-        amraarmy.setBounds(487, 60, 70, 20);
+
         amrahitbox = new JPanel();
         frame.add(amrahitbox);
-        amrahitbox.setBounds(482, 58, 30, 30);
+        amrahitbox.setBounds(482, 80, 30, 30);
         //amrahitbox.setVisible(true);
         amrahitbox.addMouseListener(testListener);
+
+        amraname = new JLabel("AMRA");
+        amraname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
+        amrahitbox.add(amraname);
+        amraname.setBounds(487, 70, 70, 15);
+        amraarmy = new JLabel("00");
+        amraarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
+        amrahitbox.add(amraarmy);
+        amraarmy.setBounds(487, 85, 70, 20);
 
         bitaname = new JLabel("BITA");
         bitaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
@@ -413,10 +423,10 @@ public class FieldGUI extends JFrame implements ActionListener {
       });
    }
    */
-    
+
     //holt Schriftfarben
     // "blau", "rot", "lila", "pink", "grau"
-    public Color setColor(Player playerNow) 
+    public Color setColor(Player playerNow)
     {
     	Color color = new java.awt.Color(0, 0, 0);
     	if (playerNow.getColor() == "blau")
@@ -441,7 +451,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     	}
     	else
     	{
-    		color = new java.awt.Color(0, 0, 0);    		
+    		color = new java.awt.Color(0, 0, 0);
     	}
     	return color;
     }
@@ -450,5 +460,14 @@ public class FieldGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    Country findCountry(String name) {
+        for (Country c : Main.countries) {
+            if (c.getCountryName().toUpperCase().equals(name.toUpperCase())) {
+                return c;
+            }
+        }
+        return null;
     }
 }
