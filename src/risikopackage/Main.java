@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -26,26 +29,7 @@ public class Main {
         readMissions(separator);
 
         //Erste GUI, Startfenster
-        spreadCountries(playerOne, playerTwo, countries);
         new PlayersGUI();
-
-    }
-
-    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries) {
-        List<Country> countriesCopy = countries;
-        Random chance = new Random();
-        int j = 13;
-
-        for (int i = 0; i < 7; i++) {
-            int k = chance.nextInt(j);
-            playerOne.addCountryToList(countriesCopy.get(k).getCountryName());
-            countriesCopy.remove(k);
-            j -= 1;
-        }
-
-        for (int i = 0; i < 7; i++) {
-            playerTwo.getCountryNames().add(countriesCopy.get(i).getCountryName());
-        }
     }
 
     private static void readCountries(String separator) throws FileNotFoundException {

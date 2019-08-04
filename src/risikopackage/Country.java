@@ -6,7 +6,7 @@ public class Country {
     private String countryName;
     private List<String> neighboringCountries;
     private int armiesInCountry;
-    private String colorOfOwner;
+    private String colorOfOwner; //java.awt.Color?
 
     public Country(String name, List<String> neighbors) {
         this.countryName = name;
@@ -49,4 +49,7 @@ public class Country {
         return this.armiesInCountry;
     }
 
+    public String getColorOfOwner() {
+        return this.colorOfOwner;
+    }
 }

@@ -9,6 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FieldGUI extends JFrame implements ActionListener {
 
@@ -16,13 +20,49 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JMenuBar bar;
     private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2, playeronep3, playeronep4, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
     private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2, playertwop3, playertwop4, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
-    private JLabel amraarmy, amraname, neaharmy, neahname, menaarmy, menaname, liyaarmy, liyaname, kilaarmy, kilaname, jariarmy, jariname, immaarmy, immaname, helaarmy, helaname, gydaarmy, gydaname, friaarmy, frianame, essaarmy, essaname, demiarmy, deminame, caiaarmy, caianame, bitaarmy, bitaname;
-    private JPanel amrahitbox, bitahitbox;
-    private JTextArea textfield;
+    private JLabel armyLabel, nameLabel, neaharmy, neahname, menaarmy, menaname, liyaarmy, liyaname, kilaarmy, kilaname, jariarmy, jariname, immaarmy, immaname, helaarmy, helaname, gydaarmy, gydaname, friaarmy, frianame, essaarmy, essaname, demiarmy, deminame, caiaarmy, caianame, bitaarmy, bitaname;
+    private JPanel hitboxPanel, bitahitbox;
+    public static JTextArea textfield;
+    private MouseListener hitBoxListener;
 
     public FieldGUI() {
+        hitBoxListener = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+                if (mouseEvent.getSource().getClass() != JPanel.class) {
+                    System.out.println("Invalid Type clicked");
+                    return;
+                }
+                JPanel panel = (JPanel) mouseEvent.getSource();
+
+                Country country = findCountry(panel.getName());
+                if (country != null) {
+                    //do attack things -> call a function
+                    System.out.println(country.getCountryName() + " " + country.getArmiesInCountry());
+                } else {
+                    System.out.println("County not found");
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+            }
+        };
+
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        JFrame frame = new JFrame("Risikospielfeld");
+        this.frame = new JFrame("Risikospielfeld");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         bar = new JMenuBar();
@@ -55,320 +95,223 @@ public class FieldGUI extends JFrame implements ActionListener {
         //Angaben Spieler Eins
         playeroneh1 = new JLabel("Spieler Eins", SwingConstants.LEFT);
         playeroneh1.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(playeroneh1);
         playeroneh1.setBounds(20, 58, 170, 20);
+        frame.add(playeroneh1);
 
         playeroneh2 = new JLabel("Farbe:", SwingConstants.LEFT);
         playeroneh2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeroneh2);
         playeroneh2.setBounds(25, 80, 70, 20);
+        frame.add(playeroneh2);
 
         playeronep1 = new JLabel(Main.playerOne.getColor(), SwingConstants.RIGHT);
         playeronep1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep1.setForeground(setColor(Main.playerOne));
-        frame.add(playeronep1);
         playeronep1.setBounds(95, 80, 90, 20);
+        frame.add(playeronep1);
 
         playeroneh3 = new JLabel("Länder:", SwingConstants.LEFT);
         playeroneh3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeroneh3);
         playeroneh3.setBounds(25, 101, 70, 20);
+        frame.add(playeroneh3);
 
         playeronep2 = new JLabel("zahl", SwingConstants.RIGHT);
         playeronep2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeronep2);
         playeronep2.setBounds(95, 101, 90, 20);
+        frame.add(playeronep2);
 
         playeroneh4 = new JLabel("Armeen:", SwingConstants.LEFT);
         playeroneh4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeroneh4);
         playeroneh4.setBounds(25, 122, 70, 20);
+        frame.add(playeroneh4);
 
         playeronep3 = new JLabel("zahl", SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeronep3);
         playeronep3.setBounds(95, 122, 90, 20);
+        frame.add(playeronep3);
 
         playeroneh5 = new JLabel("Mission:", SwingConstants.LEFT);
         playeroneh5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeroneh5);
         playeroneh5.setBounds(25, 143, 70, 20);
+        frame.add(playeroneh5);
 
         playeronep4 = new JLabel("missionsinhalt", SwingConstants.LEFT);
         playeronep4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playeronep4);
         playeronep4.setBounds(25, 163, 170, 100);
+        frame.add(playeronep4);
 
         playeronehr1 = new JLabel("");
         playeronehr1.setOpaque(true);
         playeronehr1.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playeronehr1);
         playeronehr1.setBounds(20, 78, 170, 2);
+        frame.add(playeronehr1);
 
         playeronehr2 = new JLabel("");
         playeronehr2.setOpaque(true);
         playeronehr2.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playeronehr2);
         playeronehr2.setBounds(20, 100, 170, 1);
+        frame.add(playeronehr2);
 
         playeronehr3 = new JLabel("");
         playeronehr3.setOpaque(true);
         playeronehr3.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playeronehr3);
         playeronehr3.setBounds(20, 121, 170, 1);
+        frame.add(playeronehr3);
 
         playeronehr4 = new JLabel("");
         playeronehr4.setOpaque(true);
         playeronehr4.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playeronehr4);
         playeronehr4.setBounds(20, 142, 170, 1);
+        frame.add(playeronehr4);
 
         //Angaben Spieler2
         playertwoh1 = new JLabel("Spieler Zwei", SwingConstants.RIGHT);
         playertwoh1.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(playertwoh1);
         playertwoh1.setBounds(795, 58, 170, 20);
+        frame.add(playertwoh1);
 
         playertwoh2 = new JLabel("Farbe:", SwingConstants.LEFT);
         playertwoh2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwoh2);
         playertwoh2.setBounds(800, 80, 70, 20);
+        frame.add(playertwoh2);
 
         playertwop1 = new JLabel(Main.playerTwo.getColor(), SwingConstants.RIGHT);
         playertwop1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop1.setForeground(setColor(Main.playerTwo));
-        frame.add(playertwop1);
         playertwop1.setBounds(865, 80, 90, 20);
+        frame.add(playertwop1);
 
         playertwoh3 = new JLabel("Länder:", SwingConstants.LEFT);
         playertwoh3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwoh3);
         playertwoh3.setBounds(800, 101, 70, 20);
+        frame.add(playertwoh3);
 
         playertwop2 = new JLabel("zahl", SwingConstants.RIGHT);
         playertwop2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwop2);
         playertwop2.setBounds(865, 101, 90, 20);
+        frame.add(playertwop2);
 
         playertwoh4 = new JLabel("Armeen:", SwingConstants.LEFT);
         playertwoh4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwoh4);
         playertwoh4.setBounds(800, 122, 70, 20);
+        frame.add(playertwoh4);
 
         playertwop3 = new JLabel("zahl", SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwop3);
         playertwop3.setBounds(865, 122, 90, 20);
+        frame.add(playertwop3);
 
         playertwoh5 = new JLabel("Mission:", SwingConstants.LEFT);
         playertwoh5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwoh5);
         playertwoh5.setBounds(800, 143, 70, 20);
+        frame.add(playertwoh5);
 
         playertwop4 = new JLabel("missionsinhalt", SwingConstants.LEFT);
         playertwop4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        frame.add(playertwop4);
         playertwop4.setBounds(800, 163, 170, 100);
+        frame.add(playertwop4);
 
         playertwohr1 = new JLabel("");
         playertwohr1.setOpaque(true);
         playertwohr1.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playertwohr1);
         playertwohr1.setBounds(795, 78, 170, 2);
+        frame.add(playertwohr1);
 
         playertwohr2 = new JLabel("");
         playertwohr2.setOpaque(true);
         playertwohr2.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playertwohr2);
         playertwohr2.setBounds(795, 100, 170, 1);
+        frame.add(playertwohr2);
 
         playertwohr3 = new JLabel("");
         playertwohr3.setOpaque(true);
         playertwohr3.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playertwohr3);
         playertwohr3.setBounds(795, 121, 170, 1);
+        frame.add(playertwohr3);
 
         playertwohr4 = new JLabel("");
         playertwohr4.setOpaque(true);
         playertwohr4.setBackground(new java.awt.Color(204, 204, 204));
-        frame.add(playertwohr4);
         playertwohr4.setBounds(795, 142, 170, 1);
+        frame.add(playertwohr4);
 
-
-        MouseListener testListener = new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-                if (mouseEvent.getSource().getClass() != JPanel.class) {
-                    System.out.println("Invalid Type");
-                    return;
-                }
-                JPanel panel = (JPanel) mouseEvent.getSource();
-                panel.setVisible(false);
-                JLabel countryNameLabel = (JLabel) panel.getComponent(0);
-
-                Country country = findCountry(countryNameLabel.getText());
-                if (country != null) {
-                    System.out.println(country.getCountryName() + " " + country.getArmiesInCountry());
-                } else {
-                    System.out.println("County not found");
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-            }
-        };
 
         //Angaben Laender
+        //Länder werden in Maps geladen die die zugehörigen Koordinaten enthalten
+        //for-Schleife ruft dann für jedes land die funktion auf die die elemente dem frame / panel hinzufügt
 
-        amrahitbox = new JPanel();
-        frame.add(amrahitbox);
-        amrahitbox.setBounds(482, 80, 30, 30);
-        //amrahitbox.setVisible(true);
-        amrahitbox.addMouseListener(testListener);
+        /*
+        List of countries
+        Map<String,List<int>>  maps country names to coordinates of JLabel country name
+        Map<String,List<int>>  maps country names to coordinates of JPanel hit box
+        Map<String,List<int>>  maps country names to coordinates of JLabel army count
+        example:
+        country names: AMRA :  487, 70, 70, 15
+        */
 
-        amraname = new JLabel("AMRA");
-        amraname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        amrahitbox.add(amraname);
-        amraname.setBounds(487, 70, 70, 15);
-        amraarmy = new JLabel("00");
-        amraarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        amrahitbox.add(amraarmy);
-        amraarmy.setBounds(487, 85, 70, 20);
+        Map<String, ArrayList<Integer>> countryNameLabels = new HashMap<>();
+        Map<String, ArrayList<Integer>> hitBoxPanels = new HashMap<>();
+        Map<String, ArrayList<Integer>> armyCountLabels = new HashMap<>();
 
-        bitaname = new JLabel("BITA");
-        bitaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(bitaname);
-        bitaname.setBounds(643, 83, 70, 15);
-        bitaarmy = new JLabel("00");
-        bitaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(bitaarmy);
-        bitaarmy.setBounds(643, 98, 70, 20);
-        bitahitbox = new JPanel();
-        frame.add(bitahitbox);
-        bitahitbox.setBounds(638, 95, 30, 30);
-        //bitahitbox.setVisible(true);
-        bitahitbox.addMouseListener(testListener);
+        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 70, 70, 15)));
+        hitBoxPanels.put("AMRA", new ArrayList<>(Arrays.asList(482, 80, 30, 30)));
+        armyCountLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 85, 70, 20)));
 
-        caianame = new JLabel("CAIA");
-        caianame.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(caianame);
-        caianame.setBounds(272, 92, 70, 15);
-        caiaarmy = new JLabel("00");
-        caiaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(caiaarmy);
-        caiaarmy.setBounds(272, 107, 70, 20);
+        countryNameLabels.put("BITA", new ArrayList<>(Arrays.asList(643, 83, 70, 15)));
+        hitBoxPanels.put("BITA", new ArrayList<>(Arrays.asList(638, 95, 30, 30)));
+        armyCountLabels.put("BITA", new ArrayList<>(Arrays.asList(643, 98, 70, 20)));
 
-        deminame = new JLabel("DEMI");
-        deminame.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(deminame);
-        deminame.setBounds(390, 101, 70, 15);
-        demiarmy = new JLabel("00");
-        demiarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(demiarmy);
-        demiarmy.setBounds(390, 116, 70, 20);
+        countryNameLabels.put("CAIA", new ArrayList<>(Arrays.asList(272, 92, 70, 15)));
+        hitBoxPanels.put("CAIA", new ArrayList<>(Arrays.asList(267, 95, 30, 30)));
+        armyCountLabels.put("CAIA", new ArrayList<>(Arrays.asList(272, 107, 70, 20)));
 
-        essaname = new JLabel("ESSA");
-        essaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(essaname);
-        essaname.setBounds(555, 184, 70, 15);
-        essaarmy = new JLabel("00");
-        essaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(essaarmy);
-        essaarmy.setBounds(555, 199, 70, 20);
+        countryNameLabels.put("DEMI", new ArrayList<>(Arrays.asList(390, 101, 70, 15)));
+        hitBoxPanels.put("DEMI", new ArrayList<>(Arrays.asList(385, 110, 30, 30)));
+        armyCountLabels.put("DEMI", new ArrayList<>(Arrays.asList(390, 116, 70, 20)));
 
-        frianame = new JLabel("FRIA");
-        frianame.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(frianame);
-        frianame.setBounds(390, 189, 70, 15);
-        friaarmy = new JLabel("00");
-        friaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(friaarmy);
-        friaarmy.setBounds(390, 204, 70, 20);
+        countryNameLabels.put("ESSA", new ArrayList<>(Arrays.asList(555, 184, 70, 15)));
+        hitBoxPanels.put("ESSA", new ArrayList<>(Arrays.asList(550, 193, 30, 30)));
+        armyCountLabels.put("ESSA", new ArrayList<>(Arrays.asList(555, 199, 70, 20)));
 
-        gydaname = new JLabel("GYDA");
-        gydaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(gydaname);
-        gydaname.setBounds(292, 206, 70, 15);
-        gydaarmy = new JLabel("00");
-        gydaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(gydaarmy);
-        gydaarmy.setBounds(292, 221, 70, 20);
+        countryNameLabels.put("FRIA", new ArrayList<>(Arrays.asList(390, 189, 70, 15)));
+        hitBoxPanels.put("FRIA", new ArrayList<>(Arrays.asList(385, 193, 30, 30)));
+        armyCountLabels.put("FRIA", new ArrayList<>(Arrays.asList(390, 204, 70, 20)));
 
-        helaname = new JLabel("HELA");
-        helaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(helaname);
-        helaname.setBounds(680, 231, 70, 15);
-        helaarmy = new JLabel("00");
-        helaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(helaarmy);
-        helaarmy.setBounds(680, 243, 70, 20);
+        countryNameLabels.put("GYDA", new ArrayList<>(Arrays.asList(292, 206, 70, 15)));
+        hitBoxPanels.put("GYDA", new ArrayList<>(Arrays.asList(287, 210, 30, 30)));
+        armyCountLabels.put("GYDA", new ArrayList<>(Arrays.asList(292, 221, 70, 20)));
 
-        immaname = new JLabel("IMMA");
-        immaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(immaname);
-        immaname.setBounds(455, 231, 70, 15);
-        immaarmy = new JLabel("00");
-        immaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(immaarmy);
-        immaarmy.setBounds(455, 246, 70, 20);
+        countryNameLabels.put("HELA", new ArrayList<>(Arrays.asList(680, 231, 70, 15)));
+        hitBoxPanels.put("HELA", new ArrayList<>(Arrays.asList(675, 236, 30, 30)));
+        armyCountLabels.put("HELA", new ArrayList<>(Arrays.asList(680, 243, 70, 20)));
 
-        jariname = new JLabel("JARI");
-        jariname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(jariname);
-        jariname.setBounds(575, 258, 70, 15);
-        jariarmy = new JLabel("00");
-        jariarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(jariarmy);
-        jariarmy.setBounds(575, 273, 70, 20);
+        countryNameLabels.put("IMMA", new ArrayList<>(Arrays.asList(455, 231, 70, 15)));
+        hitBoxPanels.put("IMMA", new ArrayList<>(Arrays.asList(450, 239, 30, 30)));
+        armyCountLabels.put("IMMA", new ArrayList<>(Arrays.asList(455, 246, 70, 20)));
 
-        kilaname = new JLabel("KILA");
-        kilaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(kilaname);
-        kilaname.setBounds(545, 368, 70, 15);
-        kilaarmy = new JLabel("00");
-        kilaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(kilaarmy);
-        kilaarmy.setBounds(545, 383, 70, 20);
+        countryNameLabels.put("JARI", new ArrayList<>(Arrays.asList(575, 258, 70, 15)));
+        hitBoxPanels.put("JARI", new ArrayList<>(Arrays.asList(570, 262, 30, 30)));
+        armyCountLabels.put("JARI", new ArrayList<>(Arrays.asList(575, 273, 70, 20)));
 
-        liyaname = new JLabel("LIYA");
-        liyaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(liyaname);
-        liyaname.setBounds(250, 285, 70, 15);
-        liyaarmy = new JLabel("00");
-        liyaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(liyaarmy);
-        liyaarmy.setBounds(250, 300, 70, 20);
+        countryNameLabels.put("KILA", new ArrayList<>(Arrays.asList(545, 368, 70, 15)));
+        hitBoxPanels.put("KILA", new ArrayList<>(Arrays.asList(540, 374, 30, 30)));
+        armyCountLabels.put("KILA", new ArrayList<>(Arrays.asList(545, 383, 70, 20)));
 
-        menaname = new JLabel("MENA");
-        menaname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(menaname);
-        menaname.setBounds(415, 373, 70, 15);
-        menaarmy = new JLabel("00");
-        menaarmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(menaarmy);
-        menaarmy.setBounds(415, 388, 70, 20);
+        countryNameLabels.put("LIYA", new ArrayList<>(Arrays.asList(250, 285, 70, 15)));
+        hitBoxPanels.put("LIYA", new ArrayList<>(Arrays.asList(245, 294, 30, 30)));
+        armyCountLabels.put("LIYA", new ArrayList<>(Arrays.asList(250, 300, 70, 20)));
 
-        neahname = new JLabel("NEAH");
-        neahname.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        frame.add(neahname);
-        neahname.setBounds(315, 373, 70, 15);
-        neaharmy = new JLabel("00");
-        neaharmy.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        frame.add(neaharmy);
-        neaharmy.setBounds(315, 388, 70, 20);
+        countryNameLabels.put("MENA", new ArrayList<>(Arrays.asList(415, 373, 70, 15)));
+        hitBoxPanels.put("MENA", new ArrayList<>(Arrays.asList(410, 379, 30, 30)));
+        armyCountLabels.put("MENA", new ArrayList<>(Arrays.asList(415, 388, 70, 20)));
+
+        countryNameLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 373, 70, 15)));
+        hitBoxPanels.put("NEAH", new ArrayList<>(Arrays.asList(310, 380, 30, 30)));
+        armyCountLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 388, 70, 20)));
+
+        for (Country c : Main.countries) {
+            String n = c.getCountryName().toUpperCase();
+            createHitBoxAndLabels(c, countryNameLabels.get(n), hitBoxPanels.get(n), armyCountLabels.get(n));
+        }
 
         textfield = new JTextArea();
         frame.add(textfield);
@@ -399,6 +342,29 @@ public class FieldGUI extends JFrame implements ActionListener {
         return mainPanel;
     }
 
+    private void createHitBoxAndLabels(Country country, ArrayList<Integer> nameCoord,
+                                       ArrayList<Integer> hitBoxCoord, ArrayList<Integer> armyCoord) {
+        // JLabel Country Name
+        nameLabel = new JLabel(country.getCountryName().toUpperCase());
+        nameLabel.setFont(new Font("Sans-Serif", Font.BOLD, 13));
+        // Set Owner Color?
+        nameLabel.setBounds(nameCoord.get(0), nameCoord.get(1), nameCoord.get(2), nameCoord.get(3));
+        this.frame.add(nameLabel);
+        //JPanel Hit box
+        hitboxPanel = new JPanel();
+        hitboxPanel.setName(country.getCountryName().toUpperCase());
+        hitboxPanel.setBounds(hitBoxCoord.get(0), hitBoxCoord.get(1), hitBoxCoord.get(2), hitBoxCoord.get(3));
+        this.frame.add(hitboxPanel);
+        //amrahitbox.setVisible(true);
+        hitboxPanel.addMouseListener(this.hitBoxListener);
+        //JLabel Army Count
+        armyLabel = new JLabel("00");
+        armyLabel.setFont(new Font("Sans-Serif", Font.BOLD, 17));
+        //armyLabel.setForeground(new java.awt.Color(country.getColorOfOwner())); // TODO
+        armyLabel.setBounds(armyCoord.get(0), armyCoord.get(1), armyCoord.get(2), armyCoord.get(3));
+        hitboxPanel.add(armyLabel);
+    }
+
 
     private void openAuswahl() {
         //setVisible(false);
@@ -426,34 +392,22 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     //holt Schriftfarben
     // "blau", "rot", "lila", "pink", "grau"
-    public Color setColor(Player playerNow)
-    {
-    	Color color = new java.awt.Color(0, 0, 0);
-    	if (playerNow.getColor() == "blau")
-    	{
-    		color = new java.awt.Color(0, 0, 255);
-    	}
-    	else if (playerNow.getColor() == "rot")
-    	{
-    		color = new java.awt.Color(255, 0, 0);
-    	}
-    	else if (playerNow.getColor() == "lila")
-    	{
-    		color = new java.awt.Color(127, 0, 127);
-    	}
-    	else if (playerNow.getColor() == "pink")
-    	{
-    		color = new java.awt.Color(255, 0, 255);
-    	}
-    	else if (playerNow.getColor() == "grau")
-    	{
-    		color = new java.awt.Color(76, 76, 76);
-    	}
-    	else
-    	{
-    		color = new java.awt.Color(0, 0, 0);
-    	}
-    	return color;
+    private Color setColor(Player playerNow) {
+        Color color;
+        if (playerNow.getColor().equals("blau")) {              //switch?
+            color = new java.awt.Color(0, 0, 255);
+        } else if (playerNow.getColor().equals("rot")) {
+            color = new java.awt.Color(255, 0, 0);
+        } else if (playerNow.getColor().equals("lila")) {
+            color = new java.awt.Color(127, 0, 127);
+        } else if (playerNow.getColor().equals("pink")) {
+            color = new java.awt.Color(255, 0, 255);
+        } else if (playerNow.getColor().equals("grau")) {
+            color = new java.awt.Color(76, 76, 76);
+        } else {
+            color = new java.awt.Color(0, 0, 0);
+        }
+        return color;
     }
 
     @Override
@@ -462,7 +416,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     }
 
-    Country findCountry(String name) {
+    private Country findCountry(String name) {
         for (Country c : Main.countries) {
             if (c.getCountryName().toUpperCase().equals(name.toUpperCase())) {
                 return c;
