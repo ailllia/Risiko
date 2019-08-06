@@ -23,6 +23,11 @@ public class Player {
     public void addCountryToList(String countryName) {
         this.occupiedCountriesNames.add(countryName);
     }
+    
+    public int numberOfCountries()
+    {
+    	return this.occupiedCountriesNames.size();
+    }
 
     public Player(String pcolor) {
         color = pcolor;
@@ -71,6 +76,17 @@ public class Player {
     public String getColor() {
         return color;
     }
+    
+    // bestimmt und nennt Missionen
+    public void setPlayerMission(String mission)
+    {
+    	this.playerMission = mission;
+    }
+    
+    public String getPlayerMission()
+    {
+    	return playerMission;
+    }
 
     @Override
     public String toString() {
@@ -84,7 +100,7 @@ public class Player {
         } else if (player.getColor().equals("rot")) {
             color = new java.awt.Color(255, 0, 0);
         } else if (player.getColor().equals("lila")) {
-            color = new java.awt.Color(127, 0, 127);
+            color = new java.awt.Color(157, 60, 156);
         } else if (player.getColor().equals("pink")) {
             color = new java.awt.Color(255, 0, 255);
         } else if (player.getColor().equals("grau")) {
