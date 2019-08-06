@@ -7,7 +7,7 @@ import java.util.List;
 public class Player {
     private String color;
     private String playerMission;
-    private int playerArmys;
+    private int playerArmies;
     private int playernew;
     private int availableArmies;
     private List<String> occupiedCountriesNames;
@@ -28,7 +28,7 @@ public class Player {
         color = pcolor;
         this.occupiedCountriesNames = new ArrayList<>();
         availableArmies = 0;
-        playerArmys = 0;
+        playerArmies = 0;
     }
 
     public boolean continentComplete(Continent continent) {
@@ -36,22 +36,23 @@ public class Player {
     }
     
     public int getNewArmies() {
-		int newArmies = 0;
 		for (Continent continent : Main.continents) {
 			if (continentComplete(continent))
-				newArmies += continent.getBonusArmies();
+				availableArmies += continent.getBonusArmies();
 		}
 		if (occupiedCountriesNames.size() >= 9)
-			newArmies += (occupiedCountriesNames.size()/3);
+			availableArmies += (occupiedCountriesNames.size()/3);
 		else
-			newArmies += 2;
-		playerArmys += newArmies;
-		return newArmies;
+			availableArmies += 2;
+		playerArmies += availableArmies;
+		return availableArmies;
 	}
     
     public boolean armiesAvailableToMove() {
-    	if (availableArmies > 0)
+    	if (availableArmies > 0) {
+    		availableArmies--;
     		return true;
+    	}
     	else
     		return false;
     }
@@ -70,7 +71,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return color + playerMission + playerArmys + playernew;
+        return color + playerMission + playerArmies + playernew;
     }
 
     public void setColor(String color) {
