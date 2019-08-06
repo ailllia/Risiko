@@ -1,10 +1,10 @@
 package risikopackage;
 
-import java.util.List;
 import java.awt.*;
+import java.util.List;
 
 public class Country {
-	private String countryName;
+    private String countryName;
     private List<String> neighboringCountries;
     private int armiesInCountry;
     private Color colorOfOwner; //java.awt.Color? - ja
@@ -32,15 +32,15 @@ public class Country {
      * zu benutzen wenn: beim Befreiungsversuch Armeen verloren gehen
      */
     public void loseArmy() {
-        armiesInCountry--;
+        this.armiesInCountry--;
     }
 
     /**
      * Addiert einen Integer Wert auf die vorhandenen Armeen im Land.
      * zu benutzen wenn: Besatzer neue Armeen verteilt, Armeen umverteilt werden (nachdem Armeen auf 1 gesetzt wurden)
      */
-    public void addArmies(int newArmies) {
-        armiesInCountry += newArmies;
+    public void addArmy() {
+        this.armiesInCountry++;
     }
 
     public String getCountryName() {
@@ -50,13 +50,12 @@ public class Country {
     public int getArmiesInCountry() {
         return this.armiesInCountry;
     }
-   
+
     public Color getColorOfOwner() {
-    	return this.colorOfOwner;
+        return this.colorOfOwner;
     }
-    
-    public void setColorOfOwner(Color rgbCodesOne)
-    {
-    	this.colorOfOwner = rgbCodesOne;
+
+    public void setColorOfOwner(Color rgbCodesOne) {
+        this.colorOfOwner = rgbCodesOne;
     }
 }

@@ -1,53 +1,73 @@
 package risikopackage;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private String color;
     private String playerMission;
-    private int playerArmys;
+    private int playerArmies;
     private int playernew;
-    private List<String> countryNames;
+    private List<String> occupiedCountryNames;
+    private List<Country> occupiedCountries;
 
     public List<String> getCountryNames() {
-        return countryNames;
+        return occupiedCountryNames;
     }
-    
+
     public String getCountryName(int i) {
-        return countryNames.get(i);
+        return occupiedCountryNames.get(i);
     }
 
     public void addCountryToList(String countryName) {
-        this.countryNames.add(countryName);
+        this.occupiedCountryNames.add(countryName);
     }
 
     public Player(String pcolor) {
         color = pcolor;
-        this.countryNames = new ArrayList<>();
+        this.occupiedCountryNames = new ArrayList<>();
     }
 
     public boolean continentComplete(Continent continent) {
-        return (continent.completeContinent(countryNames));
+        return (continent.completeContinent(occupiedCountryNames));
+    }
+
+    public int getNewArmies() {
+        int newArmies = 0;
+        for (Continent continent : Main.continents) {
+            if (continentComplete(continent))
+                newArmies += continent.getBonusArmies();
+        }
+        if (occupiedCountries.size() >= 9)
+            newArmies += (occupiedCountries.size() / 3);
+        else
+            newArmies += 2;
+        return newArmies;
+    }
+
+    public void moveArmies() {
+        int newArmies = playerArmies - occupiedCountries.size();
+        if (newArmies == 0) {
+            // Ausgabe, dass keine Bewegung moeglich ist
+        } else {
+            for (Country country : occupiedCountries) {
+                country.setArmies();
+            }
+            // newArmies koennen jetzt verteilt werden
+        }
     }
 
     public String getColor() {
         return color;
     }
 
-    @Override
-    public String toString() {
-        return color + playerMission + playerArmys + playernew;
-    }
-
     public void setColor(String color) {
         this.color = color;
     }
-    
-    public static Color PlayerColorCode(Player player) 
-    {
-    	Color color;
+
+    public static Color PlayerColorCode(Player player) {
+        Color color;
         if (player.getColor().equals("blau")) {              //switch?
             color = new java.awt.Color(0, 0, 255);
         } else if (player.getColor().equals("rot")) {
@@ -62,5 +82,10 @@ public class Player {
             color = new java.awt.Color(0, 0, 0);
         }
         return color;
+    }
+
+    @Override
+    public String toString() {
+        return "Farbe: " + color + ", Mission: " + playerMission + ", Anzahl der Armeen: " + playerArmies; // + playernew
     }
 }

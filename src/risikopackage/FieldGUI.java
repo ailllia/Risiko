@@ -20,9 +20,9 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JMenuBar bar;
     private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2, playeronep3, playeronep4, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
     private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2, playertwop3, playertwop4, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
-    private JLabel armyLabel, nameLabel, neaharmy, neahname, menaarmy, menaname, liyaarmy, liyaname, kilaarmy, kilaname, jariarmy, jariname, immaarmy, immaname, helaarmy, helaname, gydaarmy, gydaname, friaarmy, frianame, essaarmy, essaname, demiarmy, deminame, caiaarmy, caianame, bitaarmy, bitaname;
-    private JPanel hitboxPanel, bitahitbox;
     public static JTextArea textfield;
+    private JScrollPane scrollbar;
+    private JButton next, undo, rollDice, suspendCoice, spreadNew;
     private MouseListener hitBoxListener;
 
     public FieldGUI() {
@@ -41,14 +41,35 @@ public class FieldGUI extends JFrame implements ActionListener {
                     System.out.println("Invalid Type clicked");
                     return;
                 }
+                //findet angeklicktes land, durchsucht komponenten des panels nach "armyLabel", gibt geaenderte zahl auf der gui aus
                 JPanel panel = (JPanel) mouseEvent.getSource();
-
                 Country country = findCountry(panel.getName());
+                JLabel armyLabel = null;
+                for (Component c : panel.getComponents()) {
+                    if (c.getName().equals("armyLabel")) {
+                        armyLabel = (JLabel) c;
+                    }
+                }
+                if (armyLabel == null) {
+                    System.out.println("Army Label not found!");
+                    return;
+                }
                 if (country != null) {
-                    //do attack things -> call a function
-                    System.out.println(country.getCountryName() + " " + country.getArmiesInCountry());
-                } else {
-                    System.out.println("County not found");
+                    if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //Linksklick
+                        country.addArmy();
+                        System.out.println(country.getArmiesInCountry());
+                        armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                    }
+
+                    if (mouseEvent.getButton() == MouseEvent.BUTTON3) {         // right button :)
+                        if (country.getArmiesInCountry() > 1) {
+                            country.loseArmy();
+                            System.out.println(country.getArmiesInCountry());
+                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                        } else {
+                            textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
+                        }
+                    }
                 }
             }
 
@@ -87,7 +108,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         endGame.add(endProg);
         bar.add(endGame);
 
-        newGame.addActionListener(e -> openAuswahl());
+        newGame.addActionListener(e -> openSelection());
         endProg.addActionListener(e -> endProgram());
 
         frame.setJMenuBar(bar);
@@ -162,6 +183,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeronehr4.setBackground(new java.awt.Color(204, 204, 204));
         playeronehr4.setBounds(20, 142, 170, 1);
         frame.add(playeronehr4);
+
 
         //Angaben Spieler2
         playertwoh1 = new JLabel("Spieler Zwei", SwingConstants.RIGHT);
@@ -314,21 +336,66 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
 
         textfield = new JTextArea();
-        frame.add(textfield);
-        textfield.setBounds(100, 500, 800, 150);
+        scrollbar = new JScrollPane(textfield);
+        scrollbar.setBounds(100, 500, 800, 150);
+        textfield.setEditable(false);
+        frame.add(scrollbar);
+
+        next = new JButton("Weiter");
+        next.setBounds(810, 465, 105, 25);
+        next.addActionListener(e -> next());
+        frame.add(next);
+
+        undo = new JButton("Rueckgaengig");
+        undo.setBounds(200, 470, 105, 20);
+        undo.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
+        undo.addActionListener(e -> reduceArmy());
+        frame.add(undo);
+
+        suspendCoice = new JButton("Zurueck");
+        suspendCoice.setBounds(350, 470, 105, 20);
+        suspendCoice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
+        suspendCoice.addActionListener(e -> undoCountryCoice());
+        frame.add(suspendCoice);
+
+        rollDice = new JButton("Wuerfeln");
+        rollDice.setBounds(500, 470, 105, 20);
+        rollDice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
+        rollDice.addActionListener(e -> attack());
+        frame.add(rollDice);
+
+        spreadNew = new JButton("Neu verteilen");
+        spreadNew.setBounds(650, 470, 105, 20);
+        spreadNew.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
+        spreadNew.addActionListener(e -> spreading());
+        frame.add(spreadNew);
 
         frame.add(createMainPanel());
         frame.setSize(1000, 750);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
+    }
 
+    private void next() {
+    }
+
+    private void reduceArmy() {
+    }
+
+    private void undoCountryCoice() {
+    }
+
+    private void attack() {
+    }
+
+    private void spreading() {
     }
 
     private JPanel createMainPanel() {
         Image image = null;
         try {
-            image = ImageIO.read(new File("material\\backgroundmap.png"));
+            image = ImageIO.read(new File("material/backgroundmap.png"));
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(null,
                     "Das Hintergrundbild konnte nicht geladen werden!\n" + ioe.getLocalizedMessage(),
@@ -345,30 +412,31 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void createHitBoxAndLabels(Country country, ArrayList<Integer> nameCoord,
                                        ArrayList<Integer> hitBoxCoord, ArrayList<Integer> armyCoord) {
         // JLabel Country Name
-        nameLabel = new JLabel(country.getCountryName().toUpperCase());
+        JLabel nameLabel = new JLabel(country.getCountryName().toUpperCase());
         nameLabel.setFont(new Font("Sans-Serif", Font.BOLD, 13));
         // Set Owner Color?
         nameLabel.setBounds(nameCoord.get(0), nameCoord.get(1), nameCoord.get(2), nameCoord.get(3));
         this.frame.add(nameLabel);
+
         //JPanel Hit box
-        hitboxPanel = new JPanel();
+        JPanel hitboxPanel = new JPanel();
         hitboxPanel.setName(country.getCountryName().toUpperCase());
         hitboxPanel.setBounds(hitBoxCoord.get(0), hitBoxCoord.get(1), hitBoxCoord.get(2), hitBoxCoord.get(3));
-        this.frame.add(hitboxPanel);
-        //amrahitbox.setVisible(true);
+        //hitboxPanel.setVisible(false);
         hitboxPanel.addMouseListener(this.hitBoxListener);
+
         //JLabel Army Count
-        // armyLabel = new JLabel("00");
-        armyLabel = new JLabel(Integer.toString(country.getArmiesInCountry()));
+        JLabel armyLabel = new JLabel(Integer.toString(country.getArmiesInCountry()));
+        armyLabel.setName("armyLabel");
         armyLabel.setFont(new Font("Sans-Serif", Font.BOLD, 17));
-        //armyLabel.setForeground(new java.awt.Color(country.getColorOfOwner())); // TODO
         armyLabel.setForeground(country.getColorOfOwner());
         armyLabel.setBounds(armyCoord.get(0), armyCoord.get(1), armyCoord.get(2), armyCoord.get(3));
         hitboxPanel.add(armyLabel);
+
+        this.frame.add(hitboxPanel);
     }
 
-
-    private void openAuswahl() {
+    private void openSelection() {
         //setVisible(false);
         PlayersGUI startNewGame = new PlayersGUI();
     }
@@ -391,11 +459,9 @@ public class FieldGUI extends JFrame implements ActionListener {
       });
    }
    */
-        
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        // TODO Auto-generated method stub
-
     }
 
     private Country findCountry(String name) {
