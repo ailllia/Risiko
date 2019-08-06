@@ -1,6 +1,6 @@
 package risikopackage;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,61 +9,72 @@ public class Player {
     private String playerMission;
     private int playerArmies;
     private int playernew;
-    private List<String> occupiedCountryNames;
-    private List<Country> occupiedCountries;
+    private int availableArmies;
+    private List<String> occupiedCountriesNames;
 
     public List<String> getCountryNames() {
-        return occupiedCountryNames;
+        return occupiedCountriesNames;
     }
 
     public String getCountryName(int i) {
-        return occupiedCountryNames.get(i);
+        return occupiedCountriesNames.get(i);
     }
 
     public void addCountryToList(String countryName) {
-        this.occupiedCountryNames.add(countryName);
+        this.occupiedCountriesNames.add(countryName);
     }
 
     public Player(String pcolor) {
         color = pcolor;
-        this.occupiedCountryNames = new ArrayList<>();
+        this.occupiedCountriesNames = new ArrayList<>();
+        availableArmies = 0;
+        playerArmies = 0;
     }
 
     public boolean continentComplete(Continent continent) {
-        return (continent.completeContinent(occupiedCountryNames));
+        return (continent.completeContinent(occupiedCountriesNames));
     }
 
     public int getNewArmies() {
-        int newArmies = 0;
         for (Continent continent : Main.continents) {
             if (continentComplete(continent))
-                newArmies += continent.getBonusArmies();
+                availableArmies += continent.getBonusArmies();
         }
-        if (occupiedCountries.size() >= 9)
-            newArmies += (occupiedCountries.size() / 3);
+        if (occupiedCountriesNames.size() >= 9)
+            availableArmies += (occupiedCountriesNames.size() / 3);
         else
-            newArmies += 2;
-        return newArmies;
+            availableArmies += 2;
+        playerArmies += availableArmies;
+        return availableArmies;
     }
 
-    public void moveArmies() {
-        int newArmies = playerArmies - occupiedCountries.size();
-        if (newArmies == 0) {
-            // Ausgabe, dass keine Bewegung moeglich ist
-        } else {
-            for (Country country : occupiedCountries) {
-                country.setArmies();
-            }
-            // newArmies koennen jetzt verteilt werden
-        }
+    public boolean armiesAvailableToMove() {
+        if (availableArmies > 0) {
+            availableArmies--;
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean armiesAvailableToWithdraw(Country country) {
+        if (country.getArmiesInCountry() > 1) {
+            availableArmies++;
+            return true;
+        } else
+            return false;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    @Override
+    public String toString() {
+        return "Farbe: " + color + ", Mission: " + playerMission + ", Anzahl der Armeen: " + playerArmies; // + playernew
     }
 
     public static Color PlayerColorCode(Player player) {
@@ -82,10 +93,5 @@ public class Player {
             color = new java.awt.Color(0, 0, 0);
         }
         return color;
-    }
-
-    @Override
-    public String toString() {
-        return "Farbe: " + color + ", Mission: " + playerMission + ", Anzahl der Armeen: " + playerArmies; // + playernew
     }
 }
