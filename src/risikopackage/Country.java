@@ -36,11 +36,11 @@ public class Country {
     }
 
     /**
-     * Addiert einen Integer Wert auf die vorhandenen Armeen im Land.
+     * Addiert eine Einheit auf die vorhandenen Armeen im Land.
      * zu benutzen wenn: Besatzer neue Armeen verteilt, Armeen umverteilt werden (nachdem Armeen auf 1 gesetzt wurden)
      */
-    public void addArmies(int newArmies) {
-        armiesInCountry += newArmies;
+    public void addArmy() {
+        armiesInCountry++;
     }
 
     public String getCountryName() {
