@@ -1,5 +1,6 @@
 package risikopackage;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,10 @@ public class Player {
 
     public List<String> getCountryNames() {
         return countryNames;
+    }
+    
+    public String getCountryName(int i) {
+        return countryNames.get(i);
     }
 
     public void addCountryToList(String countryName) {
@@ -38,5 +43,24 @@ public class Player {
 
     public void setColor(String color) {
         this.color = color;
+    }
+    
+    public static Color PlayerColorCode(Player player) 
+    {
+    	Color color;
+        if (player.getColor().equals("blau")) {              //switch?
+            color = new java.awt.Color(0, 0, 255);
+        } else if (player.getColor().equals("rot")) {
+            color = new java.awt.Color(255, 0, 0);
+        } else if (player.getColor().equals("lila")) {
+            color = new java.awt.Color(127, 0, 127);
+        } else if (player.getColor().equals("pink")) {
+            color = new java.awt.Color(255, 0, 255);
+        } else if (player.getColor().equals("grau")) {
+            color = new java.awt.Color(76, 76, 76);
+        } else {
+            color = new java.awt.Color(0, 0, 0);
+        }
+        return color;
     }
 }
