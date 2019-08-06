@@ -9,27 +9,59 @@ public class Player {
     private String playerMission;
     private int playerArmys;
     private int playernew;
-    private List<String> countryNames;
+    private int availableArmies;
+    private List<String> occupiedCountriesNames;
 
     public List<String> getCountryNames() {
-        return countryNames;
+        return occupiedCountriesNames;
     }
     
     public String getCountryName(int i) {
-        return countryNames.get(i);
+        return occupiedCountriesNames.get(i);
     }
 
     public void addCountryToList(String countryName) {
-        this.countryNames.add(countryName);
+        this.occupiedCountriesNames.add(countryName);
     }
 
     public Player(String pcolor) {
         color = pcolor;
-        this.countryNames = new ArrayList<>();
+        this.occupiedCountriesNames = new ArrayList<>();
+        availableArmies = 0;
+        playerArmys = 0;
     }
 
     public boolean continentComplete(Continent continent) {
-        return (continent.completeContinent(countryNames));
+        return (continent.completeContinent(occupiedCountriesNames));
+    }
+    
+    public int getNewArmies() {
+		int newArmies = 0;
+		for (Continent continent : Main.continents) {
+			if (continentComplete(continent))
+				newArmies += continent.getBonusArmies();
+		}
+		if (occupiedCountriesNames.size() >= 9)
+			newArmies += (occupiedCountriesNames.size()/3);
+		else
+			newArmies += 2;
+		playerArmys += newArmies;
+		return newArmies;
+	}
+    
+    public boolean armiesAvailableToMove() {
+    	if (availableArmies > 0)
+    		return true;
+    	else
+    		return false;
+    }
+    
+    public boolean armiesAvailableToWithdraw(Country country) {
+    	if (country.getArmiesInCountry() > 1) {
+    		availableArmies++;
+    		return true;
+    	} else
+    		return false;
     }
 
     public String getColor() {
