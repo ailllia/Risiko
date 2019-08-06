@@ -5,8 +5,9 @@ import java.util.List;
 public class FreeContinents extends Mission {
     private List<Continent> continents;
 
-    public FreeContinents(String name, String description, List<Continent> continents) {
+    public FreeContinents(String name, String title, String description, List<Continent> continents) {
         missionName = name;
+        missionTitle = title;
         missionDescription = description;
         this.continents = continents;
     }
