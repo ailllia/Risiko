@@ -14,7 +14,6 @@ public class PlayersGUI extends JFrame implements ActionListener {
     private JButton startplaying;
 
     public PlayersGUI() {
-
         this.setLayout(null);
         this.setTitle("Risiko - Spielvorbereitung");
         this.setSize(500, 300);
@@ -69,7 +68,6 @@ public class PlayersGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
-
     }
 
     //create players, "close" PrepWindow, open playingfield
@@ -80,11 +78,10 @@ public class PlayersGUI extends JFrame implements ActionListener {
             Main.playerOne.setColor((String) colorone.getSelectedItem());
             Main.playerTwo.setColor((String) colortwo.getSelectedItem());
             this.setVisible(false);
-            //Muessen eigentlich in die main:
-            Gameplay.initialising();  
+            //sollten in die main:
+            Gameplay.initialising();
             new FieldGUI();
-            Gameplay.welcome();         
-            
+            Gameplay.welcome();
         }
     }
 }

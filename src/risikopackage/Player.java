@@ -1,6 +1,6 @@
 package risikopackage;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +11,13 @@ public class Player {
     private int playernew;
     private int availableArmies;
     private List<String> occupiedCountriesNames;
+
+    public Player(String pcolor) {
+        color = pcolor;
+        this.occupiedCountriesNames = new ArrayList<>();
+        availableArmies = 0;
+        playerArmies = 0;
+    }
 
     public List<String> getCountryNames() {
         return occupiedCountriesNames;
@@ -23,18 +30,11 @@ public class Player {
     public void addCountryToList(String countryName) {
         this.occupiedCountriesNames.add(countryName);
     }
-    
-    public int numberOfCountries()
-    {
-    	return this.occupiedCountriesNames.size();
+
+    public int numberOfCountries() {
+        return this.occupiedCountriesNames.size();
     }
 
-    public Player(String pcolor) {
-        color = pcolor;
-        this.occupiedCountriesNames = new ArrayList<>();
-        availableArmies = 0;
-        playerArmies = 0;
-    }
 
     public boolean continentComplete(Continent continent) {
         return (continent.completeContinent(occupiedCountriesNames));
@@ -48,7 +48,7 @@ public class Player {
         if (occupiedCountriesNames.size() >= 9)
             availableArmies += (occupiedCountriesNames.size() / 3);
         else
-            availableArmies += 2;
+            availableArmies = 2;    //geaendert von += zu =
         playerArmies += availableArmies;
         return availableArmies;
     }
@@ -76,16 +76,14 @@ public class Player {
     public String getColor() {
         return color;
     }
-    
+
     // bestimmt und nennt Missionen
-    public void setPlayerMission(String mission)
-    {
-    	this.playerMission = mission;
+    public void setPlayerMission(String mission) {
+        this.playerMission = mission;
     }
-    
-    public String getPlayerMission()
-    {
-    	return playerMission;
+
+    public String getPlayerMission() {
+        return playerMission;
     }
 
     @Override

@@ -23,8 +23,15 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel otea, prya, solva;
     public static JTextArea textfield;
     private JScrollPane scrollbar;
-    private JButton next, undo, rollDice, suspendCoice, spreadNew;
+    public static JButton next;
+    private JButton undo, rollDice, suspendCoice, spreadNew;
     private MouseListener hitBoxListener;
+    private int counterNext = 0;
+    private int counterHitbox = 0;
+    private Gameplay gameplay = new Gameplay();
+    private int counter = 0;
+    private int remaining = Main.playerOne.getNewArmies();
+
 
     public FieldGUI() {
         hitBoxListener = new MouseListener() {
@@ -38,6 +45,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
+                //testfall, eigentlich irrelevant
                 if (mouseEvent.getSource().getClass() != JPanel.class) {
                     System.out.println("Invalid Type clicked");
                     return;
@@ -46,30 +54,42 @@ public class FieldGUI extends JFrame implements ActionListener {
                 JPanel panel = (JPanel) mouseEvent.getSource();
                 Country country = findCountry(panel.getName());
                 JLabel armyLabel = null;
-                for (Component c : panel.getComponents()) {
+                for (Component c : panel.getComponents()) { //findet angeklicktes armyLabel
                     if (c.getName().equals("armyLabel")) {
                         armyLabel = (JLabel) c;
                     }
                 }
-                if (armyLabel == null) {
+                if (armyLabel == null) {    //test
                     System.out.println("Army Label not found!");
                     return;
                 }
-                if (country != null) {
-                    if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //Linksklick
-                        country.addArmy();
-                        System.out.println(country.getArmiesInCountry());
-                        armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                    }
-
-                    if (mouseEvent.getButton() == MouseEvent.BUTTON3) {         // right button :)
-                        if (country.getArmiesInCountry() > 1) {
-                            country.loseArmy();
-                            System.out.println(country.getArmiesInCountry());
-                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                        } else {
-                            textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
+                if (country != null) {      // wenn geklicktes land gefunden
+                    //if ( country is country of PlayerOne) {       <- welche variable?
+                    if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
+                        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //Linksklick
+                            if (remaining >= 0) {
+                                country.addArmy();
+                                counter++;
+                                remaining -= counter;
+                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                                if (remaining > 0) {
+                                    textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+                                } else {
+                                    textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
+                                    next.setEnabled(true);
+                                    counterHitbox++;
+                                }
+                            }
                         }
+                        /*if (mouseEvent.getButton() == MouseEvent.BUTTON3) {         // right button :)
+                            if (country.getArmiesInCountry() > 1) {
+                                country.loseArmy();
+                                System.out.println(country.getArmiesInCountry());
+                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                            } else {
+                                textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
+                            }
+                        }*/
                     }
                 }
             }
@@ -160,7 +180,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeronep4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep4.setBounds(95, 143, 90, 20);
         frame.add(playeronep4);
-        
+
         playeronep5 = new JLabel(breakDescription(Main.playerOne));
         playeronep5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep5.setBounds(25, 163, 165, 40);
@@ -237,10 +257,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwop4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop4.setBounds(865, 143, 90, 20);
         frame.add(playertwop4);
-        
-        playeronep5 = new JLabel(breakDescription(Main.playerTwo));
-        playeronep5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playeronep5.setBounds(800, 163, 165, 40);
+
+        playertwop5 = new JLabel(breakDescription(Main.playerTwo));
+        playertwop5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+        playertwop5.setBounds(800, 163, 165, 40);
         frame.add(playeronep5);
 
         playertwohr1 = new JLabel("");
@@ -272,21 +292,21 @@ public class FieldGUI extends JFrame implements ActionListener {
         otea.setFont(new Font("Sans-Serif", Font.BOLD, 11));
         otea.setForeground(Color.white);
         otea.setBounds(580, 421, 170, 12);
-        frame.add(otea);   
-        
+        frame.add(otea);
+
         prya = new JLabel("PRYA", SwingConstants.RIGHT);
         prya.setFont(new Font("Sans-Serif", Font.BOLD, 11));
         prya.setForeground(Color.white);
         prya.setBounds(580, 434, 170, 12);
-        frame.add(prya); 
-        
+        frame.add(prya);
+
         solva = new JLabel("SOLVA", SwingConstants.RIGHT);
         solva.setFont(new Font("Sans-Serif", Font.BOLD, 11));
         solva.setForeground(Color.white);
         solva.setBounds(580, 447, 170, 12);
         frame.add(solva);
-        
-        
+
+
         //Angaben Laender
         //Länder werden in Maps geladen die die zugehörigen Koordinaten enthalten
         //for-Schleife ruft dann für jedes land die funktion auf die die elemente dem frame / panel hinzufügt
@@ -407,7 +427,18 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setResizable(false);
     }
 
-    private void next() {
+    private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
+        counterNext++;
+        if (counterNext == 1) {
+            gameplay.deployArmies1();
+        }
+        if (counterNext == 2) {
+            gameplay.attackphase1();
+        }
+        if (counterNext == 3) {
+            gameplay.redistribution1();
+        }
+        //if (counterNext == 4) gameplay.deployArmies2();    <- wenn funktionen nicht für beide spieler gelten koennen
     }
 
     private void reduceArmy() {
@@ -435,7 +466,6 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         BackgroundImagePanel mainPanel = new BackgroundImagePanel(new BorderLayout());
         mainPanel.setImage(image); //hier kann man einstellen, ob das Bild im Original oder eingepasst ausgegeben werden soll (true/false)
-
         return mainPanel;
     }
 
@@ -502,12 +532,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
         return null;
     }
-    
+
     // sorgt dafür, dass die Missionsbeschreibung mehrzeilig angezeigt wird
-    public static String breakDescription(Player playerNow)
-    {
-    	String description = "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
-    	return description;
+    public static String breakDescription(Player playerNow) {
+        return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
     }
-    
+
 }

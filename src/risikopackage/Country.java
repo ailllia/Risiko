@@ -1,13 +1,13 @@
 package risikopackage;
 
-import java.util.List;
 import java.awt.*;
+import java.util.List;
 
 public class Country {
     private String countryName;
     private List<String> neighboringCountries;
     private int armiesInCountry;
-    private Color colorOfOwner; //java.awt.Color? - ja
+    private Color colorOfOwner;
 
     public Country(String name, List<String> neighbors) {
         this.countryName = name;

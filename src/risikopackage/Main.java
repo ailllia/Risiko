@@ -18,7 +18,6 @@ public class Main {
     public static List<Mission> missions = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException {
-
         playerOne = new Player(null);
         playerTwo = new Player(null);
 
