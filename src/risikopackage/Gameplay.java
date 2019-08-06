@@ -68,12 +68,16 @@ public class Gameplay extends JFrame {
     public static void addArmiesInCountry(Country country, Player player) {
     	if (player.armiesAvailableToMove()) {
     		country.addArmy();
+    	} else {
+    		//Ausgabe, dass keine Armeen bewegt werden können
     	}
     }
     
     public static void loseArmyInCountry(Country country, Player player) {
     	if (player.armiesAvailableToWithdraw(country)) {
     		country.loseArmy();
+    	} else {
+    		//Ausgabe, dass aus diesem Land keine Armee abgezogen werden kann
     	}
     }
     	 
