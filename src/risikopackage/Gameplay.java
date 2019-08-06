@@ -12,17 +12,19 @@ public class Gameplay extends JFrame {
     // die nächste funktion aufgerufen wird
 
     public static void initialising() { // Erste Textausgaben, klick auf "weiter" ruft dann spreadCountries auf
-        spreadCountries(Main.playerOne, Main.playerTwo, Main.countries);
+    	Random chance = new Random();
+    	spreadCountries(Main.playerOne, Main.playerTwo, Main.countries, chance);
         paintCountries(Main.playerOne, Main.playerTwo, Main.countries);
+        chooseMission(Main.playerOne, Main.playerTwo, Main.missions, chance);
     }
 
     public static void welcome() { // Erste Textausgaben, klick auf "weiter" ruft dann spreadCountries auf
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!/n");
     }
 
-    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries) {
+    // verteilt Laender an die beiden Spieler
+    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
         List<Country> countriesCopy = new ArrayList<>(countries);
-        Random chance = new Random();
         int j = 13;
 
         for (int i = 0; i < 7; i++) {
@@ -37,6 +39,7 @@ public class Gameplay extends JFrame {
         }
     }
 
+    // faerbt beim Spielaufbau die Laender ein und setzt in jedes eine Armee
     private static void paintCountries(Player playerOne, Player playerTwo, List<Country> countries) {
         Color rgbCodesOne = Player.PlayerColorCode(playerOne);
         Color rgbCodesTwo = Player.PlayerColorCode(playerTwo);
@@ -58,6 +61,19 @@ public class Gameplay extends JFrame {
         }
     }
 
+    //teilt Missionen zu
+    private static void chooseMission(Player playerOne, Player playerTwo, List<Mission> missions, Random chance)
+    {   	
+    	List<Mission> missionsCopy = new ArrayList<>(missions);   	
+    	int j = 5;
+    	int k = chance.nextInt(j);
+    	playerOne.setPlayerMission(missionsCopy.get(k).getMissionTitle());
+    	missionsCopy.remove(k);
+    	j -= 1;
+    	k = chance.nextInt(j);
+    	playerTwo.setPlayerMission(missionsCopy.get(k).getMissionTitle());
+    }
+    
     public static void addArmiesInCountry(Country country, Player player) {
         if (player.armiesAvailableToMove()) {
             country.addArmy();
