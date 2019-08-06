@@ -50,10 +50,6 @@ public class Gameplay extends JFrame {
            			countries.get(i).setColorOfOwner(rgbCodesOne);
            			countries.get(i).setArmies();
            		}
-           		else
-           		{
-           			//
-           		}
            	}
        	}
        	for (int i = 0; i < 14; i++)
@@ -65,12 +61,20 @@ public class Gameplay extends JFrame {
            			countries.get(i).setColorOfOwner(rgbCodesTwo);
            			countries.get(i).setArmies();
            		}
-           		else
-           		{
-           			//
-           		}
            	}
        	}     	
+    }
+    
+    public static void addArmiesInCountry(Country country, Player player) {
+    	if (player.armiesAvailableToMove()) {
+    		country.addArmy();
+    	}
+    }
+    
+    public static void loseArmyInCountry(Country country, Player player) {
+    	if (player.armiesAvailableToWithdraw(country)) {
+    		country.loseArmy();
+    	}
     }
     	 
 
