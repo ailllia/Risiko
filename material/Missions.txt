@@ -1,23 +1,29 @@
 Kontinente befreien
+Iwein
 Befreie die Kontinente Otea und Solva.
 Otea
 Solva
 .
 Kontinente befreien
+Gawein
 Befreie die Kontinente Solva und Priya.
 Solva
 Priya
 .
 Kontinente befreien
+Parzival
 Befreie die Kontinente Priya und Otea.
 Priya
 Otea
 .
 Laender befreien
+Tristan
 Befreie und besetze insgesamt 11 Laender.
 .
 Laender befreien
+Keie
 Befreie und besetze insgesamt 11 Laender.
 .
 Laender befreien
+Erec
 Befreie und besetze insgesamt 11 Laender.
