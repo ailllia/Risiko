@@ -105,7 +105,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         playeronep1 = new JLabel(Main.playerOne.getColor(), SwingConstants.RIGHT);
         playeronep1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playeronep1.setForeground(setColor(Main.playerOne));
+        playeronep1.setForeground(Player.PlayerColorCode(Main.playerOne));
         playeronep1.setBounds(95, 80, 90, 20);
         frame.add(playeronep1);
 
@@ -176,7 +176,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         playertwop1 = new JLabel(Main.playerTwo.getColor(), SwingConstants.RIGHT);
         playertwop1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playertwop1.setForeground(setColor(Main.playerTwo));
+        playertwop1.setForeground(Player.PlayerColorCode(Main.playerTwo));
         playertwop1.setBounds(865, 80, 90, 20);
         frame.add(playertwop1);
 
@@ -358,9 +358,11 @@ public class FieldGUI extends JFrame implements ActionListener {
         //amrahitbox.setVisible(true);
         hitboxPanel.addMouseListener(this.hitBoxListener);
         //JLabel Army Count
-        armyLabel = new JLabel("00");
+        // armyLabel = new JLabel("00");
+        armyLabel = new JLabel(Integer.toString(country.getArmiesInCountry()));
         armyLabel.setFont(new Font("Sans-Serif", Font.BOLD, 17));
         //armyLabel.setForeground(new java.awt.Color(country.getColorOfOwner())); // TODO
+        armyLabel.setForeground(country.getColorOfOwner());
         armyLabel.setBounds(armyCoord.get(0), armyCoord.get(1), armyCoord.get(2), armyCoord.get(3));
         hitboxPanel.add(armyLabel);
     }
@@ -389,27 +391,7 @@ public class FieldGUI extends JFrame implements ActionListener {
       });
    }
    */
-
-    //holt Schriftfarben
-    // "blau", "rot", "lila", "pink", "grau"
-    private Color setColor(Player playerNow) {
-        Color color;
-        if (playerNow.getColor().equals("blau")) {              //switch?
-            color = new java.awt.Color(0, 0, 255);
-        } else if (playerNow.getColor().equals("rot")) {
-            color = new java.awt.Color(255, 0, 0);
-        } else if (playerNow.getColor().equals("lila")) {
-            color = new java.awt.Color(127, 0, 127);
-        } else if (playerNow.getColor().equals("pink")) {
-            color = new java.awt.Color(255, 0, 255);
-        } else if (playerNow.getColor().equals("grau")) {
-            color = new java.awt.Color(76, 76, 76);
-        } else {
-            color = new java.awt.Color(0, 0, 0);
-        }
-        return color;
-    }
-
+        
     @Override
     public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
