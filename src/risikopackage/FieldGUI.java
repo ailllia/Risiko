@@ -18,8 +18,9 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private JFrame frame;
     private JMenuBar bar;
-    private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2, playeronep3, playeronep4, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
-    private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2, playertwop3, playertwop4, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
+    private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2, playeronep3, playeronep4, playeronep5, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
+    private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2, playertwop3, playertwop4, playertwop5, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
+    private JLabel otea, prya, solva;
     public static JTextArea textfield;
     private JScrollPane scrollbar;
     private JButton next, undo, rollDice, suspendCoice, spreadNew;
@@ -135,7 +136,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh3.setBounds(25, 101, 70, 20);
         frame.add(playeroneh3);
 
-        playeronep2 = new JLabel("zahl", SwingConstants.RIGHT);
+        playeronep2 = new JLabel(Integer.toString(Main.playerOne.numberOfCountries()), SwingConstants.RIGHT);
         playeronep2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep2.setBounds(95, 101, 90, 20);
         frame.add(playeronep2);
@@ -155,10 +156,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh5.setBounds(25, 143, 70, 20);
         frame.add(playeroneh5);
 
-        playeronep4 = new JLabel("missionsinhalt", SwingConstants.LEFT);
+        playeronep4 = new JLabel(Main.playerOne.getPlayerMission(), SwingConstants.RIGHT);
         playeronep4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playeronep4.setBounds(25, 163, 170, 100);
+        playeronep4.setBounds(95, 143, 90, 20);
         frame.add(playeronep4);
+        
+        playeronep5 = new JLabel(breakDescription(Main.playerOne));
+        playeronep5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+        playeronep5.setBounds(25, 163, 165, 40);
+        frame.add(playeronep5);
 
         playeronehr1 = new JLabel("");
         playeronehr1.setOpaque(true);
@@ -207,7 +213,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh3.setBounds(800, 101, 70, 20);
         frame.add(playertwoh3);
 
-        playertwop2 = new JLabel("zahl", SwingConstants.RIGHT);
+        playertwop2 = new JLabel(Integer.toString(Main.playerTwo.numberOfCountries()), SwingConstants.RIGHT);
         playertwop2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop2.setBounds(865, 101, 90, 20);
         frame.add(playertwop2);
@@ -227,10 +233,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh5.setBounds(800, 143, 70, 20);
         frame.add(playertwoh5);
 
-        playertwop4 = new JLabel("missionsinhalt", SwingConstants.LEFT);
+        playertwop4 = new JLabel(Main.playerTwo.getPlayerMission(), SwingConstants.RIGHT);
         playertwop4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playertwop4.setBounds(800, 163, 170, 100);
+        playertwop4.setBounds(865, 143, 90, 20);
         frame.add(playertwop4);
+        
+        playeronep5 = new JLabel(breakDescription(Main.playerTwo));
+        playeronep5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+        playeronep5.setBounds(800, 163, 165, 40);
+        frame.add(playeronep5);
 
         playertwohr1 = new JLabel("");
         playertwohr1.setOpaque(true);
@@ -256,7 +267,26 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwohr4.setBounds(795, 142, 170, 1);
         frame.add(playertwohr4);
 
-
+        //Angaben Kontinente
+        otea = new JLabel("OTEA", SwingConstants.RIGHT);
+        otea.setFont(new Font("Sans-Serif", Font.BOLD, 11));
+        otea.setForeground(Color.white);
+        otea.setBounds(580, 421, 170, 12);
+        frame.add(otea);   
+        
+        prya = new JLabel("PRYA", SwingConstants.RIGHT);
+        prya.setFont(new Font("Sans-Serif", Font.BOLD, 11));
+        prya.setForeground(Color.white);
+        prya.setBounds(580, 434, 170, 12);
+        frame.add(prya); 
+        
+        solva = new JLabel("SOLVA", SwingConstants.RIGHT);
+        solva.setFont(new Font("Sans-Serif", Font.BOLD, 11));
+        solva.setForeground(Color.white);
+        solva.setBounds(580, 447, 170, 12);
+        frame.add(solva);
+        
+        
         //Angaben Laender
         //Länder werden in Maps geladen die die zugehörigen Koordinaten enthalten
         //for-Schleife ruft dann für jedes land die funktion auf die die elemente dem frame / panel hinzufügt
@@ -472,4 +502,12 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
         return null;
     }
+    
+    // sorgt dafür, dass die Missionsbeschreibung mehrzeilig angezeigt wird
+    public static String breakDescription(Player playerNow)
+    {
+    	String description = "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
+    	return description;
+    }
+    
 }
