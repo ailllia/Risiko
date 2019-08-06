@@ -81,6 +81,7 @@ public class Main {
                 reader.nextLine();
             else {
                 String missionName = reader.nextLine();
+                String missionTitle = reader.nextLine();
                 String missionDescription = reader.nextLine();
                 Mission mission;
                 if (missionName.equals("Kontinente befreien")) {
@@ -96,9 +97,9 @@ public class Main {
                         }
                         continentsInMission.add(continents.get(index));
                     }
-                    mission = new FreeContinents(missionName, missionDescription, continentsInMission);
+                    mission = new FreeContinents(missionName, missionTitle, missionDescription, continentsInMission);
                 } else
-                    mission = new FreeCountries(missionName, missionDescription);
+                    mission = new FreeCountries(missionName, missionTitle, missionDescription);
                 missions.add(mission);
             }
         }
