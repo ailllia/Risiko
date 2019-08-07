@@ -6,17 +6,18 @@ import java.util.List;
 public class Country {
     private String countryName;
     private List<String> neighboringCountries;
+    private boolean isNeighbor;
     private int armiesInCountry;
-    private Color colorOfOwner;
+    private Color colorOfOwnerCode;
+    private String colorOfOwnerString;
 
     public Country(String name, List<String> neighbors) {
         this.countryName = name;
         this.neighboringCountries = neighbors;
-        // this.armiesInCountry = 1;
     }
 
     public void changeOwner(Color color) {
-        colorOfOwner = color;
+        colorOfOwnerCode = color;
     }
 
     /**
@@ -51,11 +52,28 @@ public class Country {
         return this.armiesInCountry;
     }
 
-    public Color getColorOfOwner() {
-        return this.colorOfOwner;
+    public void setColorOfOwnerCode(Color rgbCodesOne) {
+        this.colorOfOwnerCode = rgbCodesOne;
     }
 
-    public void setColorOfOwner(Color rgbCodesOne) {
-        this.colorOfOwner = rgbCodesOne;
+    public Color getColorOfOwnerCode() {
+        return this.colorOfOwnerCode;
+    }
+
+    public void setColorOfOwnerString(String colorOfOwnerString) {
+        this.colorOfOwnerString = colorOfOwnerString;
+    }
+
+    public String getColorOfOwnerString() {
+        return colorOfOwnerString;
+    }
+
+    public boolean isNeighbor(Country neighboringCountry) {
+        for (String c : this.neighboringCountries) {
+            if (c.equals(neighboringCountry.getCountryName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

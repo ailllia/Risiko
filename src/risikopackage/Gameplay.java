@@ -70,7 +70,8 @@ public class Gameplay extends JFrame {
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 7; j++) {
                 if (playerOne.getCountryName(j).equals(countries.get(i).getCountryName())) {
-                    countries.get(i).setColorOfOwner(rgbCodesOne);
+                    countries.get(i).setColorOfOwnerCode(rgbCodesOne);
+                    countries.get(i).setColorOfOwnerString(playerOne.getColor());
                     countries.get(i).setArmies();
                 }
             }
@@ -78,7 +79,8 @@ public class Gameplay extends JFrame {
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 7; j++) {
                 if (playerTwo.getCountryName(j).equals(countries.get(i).getCountryName())) {
-                    countries.get(i).setColorOfOwner(rgbCodesTwo);
+                    countries.get(i).setColorOfOwnerCode(rgbCodesTwo);
+                    countries.get(i).setColorOfOwnerString(playerTwo.getColor());
                     countries.get(i).setArmies();
                 }
             }
