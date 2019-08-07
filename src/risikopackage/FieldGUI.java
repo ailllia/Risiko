@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FieldGUI extends JFrame implements ActionListener {
@@ -115,19 +116,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         rules.add(attack);
         bar.add(rules);
 
-        JMenu showMission = new JMenu("Mission anzeigen");
-        JMenuItem missionPlayerOne = new JMenuItem("Spieler 1");
-        showMission.add(missionPlayerOne);
-        JMenuItem missionPlayerTwo = new JMenuItem("Spieler 2");
-        showMission.add(missionPlayerTwo);
-        bar.add(showMission);
-
-        JMenu endGame = new JMenu("Spiel beenden");
-        JMenuItem newGame = new JMenuItem("neues Spiel starten");
-        endGame.add(newGame);
+        JMenu endGame = new JMenu("Programm beenden");
         JMenuItem endProg = new JMenuItem("Programm beenden");
         endGame.add(endProg);
         bar.add(endGame);
+        
+        JMenu renewGame = new JMenu("neues Spiel");
+        JMenuItem newGame = new JMenuItem("neues Spiel starten");
+        renewGame.add(newGame);
+        bar.add(renewGame);
 
         newGame.addActionListener(e -> openSelection());
         endProg.addActionListener(e -> endProgram());
@@ -498,6 +495,13 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void openSelection() {
         //setVisible(false);
+    	
+    	// alle Werte auf null
+    	Main.playerOne.emptyAll();
+    	Main.playerTwo.emptyAll();
+    	for (int i = 0; i < 14; i++) {
+    		Main.countries.get(i).setArmies();
+    	}
         PlayersGUI startNewGame = new PlayersGUI();
     }
 
