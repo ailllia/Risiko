@@ -106,6 +106,17 @@ public class Player {
     public String getPlayerMission() {
         return playerMission;
     }
+    
+    // leert Spielerangaben für neues Spiel
+    public void emptyAll()
+    {
+    	this.color = "black";
+    	this.playerMission = "none";
+    	this.playerArmies = 0;
+    	this.playernew = 0;
+    	this.availableArmies = 0;
+    	this.occupiedCountriesNames.clear();
+    }
 
     @Override
     public String toString() {
