@@ -166,7 +166,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh4.setBounds(25, 122, 70, 20);
         frame.add(playeroneh4);
 
-        playeronep3 = new JLabel("zahl", SwingConstants.RIGHT);
+        playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies()), SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep3.setBounds(95, 122, 90, 20);
         frame.add(playeronep3);
@@ -243,7 +243,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh4.setBounds(800, 122, 70, 20);
         frame.add(playertwoh4);
 
-        playertwop3 = new JLabel("zahl", SwingConstants.RIGHT);
+        playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies()), SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop3.setBounds(865, 122, 90, 20);
         frame.add(playertwop3);
@@ -257,11 +257,11 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwop4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop4.setBounds(865, 143, 90, 20);
         frame.add(playertwop4);
-
+       
         playertwop5 = new JLabel(breakDescription(Main.playerTwo));
         playertwop5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop5.setBounds(800, 163, 165, 40);
-        frame.add(playeronep5);
+        frame.add(playertwop5);
 
         playertwohr1 = new JLabel("");
         playertwohr1.setOpaque(true);
