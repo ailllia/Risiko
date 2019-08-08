@@ -45,6 +45,17 @@ public class Gameplay extends JFrame {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Nun kannst du noch deine Einheiten neuverteilen, wenn du das willst." + " Klicke dafür auf 'Neuverteilen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
     }
+    
+    public void missionstate1(Player player) {
+        if (Mission.testMission(player))
+        {
+            FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission erfuellt. Herzlichen Glückwunsch zum Sieg.\n Das Spiel ist damit beendet\n.");
+        }
+        else
+        {
+            FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission noch nicht erfuellt.\n");
+        }
+    }
 
     public void redistributionNext(Player player) {
         FieldGUI.textfield.append("Verteile jetzt " + player.getArmiesAvailableToMove() + " Armeen auf deine Länder."
