@@ -60,13 +60,13 @@ public class Gameplay extends JFrame {
 
         for (int i = 0; i < 7; i++) {
             int k = chance.nextInt(j);
-            playerOne.addCountryToList(countriesCopy.get(k).getCountryName(k));
+            playerOne.addCountryToList(countriesCopy.get(k).getCountryName(), countriesCopy.get(k));
             countriesCopy.remove(k);
             j -= 1;
         }
 
         for (int i = 0; i < 7; i++) {
-            playerTwo.addCountryToList(countriesCopy.get(i).getCountryName(i));
+            playerTwo.addCountryToList(countriesCopy.get(i).getCountryName(), countriesCopy.get(i));
         }
     }
 
