@@ -136,6 +136,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                             if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                                     && remaining >= 0) {
                                 country.addArmy();
+                                remaining--;
                                 armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
                                 if (remaining > 0) {
                                     textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
@@ -517,6 +518,12 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void reduceArmy() {
         this.getPlayer().readyArmiesToMove();
         //Anzeige Armeen in Laendern aktualisieren
+        /*
+        for (Country country : getPlayer().getCountries()) {
+            Schluss von Land auf armyLabel
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+        }
+         */
     }
 
     private void undoCountryCoice() {
