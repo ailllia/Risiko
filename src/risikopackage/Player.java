@@ -11,11 +11,13 @@ public class Player {
     private int playernew;
     private int availableArmies;
     private List<String> occupiedCountriesNames;
+    private List<Country> occupiedCountries;
 
     // erstellt Spieler
     public Player(String pcolor) {
         color = pcolor;
         this.occupiedCountriesNames = new ArrayList<>();
+        this.occupiedCountries = new ArrayList<>();
         availableArmies = 0;
         playerArmies = 0;
     }
@@ -25,12 +27,17 @@ public class Player {
         return occupiedCountriesNames;
     }
 
+    public List<Country> getCountries() {
+        return occupiedCountries;
+    }
+
     public String getCountryName(int i) {
         return occupiedCountriesNames.get(i);
     }
 
-    public void addCountryToList(String countryName) {
+    public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);
+        this.occupiedCountries.add(country);
     }
 
     public int numberOfCountries() {
@@ -43,14 +50,14 @@ public class Player {
     }
 
     public int getNewArmies() {
+        if (occupiedCountriesNames.size() < 9)
+            availableArmies = 2;
+        else
+            availableArmies = (occupiedCountriesNames.size() / 3);
         for (Continent continent : Main.continents) {
             if (continentComplete(continent))
                 availableArmies += continent.getBonusArmies();
         }
-        if (occupiedCountriesNames.size() >= 9)
-            availableArmies += (occupiedCountriesNames.size() / 3);
-        else
-            availableArmies = 2;    //geaendert von += zu =
         playerArmies += availableArmies;
         return availableArmies;
     }
@@ -69,6 +76,21 @@ public class Player {
             return true;
         } else
             return false;
+    }
+
+    public void readyArmiesToMove() {
+        for (Country country : occupiedCountries) {
+            country.setArmies();
+        }
+        setArmiesAvailableToMove();
+    }
+
+    public void setArmiesAvailableToMove() {
+        availableArmies = (playerArmies - occupiedCountries.size());
+    }
+
+    public int getArmiesAvailableToMove() {
+        return availableArmies;
     }
     
     // bestimmt und nennt Armeen im Spiel
@@ -107,7 +129,7 @@ public class Player {
         return playerMission;
     }
     
-    // leert Spielerangaben für neues Spiel
+    // leert Spielerangaben fï¿½r neues Spiel
     public void emptyAll()
     {
     	this.color = "black";
