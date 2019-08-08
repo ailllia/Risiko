@@ -9,7 +9,7 @@ import java.util.Random;
 public class Gameplay extends JFrame {
     // hier werden die spielzuege in einzelnen funktionen aufgerufen
     boolean continuing = false; // wird duch klicken des buttons "weiter" auf true gesetzt sodass
-    // die n‰chste funktion aufgerufen wird
+    // die nÔøΩchste funktion aufgerufen wird
 
     public Gameplay() {
     }
@@ -26,24 +26,31 @@ public class Gameplay extends JFrame {
                 "den Spielern aufgeteilt. Klickt auf 'Weiter' um fortzufahren.\n");
     }
 
-    public void deployArmies1() {
+    public void deployArmies1(Player player) {
         FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("\nSpieler 1: Verteile jetzt " + Main.playerOne.getNewArmies() + " neue Armeen auf deine " +
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Verteile jetzt " + player.getNewArmies() + " neue Armeen auf deine " +
                 "Laender.\nLinksklicke dazu auf das Land, deren Einheitenzahl du erhoehen willst. Achtung: Du kannst " +
                 "deine Wahl nicht rueckgaengig machen!\n");
 
     }
 
-    public void attackphase1() {
-        FieldGUI.textfield.append("\nSpieler 1: Du kannst nun von deinem Gegner besetzte Laender befreien.\nWaehle dazu " +
-                "ein Land in deinem Besitz, das mindestens 2 Armeen besitzt, mit Linksklick aus und anschlieﬂend" +
+    public void attackphase1(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst nun von deinem Gegner besetzte Laender befreien.\nWaehle dazu " +
+                "ein Land in deinem Besitz, das mindestens 2 Armeen besitzt, mit Linksklick aus und anschlie√üend" +
                 "ein Land deines Gegners\nauf die gleiche Weise. Klicke auf 'Wuerfeln' um deinen Zug zu machen." +
                 "Wenn du kein weiteres Land befreien moechtest, klicke auf 'Weiter'.\n");
     }
 
-    public void redistribution1() {
-        FieldGUI.textfield.append("\nSpieler 1: Nun kannst du noch deine Einheiten neuverteilen, wenn du das willst." +
-                " Klicke auf 'Weiter' um deinen Zug zu beenden.\n");
+    public void redistribution1(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Nun kannst du noch deine Einheiten neuverteilen, wenn du das willst." + " Klicke daf√ºr auf 'Neuverteilen'." +
+                "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
+    }
+
+    public void redistributionNext(Player player) {
+        FieldGUI.textfield.append("Verteile jetzt " + player.getArmiesAvailableToMove() + " Armeen auf deine L√§nder."
+                + "\nMit Linksklick fuegst du eine Einheit hinzu; mit Rechtsklick ziehst du eine Einheit ab."
+                + "\nUm deine Wahl rueckgaenig zu machen und neu zu verteilen, klicke auf 'Rueckgaengig'. Achtung: Dies setzt auch deine bereits"
+                + " neuverteilten Armeen zurueck.\n");
     }
 
     // verteilt Laender an die beiden Spieler
@@ -53,13 +60,13 @@ public class Gameplay extends JFrame {
 
         for (int i = 0; i < 7; i++) {
             int k = chance.nextInt(j);
-            playerOne.addCountryToList(countriesCopy.get(k).getCountryName());
+            playerOne.addCountryToList(countriesCopy.get(k).getCountryName(k));
             countriesCopy.remove(k);
             j -= 1;
         }
 
         for (int i = 0; i < 7; i++) {
-            playerTwo.addCountryToList(countriesCopy.get(i).getCountryName());
+            playerTwo.addCountryToList(countriesCopy.get(i).getCountryName(i));
         }
     }
 
@@ -103,7 +110,7 @@ public class Gameplay extends JFrame {
         if (player.armiesAvailableToMove()) {
             country.addArmy();
         } else {
-            //Ausgabe, dass keine Armeen bewegt werden kˆnnen
+            //Ausgabe, dass keine Armeen bewegt werden kÔøΩnnen
         }
     }
 
