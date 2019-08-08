@@ -23,6 +23,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel otea, prya, solva;
     public static JTextArea textfield;
     private JScrollPane scrollbar;
+    private JPanel hitboxPanel;
     public static JButton next;
     private JButton undo, rollDice, suspendCoice, spreadNew;
     private MouseListener hitBoxListener;
@@ -32,6 +33,16 @@ public class FieldGUI extends JFrame implements ActionListener {
     private int counter = 0;
     private int remaining = Main.playerOne.getNewArmies();
     private Country selectedCountry1;
+    private Player player;
+    private int counterPlayer = 0;
+
+    private Player getPlayer() {
+        if ((counterPlayer % 2) == 0)
+            player = Main.playerOne;
+        else
+            player = Main.playerTwo;
+        return player;
+    }
 
     public FieldGUI() {
         hitBoxListener = new MouseListener() {
@@ -108,6 +119,37 @@ public class FieldGUI extends JFrame implements ActionListener {
                                 textfield.append("Klicke 'Wuerfeln' um ");
                             } else {
                                 textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
+                            }
+                        }
+                    }
+                    if (counterNext == 3 && counterHitbox == 3) {
+                        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //linksklick
+                            if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                                    && remaining >= 0) {
+                                country.addArmy();
+                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                                if (remaining > 0) {
+                                    textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+                                } else {
+                                    textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
+                                    next.setEnabled(true);
+                                    counterHitbox = 0;
+                                    counterPlayer++;
+                                }
+                            } else {
+                                textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\\n");
+                            }
+                        }
+                        if (mouseEvent.getButton() == MouseEvent.BUTTON3) {         //rechtsklick
+                            if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                                    && country.getArmiesInCountry() > 1) {
+                                country.loseArmy();
+                                remaining++;
+                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                            } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
+                                textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
+                            } else {
+                                textfield.append("Einheiten koennen nur in den Laendern abgezogen werden, die deiner Farbe entsprechen.\n");
                             }
                         }
                     }
@@ -192,7 +234,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         playeroneh3 = new
 
-                JLabel("Länder:", SwingConstants.LEFT);
+                JLabel("Lï¿½nder:", SwingConstants.LEFT);
         playeroneh3.setFont(new
 
                 Font("Sans-Serif", Font.PLAIN, 12));
@@ -317,7 +359,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         playertwoh3 = new
 
-                JLabel("Länder:", SwingConstants.LEFT);
+                JLabel("Lï¿½nder:", SwingConstants.LEFT);
         playertwoh3.setFont(new
 
                 Font("Sans-Serif", Font.PLAIN, 12));
@@ -443,8 +485,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
 
         //Angaben Laender
-        //Länder werden in Maps geladen die die zugehörigen Koordinaten enthalten
-        //for-Schleife ruft dann für jedes land die funktion auf die die elemente dem frame / panel hinzufügt
+        //Lï¿½nder werden in Maps geladen die die zugehï¿½rigen Koordinaten enthalten
+        //for-Schleife ruft dann fï¿½r jedes land die funktion auf die die elemente dem frame / panel hinzufï¿½gt
 
         /*
         List of countries
@@ -605,18 +647,25 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
         counterNext++;
         if (counterNext == 1) {
-            gameplay.deployArmies1();
+            gameplay.deployArmies1(this.getPlayer());
         }
         if (counterNext == 2) {
-            gameplay.attackphase1();
+            gameplay.attackphase1(this.getPlayer());
         }
         if (counterNext == 3) {
-            gameplay.redistribution1();
+            gameplay.redistribution1(this.getPlayer());
         }
-        //if (counterNext == 4) gameplay.deployArmies2();    <- wenn funktionen nicht für beide spieler gelten koennen
+        //if (counterNext == 4) gameplay.deployArmies2();    <- wenn funktionen nicht fï¿½r beide spieler gelten koennen
     }
 
     private void reduceArmy() {
+        this.getPlayer().readyArmiesToMove();
+        Country country = findCountry(hitboxPanel.getName());
+        for (Component c : hitboxPanel.getComponents()) {
+            if (c.getName().equals("armyLabel")) {
+                c.setText(Integer.toString(country.getArmiesInCountry()));
+            }
+        }
     }
 
     private void undoCountryCoice() {
@@ -626,6 +675,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void spreading() {
+        this.reduceArmy();
+        gameplay.redistributionNext(this.getPlayer());
     }
 
     private JPanel createMainPanel() {
@@ -653,7 +704,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         this.frame.add(nameLabel);
 
         //JPanel Hit box
-        JPanel hitboxPanel = new JPanel();
+        hitboxPanel = new JPanel();
         hitboxPanel.setName(country.getCountryName().toUpperCase());
         hitboxPanel.setBounds(hitBoxCoord.get(0), hitBoxCoord.get(1), hitBoxCoord.get(2), hitBoxCoord.get(3));
         //hitboxPanel.setVisible(false);
@@ -714,7 +765,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         return null;
     }
 
-    // sorgt dafür, dass die Missionsbeschreibung mehrzeilig angezeigt wird
+    // sorgt dafï¿½r, dass die Missionsbeschreibung mehrzeilig angezeigt wird
     public static String breakDescription(Player playerNow) {
         return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
     }
