@@ -6,7 +6,6 @@ import java.util.List;
 public class Country {
     private String countryName;
     private List<String> neighboringCountries;
-    private boolean isNeighbor;
     private int armiesInCountry;
     private Color colorOfOwnerCode;
     private String colorOfOwnerString;
@@ -42,6 +41,10 @@ public class Country {
      */
     public void addArmy() {
         this.armiesInCountry++;
+    }
+
+    public List<String> getNeighboringCountries() {
+        return neighboringCountries;
     }
 
     public String getCountryName() {

@@ -40,8 +40,13 @@ public class Main {
                 reader.nextLine();
             else {
                 String countryName = reader.nextLine();
-                List<String> neighboringCountries = new LinkedList<>();
+                //test if country with countryName in countries
+                    //dont add again
+                List<String> neighboringCountries = new LinkedList<>(); //list<country>
                 while (reader.hasNext() && !reader.hasNext(separator)) {
+                    //test if neighbor in countries
+                        // if not: create new country and add to countries (with empty neighbors)
+                    //add neighbor to country.neighbors
                     neighboringCountries.add(reader.nextLine());
                 }
                 Country country = new Country(countryName, neighboringCountries);
