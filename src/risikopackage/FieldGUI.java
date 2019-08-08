@@ -647,14 +647,22 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openSelection() {
-        // alle Werte auf null
-        Main.playerOne.emptyAll();
-        Main.playerTwo.emptyAll();
-        for (Country i : Main.countries) {
-            i.setArmies();
-        }
-        frame.dispose();
-        new PlayersGUI();
+    	int input = JOptionPane.showConfirmDialog(null, "Willst du wirklich ein neues Spiel anfangen?");
+		switch (input) {
+		case 0 : 
+			// alle Werte auf null
+			Main.playerOne.emptyAll();
+	        Main.playerTwo.emptyAll();
+	        for (Country i : Main.countries) {
+	            i.setArmies();
+	        }
+	        frame.dispose();
+	        new PlayersGUI();
+		case 1 : 
+			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		case 2 :
+			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		}
     }
 
     private void endProgram() {
