@@ -147,8 +147,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                                 } else {
                                     textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
                                     next.setEnabled(true);
-                                    counterHitbox = 0;
-                                    counterPlayer++;
+                                    spreadNew.setEnabled(false);
+                                    undo.setEnabled(false);
                                 }
                             } else {
                                 textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\\n");
@@ -379,8 +379,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
 
         //Angaben Laender
-        //Laender werden in Maps geladen die die zugehörigen Koordinaten enthalten
-        //for-Schleife ruft dann für jedes land die funktion auf die die elemente dem frame / panel hinzufügt
+        //Laender werden in Maps geladen die die zugehï¿½rigen Koordinaten enthalten
+        //for-Schleife ruft dann fï¿½r jedes land die funktion auf die die elemente dem frame / panel hinzufï¿½gt
 
         /*
         List of countries
@@ -512,6 +512,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
         if (counterNext == 3) {
             gameplay.redistribution(this.getPlayer());
+            spreadNew.setEnabled(true);
+            undo.setEnabled(true);
             counterNext = 0;
             counterHitbox = 0;
             counterPlayer++;
@@ -519,14 +521,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void reduceArmy() {
-        this.getPlayer().readyArmiesToMove();
-        //Anzeige Armeen in Laendern aktualisieren
-        /*
-        for (Country country : getPlayer().getCountries()) {
-            Schluss von Land auf armyLabel
-            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-        }
-         */
+        this.setArmiesOnMap();
+        gameplay.redistributionDel(this.getPlayer());
     }
 
     private void undoCountryChoice() {
@@ -559,13 +555,24 @@ public class FieldGUI extends JFrame implements ActionListener {
             armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
         }
         rollDice.setEnabled(false);
-        counterHitbox = 1;      // damit wieder ein neues land gewählt werden kann
+        counterHitbox = 1;      // damit wieder ein neues land gewï¿½hlt werden kann
         textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
 
     private void spreading() {
-        this.reduceArmy();
+        this.setArmiesOnMap();
         gameplay.redistributionNext(this.getPlayer());
+    }
+
+    private void setArmiesOnMap() {
+        this.getPlayer().readyArmiesToMove();
+        //Anzeige Armeen in Laendern aktualisieren
+        /*
+        for (Country country : getPlayer().getCountries()) {
+            Schluss von Land auf armyLabel
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+        }
+         */
     }
 
     private JPanel createMainPanel() {
