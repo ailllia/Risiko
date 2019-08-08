@@ -85,7 +85,7 @@ public class Player {
         setArmiesAvailableToMove();
     }
 
-    public void setArmiesAvailableToMove() {
+    private void setArmiesAvailableToMove() {
         availableArmies = (playerArmies - occupiedCountries.size());
     }
 
@@ -94,7 +94,7 @@ public class Player {
     }
     
     // bestimmt und nennt Armeen im Spiel
-    public void setNumberOfArmies(List<Country> countries)
+    private void setNumberOfArmies(List<Country> countries)
     {
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 7; j++) {
@@ -147,18 +147,24 @@ public class Player {
 
     public static Color PlayerColorCode(Player player) {
         Color color;
-        if (player.getColor().equals("blau")) {              //switch?
-            color = new java.awt.Color(0, 0, 255);
-        } else if (player.getColor().equals("rot")) {
-            color = new java.awt.Color(255, 0, 0);
-        } else if (player.getColor().equals("lila")) {
-            color = new java.awt.Color(157, 60, 156);
-        } else if (player.getColor().equals("pink")) {
-            color = new java.awt.Color(255, 0, 255);
-        } else if (player.getColor().equals("grau")) {
-            color = new java.awt.Color(76, 76, 76);
-        } else {
-            color = new java.awt.Color(0, 0, 0);
+        switch (player.getColor()){
+            case "blau":
+                color = new java.awt.Color(0, 0, 255);
+                break;
+            case "rot":
+                color = new java.awt.Color(255, 0, 0);
+                break;
+            case "lila":
+                color = new java.awt.Color(157, 60, 156);
+                break;
+            case "pink":
+                color = new java.awt.Color(255, 0, 255);
+                break;
+            case "grau":
+                color = new java.awt.Color(76, 76, 76);
+                break;
+            default:
+                color = new java.awt.Color(0, 0, 0);
         }
         return color;
     }

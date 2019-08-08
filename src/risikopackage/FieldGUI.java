@@ -67,7 +67,6 @@ public class FieldGUI extends JFrame implements ActionListener {
             public void mouseReleased(MouseEvent mouseEvent) {
                 //testfall, eigentlich irrelevant
                 if (mouseEvent.getSource().getClass() != JPanel.class) {
-                    System.out.println("Invalid Type clicked");
                     return;
                 }
                 //findet angeklicktes land, durchsucht komponenten des panels nach "armyLabel", gibt geaenderte zahl auf der gui aus
@@ -85,7 +84,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     return;
                 }
 
-                if (country != null) {      // wenn geklicktes land gefunden
+                if (country != null) {  // wenn geklicktes land gefunden
                     setRemaining();     //wie viele Armeen duerfen verteilt werden
                     if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
@@ -110,17 +109,19 @@ public class FieldGUI extends JFrame implements ActionListener {
                     if (counterNext == 2 && counterHitbox == 1) {       //angriffsrunde, auswahl des eigenen landes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (country.getColorOfOwnerString().equals(getPlayer().getColor())
-                                    && country.getArmiesInCountry() > 1) {          //@TODO abfrage ergaenzen ob ausgewaehltes land gegnerische nachbarlaender hat
+                                    && country.getArmiesInCountry() > 1 && hasEnemyNeighbours(country)) {
                                 selectedCountry1 = country;
                                 armiesattacking = armyLabel;
                                 textfield.append("Du hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
-                                        "auf ein benachbartes Land (mit schwarzem Strich verbunden) deines Gegners.\n");
+                                        " auf ein benachbartes Land (mit schwarzem Strich verbunden) deines Gegners.\n");
                                 counterHitbox++;
                             } else {
-                                textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus.\n");
+                                textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
+                                        " Es muss mindestens ein gegnerisches Land als Nachbar haben.\n");
                             }
                         }
                     }
+
                     if (counterNext == 2 && counterHitbox == 2) {   //angriffsphase, auswahl des gegnerlandes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (!country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert gegner
@@ -199,9 +200,9 @@ public class FieldGUI extends JFrame implements ActionListener {
         JMenu renewGame = new JMenu("neues Spiel");
         JMenuItem newGame = new JMenuItem("neues Spiel starten");
         renewGame.add(newGame);
-        bar.add(renewGame);
         newGame.addActionListener(e -> openSelection());
         endProg.addActionListener(e -> endProgram());
+        bar.add(renewGame);
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
@@ -501,19 +502,63 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setResizable(false);
     }
 
+    private boolean hasEnemyNeighbours(Country country) {
+        boolean bool = false;
+        /*
+        -> make Country.neighboringCountries a List<Country> instead of List<String>
+            therefore:
+            -> read countries from static file like .xml or .java instead of (mutable) .txt file
+            <countries>
+                <country name=HELA>
+                    <neighbors>
+                        <country name=TIRA>
+                        <country name=TIRA>
+                        <country name=TIRA>
+                    </neighbors>
+                </country>
+            </countries>
+            -> change creation
+                -> first: create all countries with empty neighbors
+                -> second: fill neighbors
+        (-> introduce a class variable Country.owner of type Player)
+
+
+        c = color of country
+        for country in neighbors:
+            //search countryName in countries (loop)
+                if color of owner of country != c
+                    return true
+        return false
+         */
+        for (String s : country.getNeighboringCountries()) {
+            Country neighbor = Main.countries.stream()
+                    .filter(country1 -> country1.getCountryName().equals(s))
+                    .findFirst()
+                    .orElse(null);
+            if (!country.getColorOfOwnerString().equals(neighbor.getColorOfOwnerString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
         counterNext++;
-        if (counterNext == 1) {
-            gameplay.deployArmies(this.getPlayer());
-        }
-        if (counterNext == 2) {
-            gameplay.attackphase(this.getPlayer());
-        }
-        if (counterNext == 3) {
-            gameplay.redistribution(this.getPlayer());
-            counterNext = 0;
-            counterHitbox = 0;
-            counterPlayer++;
+        switch (counterNext) {
+            case 1:
+                gameplay.deployArmies(this.getPlayer());
+                break;
+            case 2:
+                counter = 0;
+                gameplay.attackphase(this.getPlayer());
+                break;
+            case 3:
+                gameplay.redistribution(this.getPlayer());
+                counterNext = 0;
+                counterHitbox = 0;
+                counterPlayer++;
+                rollDice.setEnabled(false);
+                break;
         }
     }
 
@@ -581,7 +626,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         // JLabel Country Name
         JLabel nameLabel = new JLabel(country.getCountryName().toUpperCase());
         nameLabel.setFont(new Font("Sans-Serif", Font.BOLD, 13));
-        // Set Owner Color?
         nameLabel.setBounds(nameCoord.get(0), nameCoord.get(1), nameCoord.get(2), nameCoord.get(3));
         this.frame.add(nameLabel);
 
@@ -603,15 +647,13 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openSelection() {
-        //setVisible(false);
-
         // alle Werte auf null
         Main.playerOne.emptyAll();
         Main.playerTwo.emptyAll();
-        for (int i = 0; i < 14; i++) {
-            Main.countries.get(i).setArmies();
+        for (Country i : Main.countries) {
+            i.setArmies();
         }
-        PlayersGUI startNewGame = new PlayersGUI();
+        new PlayersGUI();
     }
 
     private void endProgram() {
