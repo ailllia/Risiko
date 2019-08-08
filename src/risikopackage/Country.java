@@ -16,8 +16,8 @@ public class Country {
         this.neighboringCountries = neighbors;
     }
 
-    public void changeOwner(Color color) {
-        colorOfOwnerCode = color;
+    public void changeOwner(String color) {
+        colorOfOwnerString = color;
     }
 
     /**

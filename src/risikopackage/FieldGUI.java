@@ -9,10 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FieldGUI extends JFrame implements ActionListener {
 
@@ -21,6 +18,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2, playeronep3, playeronep4, playeronep5, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
     private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2, playertwop3, playertwop4, playertwop5, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
     private JLabel otea, prya, solva;
+    private JLabel armiesattacking, armiesdefending;
+    private JPanel hitboxPanel;
     public static JTextArea textfield;
     private JScrollPane scrollbar;
     public static JButton next;
@@ -32,6 +31,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private int counter = 0;
     private int remaining;
     private Country selectedCountry1;
+    private Country selectedCountry2;
     private Player player;
     private int counterPlayer = 0;
 
@@ -111,6 +111,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                             if (country.getColorOfOwnerString().equals(Main.playerOne.getColor())
                                     && country.getArmiesInCountry() > 1) {
                                 selectedCountry1 = country;
+                                armiesattacking = armyLabel;
                                 textfield.append("Du hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
                                         "auf ein benachbartes Land (mit schwarzem Strich verbunden) deines Gegners.\n");
                                 counterHitbox++;
@@ -122,10 +123,12 @@ public class FieldGUI extends JFrame implements ActionListener {
                     if (counterNext == 2 && counterHitbox == 2) {   //angriffsphase, auswahl des gegnerlandes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (!country.getColorOfOwnerString().equals(Main.playerOne.getColor()) //land gehoert gegner
-                                    && country.isNeighbor(selectedCountry1)) {                      //land ist nachbar
+                                    && country.isNeighbor(selectedCountry1)) {      //land ist nachbar
+                                selectedCountry2 = country;
+                                armiesdefending = armyLabel;
                                 rollDice.setEnabled(true);
                                 counterHitbox++;
-                                textfield.append("Klicke 'Wuerfeln' um ");
+                                textfield.append("Klicke 'Wuerfeln'\n");
                             } else {
                                 textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
                             }
@@ -180,7 +183,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         bar = new JMenuBar();
-
         JMenu rules = new JMenu("Spielregeln");
         JMenuItem winning = new JMenuItem("Ende des Spiels");
         rules.add(winning);
@@ -197,10 +199,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         JMenuItem newGame = new JMenuItem("neues Spiel starten");
         renewGame.add(newGame);
         bar.add(renewGame);
-
         newGame.addActionListener(e -> openSelection());
         endProg.addActionListener(e -> endProgram());
-
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
@@ -220,7 +220,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeronep1.setBounds(95, 80, 90, 20);
         frame.add(playeronep1);
 
-        playeroneh3 = new JLabel("LÃ¤nder:", SwingConstants.LEFT);
+        playeroneh3 = new JLabel("Laender:", SwingConstants.LEFT);
         playeroneh3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeroneh3.setBounds(25, 101, 70, 20);
         frame.add(playeroneh3);
@@ -297,7 +297,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwop1.setBounds(865, 80, 90, 20);
         frame.add(playertwop1);
 
-        playertwoh3 = new JLabel("LÃ¤nder:", SwingConstants.LEFT);
+        playertwoh3 = new JLabel("Laender:", SwingConstants.LEFT);
         playertwoh3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwoh3.setBounds(800, 101, 70, 20);
         frame.add(playertwoh3);
@@ -377,8 +377,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
 
         //Angaben Laender
-        //Lï¿½nder werden in Maps geladen die die zugehï¿½rigen Koordinaten enthalten
-        //for-Schleife ruft dann fï¿½r jedes land die funktion auf die die elemente dem frame / panel hinzufï¿½gt
+        //Laender werden in Maps geladen die die zugehörigen Koordinaten enthalten
+        //for-Schleife ruft dann für jedes land die funktion auf die die elemente dem frame / panel hinzufügt
 
         /*
         List of countries
@@ -455,7 +455,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
 
         textfield = new JTextArea();
-
         scrollbar = new JScrollPane(textfield);
         scrollbar.setBounds(100, 500, 800, 150);
         textfield.setEditable(false);
@@ -477,7 +476,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         suspendCoice.setBounds(350, 470, 105, 20);
         suspendCoice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         suspendCoice.setEnabled(false);
-        suspendCoice.addActionListener(e -> undoCountryCoice());
+        suspendCoice.addActionListener(e -> undoCountryChoice());
         frame.add(suspendCoice);
 
         rollDice = new JButton("Wuerfeln");
@@ -504,14 +503,15 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
         counterNext++;
         if (counterNext == 1) {
-            gameplay.deployArmies1(this.getPlayer());
+            gameplay.deployArmies(this.getPlayer());
         }
         if (counterNext == 2) {
-            gameplay.attackphase1(this.getPlayer());
+            gameplay.attackphase(this.getPlayer());
         }
         if (counterNext == 3) {
-            gameplay.redistribution1(this.getPlayer());
+            gameplay.redistribution(this.getPlayer());
         }
+        //if (counterNext == 4) gameplay.deployArmies2();    <- wenn funktionen nicht fuer beide spieler gelten koennen
     }
 
     private void reduceArmy() {
@@ -519,10 +519,38 @@ public class FieldGUI extends JFrame implements ActionListener {
         //Anzeige Armeen in Laendern aktualisieren
     }
 
-    private void undoCountryCoice() {
+    private void undoCountryChoice() {
     }
 
     private void attack() {
+        Random random = new Random();
+        int dice1 = random.nextInt(6) + 1;
+        int dice2 = random.nextInt(6) + 1;
+
+        textfield.append("Du wuerfelst eine " + dice1 + "!\nDer Besetzer wuerfelt eine " + dice2 + "!\n");
+        if (dice1 > dice2) {
+            if (selectedCountry2.getArmiesInCountry() > 1) {
+                textfield.append("Der Besetzer verliert eine Einheit!\n");
+                selectedCountry2.loseArmy();
+                armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
+            } else {
+                selectedCountry2.changeOwner(selectedCountry1.getColorOfOwnerString());
+                selectedCountry2.setColorOfOwnerCode(selectedCountry1.getColorOfOwnerCode());
+                selectedCountry2.setArmies();
+                selectedCountry1.loseArmy();
+                armiesdefending.setForeground(selectedCountry2.getColorOfOwnerCode());
+                armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
+                armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
+                textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
+            }
+        } else {
+            textfield.append("Du verlierst eine Einheit.\n");
+            selectedCountry1.loseArmy();
+            armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
+        }
+        rollDice.setEnabled(false);
+        counterHitbox = 1;      // damit wieder ein neues land gewählt werden kann
+        textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
 
     private void spreading() {
@@ -568,7 +596,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         armyLabel.setForeground(country.getColorOfOwnerCode());
         armyLabel.setBounds(armyCoord.get(0), armyCoord.get(1), armyCoord.get(2), armyCoord.get(3));
         hitboxPanel.add(armyLabel);
-
         this.frame.add(hitboxPanel);
     }
 
@@ -588,21 +615,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         System.exit(0);
     }
 
-/*   public static void main(String[] args) {
-      try {
-         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-      } catch(Exception e) {
-         System.err.println(e);
-      }
-
-      SwingUtilities.invokeLater(new Runnable() {
-         public void run() {
-            new FieldGUI();
-         }
-      });
-   }
-   */
-
     @Override
     public void actionPerformed(ActionEvent arg0) {
     }
@@ -616,7 +628,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         return null;
     }
 
-    // sorgt dafï¿½r, dass die Missionsbeschreibung mehrzeilig angezeigt wird
+    // sorgt dafuer, dass die Missionsbeschreibung mehrzeilig angezeigt wird
     public static String breakDescription(Player playerNow) {
         return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
     }
