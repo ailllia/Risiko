@@ -192,17 +192,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         rules.add(attack);
         bar.add(rules);
 
-        JMenu endGame = new JMenu("Programm beenden");
-        JMenuItem endProg = new JMenuItem("Programm beenden");
-        endGame.add(endProg);
-        bar.add(endGame);
-
-        JMenu renewGame = new JMenu("neues Spiel");
+        JMenu quitGame =  new JMenu("Spiel abbrechen");         
+        JMenuItem endGame = new JMenuItem("Programm beenden");
+        endGame.addActionListener(e -> endProgram());
+        quitGame.add(endGame);
         JMenuItem newGame = new JMenuItem("neues Spiel starten");
-        renewGame.add(newGame);
         newGame.addActionListener(e -> openSelection());
-        endProg.addActionListener(e -> endProgram());
-        bar.add(renewGame);
+        quitGame.add(newGame);
+        bar.add(quitGame);
+        
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
@@ -653,6 +651,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 			// alle Werte auf null
 			Main.playerOne.emptyAll();
 	        Main.playerTwo.emptyAll();
+	        // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
 	        for (Country i : Main.countries) {
 	            i.setArmies();
 	        }
