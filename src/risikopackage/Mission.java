@@ -31,4 +31,63 @@ public abstract class Mission {
 		}
 		return thatMissionDescription;
 	}
+	
+	// testet, ob Mission komplett ist
+	public static boolean testMission(Player playerNow)
+	{
+			if (playerNow.getPlayerMission().equals("Iwein"))
+				// Befreie die Kontinente Otea und Solva.
+			{
+				if (Continent.complete("Otea", playerNow) && Continent.complete("Solva", playerNow))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if (playerNow.getPlayerMission().equals("Gawein"))
+				// Befreie die Kontinente Solva und Priya.
+			{
+				if (Continent.complete("Priya", playerNow) && Continent.complete("Solva", playerNow))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if (playerNow.getPlayerMission().equals("Parzival"))
+				// Befreie die Kontinente Priya und Otea.
+			{
+				if (Continent.complete("Priya", playerNow) && Continent.complete("Otea", playerNow))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if (playerNow.getPlayerMission().equals("Tristan") || 
+					playerNow.getPlayerMission().equals("Keie") ||
+					playerNow.getPlayerMission().equals("Erec"))
+				// Befreie und besetze insgesamt 11 Laender.
+			{
+				if (playerNow.numberOfCountries() >= 11)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+	}
 }
