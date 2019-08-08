@@ -30,7 +30,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private int counterHitbox = 0;
     private Gameplay gameplay = new Gameplay();
     private int counter = 0;
-    private int remaining = Main.playerOne.getNewArmies();
+    private int remaining;
     private Country selectedCountry1;
     private Player player;
     private int counterPlayer = 0;
@@ -41,6 +41,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         else
             player = Main.playerTwo;
         return player;
+    }
+
+    private void setRemaining() {
+        if (counterNext == 1)
+            remaining = this.getPlayer().getNewArmies();
+        else if (counterNext == 3)
+            remaining = this.getPlayer().getArmiesAvailableToMove();
+        else
+            remaining = 0;
     }
 
     public FieldGUI() {
@@ -76,6 +85,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
 
                 if (country != null) {      // wenn geklicktes land gefunden
+                    setRemaining();     //wie viele Armeen duerfen verteilt werden
                     if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (country.getColorOfOwnerString().equals(Main.playerOne.getColor()) //land gehoert dem spieler
@@ -439,87 +449,52 @@ public class FieldGUI extends JFrame implements ActionListener {
         hitBoxPanels.put("NEAH", new ArrayList<>(Arrays.asList(310, 380, 30, 30)));
         armyCountLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 388, 70, 20)));
 
-        for (
-                Country c : Main.countries) {
+        for (Country c : Main.countries) {
             String n = c.getCountryName().toUpperCase();
             createHitBoxAndLabels(c, countryNameLabels.get(n), hitBoxPanels.get(n), armyCountLabels.get(n));
         }
 
-        textfield = new
+        textfield = new JTextArea();
 
-                JTextArea();
-
-        scrollbar = new
-
-                JScrollPane(textfield);
+        scrollbar = new JScrollPane(textfield);
         scrollbar.setBounds(100, 500, 800, 150);
         textfield.setEditable(false);
         frame.add(scrollbar);
 
-        next = new
-
-                JButton("Weiter");
+        next = new JButton("Weiter");
         next.setBounds(810, 465, 105, 25);
-        next.addActionListener(e ->
-
-                next());
+        next.addActionListener(e -> next());
         frame.add(next);
 
-        undo = new
-
-                JButton("Rueckgaengig");
+        undo = new JButton("Rueckgaengig");
         undo.setBounds(200, 470, 105, 20);
-        undo.setFont(new
-
-                Font("Sans-Serif", Font.PLAIN, 11));
+        undo.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         undo.setEnabled(false);
-        undo.addActionListener(e ->
-
-                reduceArmy());
+        undo.addActionListener(e -> reduceArmy());
         frame.add(undo);
 
-        suspendCoice = new
-
-                JButton("Zurueck");
+        suspendCoice = new JButton("Zurueck");
         suspendCoice.setBounds(350, 470, 105, 20);
-        suspendCoice.setFont(new
-
-                Font("Sans-Serif", Font.PLAIN, 11));
+        suspendCoice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         suspendCoice.setEnabled(false);
-        suspendCoice.addActionListener(e ->
-
-                undoCountryCoice());
+        suspendCoice.addActionListener(e -> undoCountryCoice());
         frame.add(suspendCoice);
 
-        rollDice = new
-
-                JButton("Wuerfeln");
+        rollDice = new JButton("Wuerfeln");
         rollDice.setBounds(500, 470, 105, 20);
-        rollDice.setFont(new
-
-                Font("Sans-Serif", Font.PLAIN, 11));
+        rollDice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         rollDice.setEnabled(false);
-        rollDice.addActionListener(e ->
-
-                attack());
+        rollDice.addActionListener(e -> attack());
         frame.add(rollDice);
 
-        spreadNew = new
-
-                JButton("Neu verteilen");
+        spreadNew = new JButton("Neu verteilen");
         spreadNew.setBounds(650, 470, 105, 20);
-        spreadNew.setFont(new
-
-                Font("Sans-Serif", Font.PLAIN, 11));
+        spreadNew.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         spreadNew.setEnabled(false);
-        spreadNew.addActionListener(e ->
-
-                spreading());
+        spreadNew.addActionListener(e -> spreading());
         frame.add(spreadNew);
 
-        frame.add(
-
-                createMainPanel());
+        frame.add(createMainPanel());
         frame.setSize(1000, 750);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
