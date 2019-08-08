@@ -653,6 +653,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         for (Country i : Main.countries) {
             i.setArmies();
         }
+        frame.dispose();
         new PlayersGUI();
     }
 
