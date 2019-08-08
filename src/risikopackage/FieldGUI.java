@@ -44,12 +44,13 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void setRemaining() {
-        if (counterNext == 1)
+        if (counterNext == 1) {
             remaining = this.getPlayer().getNewArmies();
-        else if (counterNext == 3)
+        } else if (counterNext == 3) {
             remaining = this.getPlayer().getArmiesAvailableToMove();
-        else
+        } else {
             remaining = 0;
+        }
     }
 
     public FieldGUI() {
@@ -88,7 +89,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     setRemaining();     //wie viele Armeen duerfen verteilt werden
                     if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                            if (country.getColorOfOwnerString().equals(Main.playerOne.getColor()) //land gehoert dem spieler
+                            if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
                                     && remaining >= 0) { //es sind noch einheiten ueber
                                 country.addArmy();
                                 counter++;
@@ -108,8 +109,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                     }
                     if (counterNext == 2 && counterHitbox == 1) {       //angriffsrunde, auswahl des eigenen landes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                            if (country.getColorOfOwnerString().equals(Main.playerOne.getColor())
-                                    && country.getArmiesInCountry() > 1) {
+                            if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                                    && country.getArmiesInCountry() > 1) {          //@TODO abfrage ergaenzen ob ausgewaehltes land gegnerische nachbarlaender hat
                                 selectedCountry1 = country;
                                 armiesattacking = armyLabel;
                                 textfield.append("Du hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
@@ -122,7 +123,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     }
                     if (counterNext == 2 && counterHitbox == 2) {   //angriffsphase, auswahl des gegnerlandes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                            if (!country.getColorOfOwnerString().equals(Main.playerOne.getColor()) //land gehoert gegner
+                            if (!country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert gegner
                                     && country.isNeighbor(selectedCountry1)) {      //land ist nachbar
                                 selectedCountry2 = country;
                                 armiesdefending = armyLabel;
@@ -510,8 +511,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
         if (counterNext == 3) {
             gameplay.redistribution(this.getPlayer());
+            counterNext = 0;
+            counterHitbox = 0;
+            counterPlayer++;
         }
-        //if (counterNext == 4) gameplay.deployArmies2();    <- wenn funktionen nicht fuer beide spieler gelten koennen
     }
 
     private void reduceArmy() {
@@ -629,7 +632,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     // sorgt dafuer, dass die Missionsbeschreibung mehrzeilig angezeigt wird
-    public static String breakDescription(Player playerNow) {
+    private static String breakDescription(Player playerNow) {
         return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
     }
 }

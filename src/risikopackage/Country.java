@@ -69,8 +69,8 @@ public class Country {
     }
 
     public boolean isNeighbor(Country neighboringCountry) {
-        for (String c : this.neighboringCountries) {
-            if (c.equals(neighboringCountry.getCountryName())) {
+        for (String s : this.neighboringCountries) {
+            if (s.equals(neighboringCountry.getCountryName())) {
                 return true;
             }
         }
