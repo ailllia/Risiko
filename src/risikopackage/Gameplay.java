@@ -8,17 +8,31 @@ import java.util.Random;
 
 public class Gameplay extends JFrame {
     // hier werden die spielzuege in einzelnen funktionen aufgerufen
-    public Gameplay() {
+    private static Gameplay instance;
+    private Player playerOne = new Player(null);
+    private Player playerTwo = new Player(null);
+    private List<Country> countries = new ArrayList<>();
+    private List<Continent> continents = new ArrayList<>();
+    private List<Mission> missions = new ArrayList<>();
+
+    private Gameplay() {
     }
 
-    public static void initialising() {
+    public static Gameplay getInstance() {
+        if (instance == null) {
+            instance = new Gameplay();
+        }
+        return instance;
+    }
+
+    public void initialising() {
         Random chance = new Random();
-        spreadCountries(Main.playerOne, Main.playerTwo, Main.countries, chance);
-        paintCountries(Main.playerOne, Main.playerTwo, Main.countries);
-        chooseMission(Main.playerOne, Main.playerTwo, Main.missions, chance);
+        spreadCountries(playerOne, playerTwo, countries, chance);
+        paintCountries(playerOne, playerTwo, countries);
+        chooseMission(playerOne, playerTwo, missions, chance);
     }
 
-    public static void welcome() { // Erste Textausgaben
+    public void welcome() { // Erste Textausgaben
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nDie 14 Laender wurden bereits unter " +
                 "den Spielern aufgeteilt. Klickt auf 'Weiter' um fortzufahren.\n");
     }
@@ -141,5 +155,45 @@ public class Gameplay extends JFrame {
         } else {
             //Ausgabe, dass aus diesem Land keine Armee abgezogen werden kann
         }
+    }
+
+    public void setPlayerOne(Player playerOne) {
+        this.playerOne = playerOne;
+    }
+
+    public void setPlayerTwo(Player playerTwo) {
+        this.playerTwo = playerTwo;
+    }
+
+    public void setCountries(List<Country> countries) {
+        this.countries = countries;
+    }
+
+    public void setContinents(List<Continent> continents) {
+        this.continents = continents;
+    }
+
+    public void setMissions(List<Mission> missions) {
+        this.missions = missions;
+    }
+
+    public Player getPlayerOne() {
+        return playerOne;
+    }
+
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
+
+    public List<Country> getCountries() {
+        return countries;
+    }
+
+    public List<Continent> getContinents() {
+        return continents;
+    }
+
+    public List<Mission> getMissions() {
+        return missions;
     }
 }

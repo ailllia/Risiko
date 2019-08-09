@@ -17,11 +17,10 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
     public static JTextArea textfield;
     public static JButton next;
-    private JButton undo, rollDice, suspendCoice, spreadNew;
+    private JButton undo, rollDice, spreadNew;
     private MouseListener hitBoxListener, buttonListener;
     private int counterNext = 0;
     private int counterHitbox = 0;
-    private Gameplay gameplay = new Gameplay();
     private int counter = 0;
     private int remaining;
     private Country selectedCountry1;
@@ -33,9 +32,9 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private Player getPlayer() {
         if ((counterPlayer % 2) != 0)
-            player = Main.playerOne;
+            player = Gameplay.getInstance().getPlayerOne();
         else
-            player = Main.playerTwo;
+            player = Gameplay.getInstance().getPlayerTwo();
         return player;
     }
 
@@ -61,7 +60,6 @@ public class FieldGUI extends JFrame implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-                //testfall, eigentlich irrelevant
                 if (mouseEvent.getSource().getClass() != JPanel.class) {
                     return;
                 }
@@ -75,7 +73,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     }
                 }
 
-                if (armyLabel == null) {    //test
+                if (armyLabel == null) {
                     System.out.println("Army Label not found!");
                     return;
                 }
@@ -244,9 +242,9 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh2.setBounds(25, 80, 70, 20);
         frame.add(playeroneh2);
 
-        JLabel playeronep1 = new JLabel(Main.playerOne.getColor(), SwingConstants.RIGHT);
+        JLabel playeronep1 = new JLabel(Gameplay.getInstance().getPlayerOne().getColor(), SwingConstants.RIGHT);
         playeronep1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playeronep1.setForeground(Player.PlayerColorCode(Main.playerOne));
+        playeronep1.setForeground(Player.PlayerColorCode(Gameplay.getInstance().getPlayerOne()));
         playeronep1.setBounds(95, 80, 90, 20);
         frame.add(playeronep1);
 
@@ -255,7 +253,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh3.setBounds(25, 101, 70, 20);
         frame.add(playeroneh3);
 
-        playeronep2 = new JLabel(Integer.toString(Main.playerOne.numberOfCountries()), SwingConstants.RIGHT);
+        playeronep2 = new JLabel(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()), SwingConstants.RIGHT);
         playeronep2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep2.setBounds(95, 101, 90, 20);
         frame.add(playeronep2);
@@ -265,7 +263,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh4.setBounds(25, 122, 70, 20);
         frame.add(playeroneh4);
 
-        playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)), SwingConstants.RIGHT);
+        playeronep3 = new JLabel(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())), SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep3.setBounds(95, 122, 90, 20);
         frame.add(playeronep3);
@@ -275,12 +273,12 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh5.setBounds(25, 143, 70, 20);
         frame.add(playeroneh5);
 
-        JLabel playeronep4 = new JLabel(Main.playerOne.getPlayerMission(), SwingConstants.RIGHT);
+        JLabel playeronep4 = new JLabel(Gameplay.getInstance().getPlayerOne().getPlayerMission(), SwingConstants.RIGHT);
         playeronep4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep4.setBounds(95, 143, 90, 20);
         frame.add(playeronep4);
 
-        JLabel playeronep5 = new JLabel(breakDescription(Main.playerOne));
+        JLabel playeronep5 = new JLabel(breakDescription(Gameplay.getInstance().getPlayerOne()));
         playeronep5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep5.setBounds(25, 163, 165, 40);
         frame.add(playeronep5);
@@ -321,9 +319,9 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh2.setBounds(800, 80, 70, 20);
         frame.add(playertwoh2);
 
-        JLabel playertwop1 = new JLabel(Main.playerTwo.getColor(), SwingConstants.RIGHT);
+        JLabel playertwop1 = new JLabel(Gameplay.getInstance().getPlayerTwo().getColor(), SwingConstants.RIGHT);
         playertwop1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playertwop1.setForeground(Player.PlayerColorCode(Main.playerTwo));
+        playertwop1.setForeground(Player.PlayerColorCode(Gameplay.getInstance().getPlayerTwo()));
         playertwop1.setBounds(865, 80, 90, 20);
         frame.add(playertwop1);
 
@@ -332,7 +330,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh3.setBounds(800, 101, 70, 20);
         frame.add(playertwoh3);
 
-        playertwop2 = new JLabel(Integer.toString(Main.playerTwo.numberOfCountries()), SwingConstants.RIGHT);
+        playertwop2 = new JLabel(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()), SwingConstants.RIGHT);
         playertwop2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop2.setBounds(865, 101, 90, 20);
         frame.add(playertwop2);
@@ -342,7 +340,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh4.setBounds(800, 122, 70, 20);
         frame.add(playertwoh4);
 
-        playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)), SwingConstants.RIGHT);
+        playertwop3 = new JLabel(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())), SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop3.setBounds(865, 122, 90, 20);
         frame.add(playertwop3);
@@ -352,12 +350,12 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh5.setBounds(800, 143, 70, 20);
         frame.add(playertwoh5);
 
-        JLabel playertwop4 = new JLabel(Main.playerTwo.getPlayerMission(), SwingConstants.RIGHT);
+        JLabel playertwop4 = new JLabel(Gameplay.getInstance().getPlayerTwo().getPlayerMission(), SwingConstants.RIGHT);
         playertwop4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop4.setBounds(865, 143, 90, 20);
         frame.add(playertwop4);
 
-        JLabel playertwop5 = new JLabel(breakDescription(Main.playerTwo));
+        JLabel playertwop5 = new JLabel(breakDescription(Gameplay.getInstance().getPlayerTwo()));
         playertwop5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop5.setBounds(800, 163, 165, 40);
         frame.add(playertwop5);
@@ -479,7 +477,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         hitBoxPanels.put("NEAH", new ArrayList<>(Arrays.asList(310, 380, 30, 30)));
         armyCountLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 388, 70, 20)));
 
-        for (Country c : Main.countries) {
+        for (Country c : Gameplay.getInstance().getCountries()) {
             String n = c.getCountryName().toUpperCase();
             createHitBoxAndLabels(c, countryNameLabels.get(n), hitBoxPanels.get(n), armyCountLabels.get(n));
         }
@@ -501,13 +499,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         undo.setEnabled(false);
         undo.addActionListener(e -> reduceArmy());
         frame.add(undo);
-
-        suspendCoice = new JButton("Zurueck");
-        suspendCoice.setBounds(350, 470, 105, 20);
-        suspendCoice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
-        suspendCoice.setEnabled(false);
-        suspendCoice.addActionListener(e -> undoCountryChoice());
-        frame.add(suspendCoice);
 
         rollDice = new JButton("Wuerfeln");
         rollDice.setBounds(500, 470, 105, 20);
@@ -568,7 +559,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         return false
          */
         for (String s : country.getNeighboringCountries()) {
-            Country neighbor = Main.countries.stream()
+            Country neighbor = Gameplay.getInstance().getCountries().stream()
                     .filter(country1 -> country1.getCountryName().equals(s))
                     .findFirst()
                     .orElse(null);
@@ -587,14 +578,14 @@ public class FieldGUI extends JFrame implements ActionListener {
                 spreadNew.setEnabled(false);
                 undo.setEnabled(false);
                 this.setRemaining();
-                gameplay.deployArmies(this.getPlayer());
+                Gameplay.getInstance().deployArmies(this.getPlayer());
                 break;
             case 2:
                 counter = 0;
-                gameplay.attackphase(this.getPlayer());
+                Gameplay.getInstance().attackphase(this.getPlayer());
                 break;
             case 3:
-                gameplay.redistribution(this.getPlayer());
+                Gameplay.getInstance().redistribution(this.getPlayer());
                 spreadNew.setEnabled(true);
                 counterHitbox = 0;
                 counterNext = 0;
@@ -607,7 +598,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void reduceArmy() {
         this.setArmiesOnMap(); //remaining funktioniert hier nicht
-        gameplay.redistributionDel(remaining);
+        Gameplay.getInstance().redistributionDel(remaining);
     }
 
     private void undoCountryChoice() {
@@ -618,7 +609,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         Random random = new Random();
         int diceAttacker = random.nextInt(6) + 1;
         int diceDefender = random.nextInt(6) + 1;
-        if (player == Main.playerOne) {
+        if (player == Gameplay.getInstance().getPlayerOne()) {
             dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
             dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
         } else {
@@ -634,7 +625,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             if (selectedCountry2.getArmiesInCountry() > 1) {
                 textfield.append("Der Besetzer verliert eine Einheit!\n");
                 selectedCountry2.loseArmy();
-                armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));              	
+                armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
             } else {
                 selectedCountry2.changeOwner(selectedCountry1.getColorOfOwnerString());
                 selectedCountry2.setColorOfOwnerCode(selectedCountry1.getColorOfOwnerCode());
@@ -643,56 +634,48 @@ public class FieldGUI extends JFrame implements ActionListener {
                 armiesdefending.setForeground(selectedCountry2.getColorOfOwnerCode());
                 armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
                 armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
-                
-                if (selectedCountry1.getColorOfOwnerString() == Main.playerOne.getColor())
-                {
-                	int j = 0;
-                	for (int i = 0; i < Main.playerTwo.numberOfCountries(); i++)
-                	{	
-                		if (selectedCountry2.getCountryName().equals(Main.playerTwo.getCountryName(i)))
-                		{ 
-                			j = i;
-                		}
-                	}
-                	Main.playerOne.addCountryToList(Main.playerTwo.getCountryName(j), Main.playerTwo.getCountry(j));
-                	Main.playerTwo.deleteCountryToList(j);
-                	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));                	
-                    playertwop2.setText(Integer.toString(Main.playerTwo.numberOfCountries()));
-                    playeronep3.setText(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)));
-                    playertwop3.setText(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)));
 
+                if (selectedCountry1.getColorOfOwnerString().equals(Gameplay.getInstance().getPlayerOne().getColor())) {
+                    int j = 0;
+                    for (int i = 0; i < Gameplay.getInstance().getPlayerTwo().numberOfCountries(); i++) {
+                        if (selectedCountry2.getCountryName().equals(Gameplay.getInstance().getPlayerTwo().getCountryName(i))) {
+                            j = i;
+                        }
+                    }
+                    Gameplay.getInstance().getPlayerOne().addCountryToList(Gameplay.getInstance().getPlayerTwo().getCountryName(j), Gameplay.getInstance().getPlayerTwo().getCountry(j));
+                    Gameplay.getInstance().getPlayerTwo().deleteCountryToList(j);
+                    playeronep2.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()));
+                    playertwop2.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()));
+                    playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
+                    playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+                } else {
+                    int j = 0;
+                    for (int i = 0; i < Gameplay.getInstance().getPlayerOne().numberOfCountries(); i++) {
+                        if (selectedCountry2.getCountryName().equals(Gameplay.getInstance().getPlayerOne().getCountryName(i))) {
+                            j = i;
+                        }
+                    }
+                    Gameplay.getInstance().getPlayerTwo().addCountryToList(Gameplay.getInstance().getPlayerOne().getCountryName(j), Gameplay.getInstance().getPlayerOne().getCountry(j));
+                    Gameplay.getInstance().getPlayerOne().deleteCountryToList(j);
+                    playeronep2.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()));
+                    playertwop2.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()));
                 }
-                else
-                {
-                	int j = 0;
-                	for (int i = 0; i < Main.playerOne.numberOfCountries(); i++)
-                	{	
-                		if (selectedCountry2.getCountryName().equals(Main.playerOne.getCountryName(i)))
-                		{
-                			j = i;
-                		}
-                	}
-                	Main.playerTwo.addCountryToList(Main.playerOne.getCountryName(j), Main.playerOne.getCountry(j));
-                	Main.playerOne.deleteCountryToList(j);
-                	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));
-                    playertwop2.setText(Integer.toString(Main.playerTwo.numberOfCountries()));
-                    playeronep3.setText(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)));
-                    playertwop3.setText(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)));
-                }
-                
-                
+                playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
+                playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+
+
                 textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
                 if (Mission.testMission(player)) {
-                    gameplay.endGameRound();
+                    Gameplay.getInstance().endGameRound();
                 }
             }
         } else {
             textfield.append("Du verlierst eine Einheit.\n");
             selectedCountry1.loseArmy();
-            armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));            
-           	playeronep3.setText(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)));
-           	playertwop3.setText(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)));
-          }
+            armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
+            playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
+            playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+        }
         rollDice.setEnabled(false);
         counterHitbox = 1;      // damit wieder ein neues land gew�hlt werden kann
         textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
@@ -728,13 +711,12 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void spreading() {
         if (this.getPlayer().getPlayerArmies() == this.getPlayer().numberOfCountries()) {
-            gameplay.redistributionAbort(this.getPlayer());
+            Gameplay.getInstance().redistributionAbort(this.getPlayer());
             spreadNew.setEnabled(false);
-        }
-        else{
+        } else {
             counterNext = 3;
             this.setArmiesOnMap();
-            gameplay.redistributionNext(remaining);
+            Gameplay.getInstance().redistributionNext(remaining);
             undo.setEnabled(true);
             spreadNew.setEnabled(false);
         }
@@ -817,10 +799,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         switch (n) {
             case 0:
                 // alle Werte auf null
-                Main.playerOne.emptyAll();
-                Main.playerTwo.emptyAll();
+                Gameplay.getInstance().getPlayerOne().emptyAll();
+                Gameplay.getInstance().getPlayerTwo().emptyAll();
                 // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
-                for (Country i : Main.countries) {
+                for (Country i : Gameplay.getInstance().getCountries()) {
                     i.setArmies();
                 }
                 frame.dispose();
@@ -840,7 +822,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private Country findCountry(String name) {
-        for (Country c : Main.countries) {
+        for (Country c : Gameplay.getInstance().getCountries()) {
             if (c.getCountryName().toUpperCase().equals(name.toUpperCase())) {
                 return c;
             }

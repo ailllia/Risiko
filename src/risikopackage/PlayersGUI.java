@@ -73,12 +73,12 @@ public class PlayersGUI extends JFrame implements ActionListener {
         if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {
             wrongcolor.setVisible(true);
         } else {
-            Main.playerOne.setColor((String) colorone.getSelectedItem());
-            Main.playerTwo.setColor((String) colortwo.getSelectedItem());
+            Gameplay.getInstance().getPlayerOne().setColor((String) colorone.getSelectedItem());
+            Gameplay.getInstance().getPlayerTwo().setColor((String) colortwo.getSelectedItem());
             this.setVisible(false);
-            Gameplay.initialising();
+            Gameplay.getInstance().initialising();
             new FieldGUI();
-            Gameplay.welcome();
+            Gameplay.getInstance().welcome();
         }
     }
 }

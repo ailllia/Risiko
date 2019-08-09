@@ -66,7 +66,7 @@ public class Player {
             availableArmies = 2;
         else
             availableArmies = (occupiedCountriesNames.size() / 3);
-        for (Continent continent : Main.continents) {
+        for (Continent continent : Gameplay.getInstance().getContinents()) {
             if (continentComplete(continent))
                 availableArmies += continent.getBonusArmies();
         }
@@ -114,7 +114,7 @@ public class Player {
     }
 
     public int numberOfArmies(Player playerNow) {
-        setNumberOfArmies(Main.countries, playerNow);
+        setNumberOfArmies(Gameplay.getInstance().getCountries(), playerNow);
         return playerArmies;
     }
     
