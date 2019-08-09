@@ -42,14 +42,12 @@ public class Gameplay extends JFrame {
     }
 
     public void redistribution(Player player) {
-        FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("\n" + player.getColor() + ": Nun kannst du noch deine Einheiten neuverteilen, " +
                 "wenn du das willst." + " Klicke dafuer auf 'Neuverteilen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
     }
 
     public void redistributionAbort(Player player) {
-        FieldGUI.next.setEnabled(true);
         FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug.\n");
     }
 
@@ -62,9 +60,10 @@ public class Gameplay extends JFrame {
     }
 
     public void redistributionNext(Player player) {
-        FieldGUI.textfield.append("Verteile jetzt " + player.getArmiesAvailableToMove() + " Armeen auf deine Laender."
+        FieldGUI.next.setEnabled(false);
+        FieldGUI.textfield.append("Verteile jetzt " + player.getArmiesAvailableToMove() + " Armeen auf deinen Laendern um."
                 + "\nMit Linksklick fuegst du eine Einheit hinzu; mit Rechtsklick ziehst du eine Einheit ab."
-                + "Um deine Wahl rueckgaenig zu machen und neu zu verteilen, klicke auf 'Rueckgaengig'. \nAchtung: " +
+                + "Um deine Wahl rueckgaenig zu machen \nund neu zu verteilen, klicke auf 'Rueckgaengig'. \nAchtung: " +
                 "Dies setzt auch deine bereits neuverteilten Armeen zurueck.\n");
     }
 
