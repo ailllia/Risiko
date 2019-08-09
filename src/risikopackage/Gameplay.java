@@ -33,8 +33,8 @@ public class Gameplay extends JFrame {
     }
 
     public void welcome() { // Erste Textausgaben
-        FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nDie 14 Laender wurden bereits unter " +
-                "den Spielern aufgeteilt. Klickt auf 'Weiter' um fortzufahren.\n");
+        FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt. " +
+                "Die Anzahl der Armeen steht in der Farbe des Spielers auf dem Land.\nKlickt auf 'Weiter' um fortzufahren.\n");
     }
 
     public void deployArmies(Player player) {
@@ -52,14 +52,30 @@ public class Gameplay extends JFrame {
                 "Mit Rechtsklick kannst du deine Laenderwahl aufheben.\n");
     }
 
+    public void attackPossible(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Es ist ein Angriff möglich.\n");
+    }
+
+    public void attackNotPossible(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Es ist kein Angriff möglich. Klicke auf 'Weiter', " +
+                "um zur nächsten Spielphase zu gelangen.\n");
+    }
+
     public void redistribution(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Nun kannst du noch deine Einheiten neuverteilen, " +
-                "wenn du das willst." + " Klicke dafuer auf 'Neuverteilen'." +
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast jetzt die Moeglichkeit, deine Einheiten neu zu " +
+                "verteilen." + "\nZiehe dafür zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab." +
+                " Mit Linksklick fuegst du\ndie abgezogenen Einheiten einem Land hinzu. " +
+                "\nWenn du dir unsicher bist, ob  du Einheiten verteilen kannst, klicke 'Prüfen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
     }
 
     public void redistributionAbort(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug.\n");
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug, " +
+                "indem du auf 'Weiter' klickst.\n");
+    }
+
+    public void redistributionCont(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst " + player.getArmiesAvailableToMove() + " Einheiten neu verteilen.\n");
     }
 
     public void missionstate1(Player player) {
@@ -69,19 +85,11 @@ public class Gameplay extends JFrame {
             FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission noch nicht erfuellt.\n");
         }
     }
-
-    public void redistributionNext(int armies) {
-        FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("Verteile jetzt " + armies + " Armeen auf deinen Laendern um."
-                + "\nMit Linksklick fuegst du eine Einheit hinzu; mit Rechtsklick ziehst du eine Einheit ab."
-                + "Um deine Wahl rueckgaenig zu machen \nund neu zu verteilen, klicke auf 'Rueckgaengig'. \nAchtung: " +
-                "Dies setzt auch deine bereits neuverteilten Armeen zurueck.\n");
-    }
-
+/*
     public void redistributionDel(int armies) {
         FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + armies + " Armeen auf deine Laender.\n");
     }
-
+*/
     public void endGameRound() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
                 "erfuellt und damit dieses Spiel gewonnen!\nUeber 'Spiel abbrechen' im Menue oben links kann eine" +
@@ -159,7 +167,7 @@ public class Gameplay extends JFrame {
         k = chance.nextInt(j);
         playerTwo.setPlayerMission(missionsCopy.get(k).getMissionTitle());
     }
-
+/*
     public static void addArmiesInCountry(Country country, Player player) {
         if (player.armiesAvailableToMove()) {
             country.addArmy();
@@ -167,7 +175,8 @@ public class Gameplay extends JFrame {
             //Ausgabe, dass keine Armeen bewegt werden koennen
         }
     }
-
+*/
+/*
     public static void loseArmyInCountry(Country country, Player player) {
         if (player.armiesAvailableToWithdraw(country)) {
             country.loseArmy();
@@ -175,7 +184,7 @@ public class Gameplay extends JFrame {
             //Ausgabe, dass aus diesem Land keine Armee abgezogen werden kann
         }
     }
-
+*/
     public void setPlayerOne(Player playerOne) {
         this.playerOne = playerOne;
     }
