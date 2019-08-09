@@ -46,7 +46,11 @@ public class Gameplay extends JFrame {
                 "wenn du das willst." + " Klicke dafuer auf 'Neuverteilen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
     }
-    
+
+    public void redistributionAbort(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug.\n");
+    }
+
     public void missionstate1(Player player) {
         if (Mission.testMission(player))
         {
