@@ -102,8 +102,27 @@ public class Gameplay extends JFrame {
 
         for (int i = 0; i < 7; i++) {
             playerTwo.addCountryToList(countriesCopy.get(i).getCountryName(), countriesCopy.get(i));
+        }        	
+    }
+    
+    /* Testfall: Spieler 1 hat zu Beginn bereits Kontinent Otea
+    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
+        List<Country> countriesCopy = new ArrayList<>(countries);
+        int j = 13;
+
+        for (int i = 1; i < 8; i++) {
+            int k = i;
+            playerOne.addCountryToList(countries.get(k).getCountryName(), countries.get(k));
+            countriesCopy.remove(k);
+            j -= 1;
+        }
+
+        for (int i = 0; i < 14; i++) {
+            playerTwo.addCountryToList(countries.get(i).getCountryName(), countries.get(i));
+            if(i == 0) i = 7;
         }
     }
+    */
 
     // faerbt beim Spielaufbau die Laender ein und setzt in jedes eine Armee
     private static void paintCountries(Player playerOne, Player playerTwo, List<Country> countries) {
