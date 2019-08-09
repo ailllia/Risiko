@@ -78,7 +78,6 @@ public class PlayersGUI extends JFrame implements ActionListener {
             Main.playerOne.setColor((String) colorone.getSelectedItem());
             Main.playerTwo.setColor((String) colortwo.getSelectedItem());
             this.setVisible(false);
-            //sollten in die main:
             Gameplay.initialising();
             new FieldGUI();
             Gameplay.welcome();

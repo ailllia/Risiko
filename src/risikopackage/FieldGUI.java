@@ -15,8 +15,10 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private JFrame frame;
     private JMenuBar bar;
-    private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2, playeronep3, playeronep4, playeronep5, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
-    private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2, playertwop3, playertwop4, playertwop5, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
+    private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2,
+            playeronep3, playeronep4, playeronep5, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
+    private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2,
+            playertwop3, playertwop4, playertwop5, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
     private JLabel otea, prya, solva;
     private JLabel armiesattacking, armiesdefending;
     private JPanel hitboxPanel;
@@ -34,6 +36,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     private Country selectedCountry2;
     private Player player;
     private int counterPlayer = 0;
+    private String dice_source1, dice_source2;
+    private JLabel dicePlayerOne, dicePlayerTwo;
 
     private Player getPlayer() {
         if ((counterPlayer % 2) == 0)
@@ -106,6 +110,22 @@ public class FieldGUI extends JFrame implements ActionListener {
                             }
                         }
                     }
+                    if (counterNext == 1 && country.getArmiesInCountry() > 1
+                            && mouseEvent.getButton() == MouseEvent.BUTTON3) {
+                        if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
+                                && remaining > 1) {                                       //es sind noch einheiten ueber
+                            country.loseArmy();
+                            counter--;
+                            remaining -= counter;
+                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                            if (counterHitbox != 0) {
+                                counterHitbox--;
+                                next.setEnabled(false);
+                            }
+                        }
+                        textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+                    }
+
                     if (counterNext == 2 && counterHitbox == 1) {       //angriffsrunde, auswahl des eigenen landes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (country.getColorOfOwnerString().equals(getPlayer().getColor())
@@ -121,7 +141,12 @@ public class FieldGUI extends JFrame implements ActionListener {
                             }
                         }
                     }
-
+                    if (counterNext == 2 && mouseEvent.getButton() == MouseEvent.BUTTON3
+                            && country.equals(selectedCountry1)) {
+                        counterHitbox--;
+                        selectedCountry1 = null;
+                        textfield.append("Auswahl aufgehoben.\n");
+                    }
                     if (counterNext == 2 && counterHitbox == 2) {   //angriffsphase, auswahl des gegnerlandes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (!country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert gegner
@@ -130,11 +155,21 @@ public class FieldGUI extends JFrame implements ActionListener {
                                 armiesdefending = armyLabel;
                                 rollDice.setEnabled(true);
                                 counterHitbox++;
-                                textfield.append("Klicke 'Wuerfeln'\n");
+                                textfield.append("Du hast " + selectedCountry2.getCountryName() + " ausgewaehlt." +
+                                        " Klicke 'Wuerfeln' um eine Befreiungsaktion zu starten.\n");
                             } else {
                                 textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
                             }
                         }
+                    }
+                    if (counterNext == 2 && mouseEvent.getButton() == MouseEvent.BUTTON3
+                            && country.equals(selectedCountry2)) {
+                        if (counterHitbox == 4) {
+                            rollDice.setEnabled(false);
+                        }
+                        counterHitbox--;
+                        selectedCountry2 = null;
+                        textfield.append("Auswahl aufgehoben.\n");
                     }
                     if (counterNext == 3 && counterHitbox == 3) {
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //linksklick
@@ -149,21 +184,21 @@ public class FieldGUI extends JFrame implements ActionListener {
                                     next.setEnabled(true);
                                 }
                             } else {
-                                textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\\n");
+                                textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
                             }
                         }
-                        if (mouseEvent.getButton() == MouseEvent.BUTTON3) {         //rechtsklick
-                            if (country.getColorOfOwnerString().equals(getPlayer().getColor())
-                                    && country.getArmiesInCountry() > 1) {
-                                country.loseArmy();
-                                remaining++;
-                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                                textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
-                            } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
-                                textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
-                            } else {
-                                textfield.append("Einheiten koennen nur in den Laendern abgezogen werden, die deiner Farbe entsprechen.\n");
-                            }
+                    }
+                    if (counterNext == 3 && mouseEvent.getButton() == MouseEvent.BUTTON3) {
+                        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                                && country.getArmiesInCountry() > 1) {
+                            country.loseArmy();
+                            remaining++;
+                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                            textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
+                        } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
+                            textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
+                        } else {
+                            textfield.append("Einheiten koennen nur in den Laendern abgezogen werden, die deiner Farbe entsprechen.\n");
                         }
                     }
                 }
@@ -223,6 +258,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         bar = new JMenuBar();
+
         JMenu rules = new JMenu("Spielregeln");
         JMenuItem winning = new JMenuItem("Ende des Spiels");
         rules.add(winning);
@@ -230,7 +266,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         rules.add(attack);
         bar.add(rules);
 
-        JMenu quitGame =  new JMenu("Spiel abbrechen");         
+        JMenu quitGame = new JMenu("Spiel abbrechen");
         JMenuItem endGame = new JMenuItem("Programm beenden");
         endGame.addActionListener(e -> endProgram());
         quitGame.add(endGame);
@@ -238,7 +274,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         newGame.addActionListener(e -> openSelection());
         quitGame.add(newGame);
         bar.add(quitGame);
-        
+
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
@@ -531,6 +567,16 @@ public class FieldGUI extends JFrame implements ActionListener {
         spreadNew.addActionListener(e -> spreading());
         frame.add(spreadNew);
 
+        dicePlayerOne = new JLabel(new ImageIcon(dice_source1));
+        dicePlayerOne.setBounds(60, 340, 80, 80);
+        dicePlayerOne.setVisible(false);
+        frame.add(dicePlayerOne);
+
+        dicePlayerTwo = new JLabel(new ImageIcon(dice_source2));
+        dicePlayerTwo.setBounds(840, 340, 80, 80);
+        dicePlayerTwo.setVisible(false);
+        frame.add(dicePlayerTwo);
+
         frame.add(createMainPanel());
         frame.setSize(1000, 750);
         frame.setLocationRelativeTo(null);
@@ -571,7 +617,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     .filter(country1 -> country1.getCountryName().equals(s))
                     .findFirst()
                     .orElse(null);
-            if (!country.getColorOfOwnerString().equals(neighbor.getColorOfOwnerString())) {
+            if (neighbor != null && !country.getColorOfOwnerString().equals(neighbor.getColorOfOwnerString())) {
                 return true;
             }
         }
@@ -595,6 +641,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 counterHitbox = 0;
                 counterPlayer++;
                 rollDice.setEnabled(false);
+                dicePlayerOne.setVisible(false);
+                dicePlayerTwo.setVisible(false);
                 break;
         }
     }
@@ -609,11 +657,107 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void attack() {
         Random random = new Random();
-        int dice1 = random.nextInt(6) + 1;
-        int dice2 = random.nextInt(6) + 1;
-
-        textfield.append("Du wuerfelst eine " + dice1 + "!\nDer Besetzer wuerfelt eine " + dice2 + "!\n");
-        if (dice1 > dice2) {
+        int diceAttacker = random.nextInt(6) + 1;
+        int diceDefender = random.nextInt(6) + 1;
+        ImageIcon dicePlayerOne_img;
+        ImageIcon dicePlayerTwo_img;
+        if (player == Main.playerOne) {
+            switch (diceAttacker) {
+            case 1:
+                dicePlayerOne_img = new ImageIcon("material/diceone.png");
+                break;
+            case 2:
+                dicePlayerOne_img = new ImageIcon("material/dicetwo.png");
+                break;
+            case 3:
+                dicePlayerOne_img = new ImageIcon("material/dicethree.png");
+                break;
+            case 4:
+                dicePlayerOne_img = new ImageIcon("material/dicefour.png");
+                break;
+            case 5:
+                dicePlayerOne_img = new ImageIcon("material/dicefive.png");
+                break;
+            case 6:
+                dicePlayerOne_img = new ImageIcon("material/dicesix.png");
+                break;
+            default:
+                dicePlayerOne_img = new ImageIcon();
+        }
+            switch (diceDefender) {
+                case 1:
+                    dicePlayerTwo_img = new ImageIcon("material/diceone.png");
+                    break;
+                case 2:
+                    dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
+                    break;
+                case 3:
+                    dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
+                    break;
+                case 4:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
+                    break;
+                case 5:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
+                    break;
+                case 6:
+                    dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
+                    break;
+                default:
+                    dicePlayerTwo_img = new ImageIcon();
+            }
+        } else {
+            switch (diceDefender) {
+                case 1:
+                    dicePlayerOne_img = new ImageIcon("material/diceone.png");
+                    break;
+                case 2:
+                    dicePlayerOne_img = new ImageIcon("material/dicetwo.png");
+                    break;
+                case 3:
+                    dicePlayerOne_img = new ImageIcon("material/dicethree.png");
+                    break;
+                case 4:
+                    dicePlayerOne_img = new ImageIcon("material/dicefour.png");
+                    break;
+                case 5:
+                    dicePlayerOne_img = new ImageIcon("material/dicefive.png");
+                    break;
+                case 6:
+                    dicePlayerOne_img = new ImageIcon("material/dicesix.png");
+                    break;
+                default:
+                    dicePlayerOne_img = new ImageIcon();
+            }
+            switch (diceAttacker) {
+                case 1:
+                    dicePlayerTwo_img = new ImageIcon("material/diceone.png");
+                    break;
+                case 2:
+                    dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
+                    break;
+                case 3:
+                    dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
+                    break;
+                case 4:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
+                    break;
+                case 5:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
+                    break;
+                case 6:
+                    dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
+                    break;
+                default:
+                    dicePlayerTwo_img = new ImageIcon();
+            }
+        }
+        dicePlayerOne.setIcon(dicePlayerOne_img);
+        dicePlayerTwo.setIcon(dicePlayerTwo_img);
+        dicePlayerOne.setVisible(true);
+        dicePlayerTwo.setVisible(true);
+        textfield.append("Du wuerfelst eine " + diceAttacker + "!\nDer Besetzer wuerfelt eine " + diceDefender + "!\n");
+        if (diceAttacker > diceDefender) {
             if (selectedCountry2.getArmiesInCountry() > 1) {
                 textfield.append("Der Besetzer verliert eine Einheit!\n");
                 selectedCountry2.loseArmy();
@@ -698,23 +842,23 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openSelection() {
-    	int input = JOptionPane.showConfirmDialog(null, "Willst du wirklich ein neues Spiel anfangen?");
-		switch (input) {
-		case 0 : 
-			// alle Werte auf null
-			Main.playerOne.emptyAll();
-	        Main.playerTwo.emptyAll();
-	        // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
-	        for (Country i : Main.countries) {
-	            i.setArmies();
-	        }
-	        frame.dispose();
-	        new PlayersGUI();
-		case 1 : 
-			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		case 2 :
-			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		}
+        int input = JOptionPane.showConfirmDialog(null, "Willst du wirklich ein neues Spiel anfangen?");
+        switch (input) {
+            case 0:
+                // alle Werte auf null
+                Main.playerOne.emptyAll();
+                Main.playerTwo.emptyAll();
+                // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
+                for (Country i : Main.countries) {
+                    i.setArmies();
+                }
+                frame.dispose();
+                new PlayersGUI();
+            case 1:
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            case 2:
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        }
     }
 
     private void endProgram() {

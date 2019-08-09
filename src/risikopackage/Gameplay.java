@@ -30,14 +30,15 @@ public class Gameplay extends JFrame {
         FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("\n" + player.getColor() + ": Verteile jetzt " + player.getNewArmies() +
                 " neue Armeen auf deine Laender.\nLinksklicke dazu auf das Land, deren Einheitenzahl du " +
-                "erhoehen willst. Achtung: Du kannst deine Wahl nicht rueckgaengig machen!\n");
+                "erhoehen willst.\nMit Rechtsklick kannst du eine verteilte Armee wieder abziehen und neu setzen.\n");
     }
 
     public void attackphase(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst nun von deinem Gegner besetzte Laender " +
                 "befreien.\nWaehle dazu ein Land in deinem Besitz, das mindestens 2 Armeen besitzt, mit Linksklick " +
                 "aus und anschliessend ein Land deines Gegners\nauf die gleiche Weise. Klicke auf 'Wuerfeln' um " +
-                "deinen Zug zu machen. Wenn du kein weiteres Land befreien moechtest, klicke auf 'Weiter'.\n");
+                "deinen Zug zu machen. Wenn du kein weiteres Land befreien moechtest, klicke auf 'Weiter'.\n" +
+                "Mit Rechtsklick kannst du deine Laenderwahl aufheben.\n");
     }
 
     public void redistribution(Player player) {
@@ -52,12 +53,9 @@ public class Gameplay extends JFrame {
     }
 
     public void missionstate1(Player player) {
-        if (Mission.testMission(player))
-        {
+        if (Mission.testMission(player)) {
             FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission erfuellt. Herzlichen Glückwunsch zum Sieg.\n Das Spiel ist damit beendet\n.");
-        }
-        else
-        {
+        } else {
             FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission noch nicht erfuellt.\n");
         }
     }
