@@ -701,8 +701,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void setArmiesOnMap() {
-        this.setRemaining();
         this.getPlayer().readyArmiesToMove();
+        this.setRemaining();
         //Anzeige Armeen in Laendern aktualisieren
     }
 
