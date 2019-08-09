@@ -182,6 +182,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                                 } else {
                                     textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
                                     next.setEnabled(true);
+                                    counterPlayer++;
                                 }
                             } else {
                                 textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
@@ -639,7 +640,6 @@ public class FieldGUI extends JFrame implements ActionListener {
                 spreadNew.setEnabled(true);
                 counterNext = 0;
                 counterHitbox = 0;
-                counterPlayer++;
                 rollDice.setEnabled(false);
                 dicePlayerOne.setVisible(false);
                 dicePlayerTwo.setVisible(false);
@@ -787,6 +787,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             gameplay.redistributionAbort(this.getPlayer());
             undo.setEnabled(false);
             spreadNew.setEnabled(false);
+            counterPlayer++;
         }
         else{
             this.setArmiesOnMap();
