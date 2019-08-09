@@ -85,8 +85,9 @@ public class FieldGUI extends JFrame implements ActionListener {
                                     && remaining >= 0) { //es sind noch einheiten ueber
                                 country.addArmy();
                                 counter++;
-                                remaining -= counter;
+                                remaining -= 1;
                                 armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                                setArmyText(getPlayer());
                                 if (remaining > 0) {
                                     textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
                                 } else {
@@ -107,6 +108,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                             counter--;
                             remaining -= counter;
                             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                            setArmyText(getPlayer());
                             if (counterHitbox != 0) {
                                 counterHitbox--;
                                 next.setEnabled(false);
@@ -167,6 +169,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                                 country.addArmy();
                                 remaining--;
                                 armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                                setArmyText(getPlayer());
                                 if (remaining > 0) {
                                     textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
                                 } else {
@@ -184,6 +187,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                                 && country.getArmiesInCountry() > 1) {
                             country.loseArmy();
                             remaining++;
+                            setArmyText(getPlayer());
                             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
                             textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
                         } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
@@ -258,14 +262,14 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeronep2.setBounds(95, 101, 90, 20);
         frame.add(playeronep2);
 
-        JLabel playeroneh4 = new JLabel("Armeen:", SwingConstants.LEFT);
+        JLabel playeroneh4 = new JLabel("Armeen im Feld:", SwingConstants.LEFT);
         playeroneh4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playeroneh4.setBounds(25, 122, 70, 20);
+        playeroneh4.setBounds(25, 122, 90, 20);
         frame.add(playeroneh4);
 
         playeronep3 = new JLabel(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())), SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playeronep3.setBounds(95, 122, 90, 20);
+        playeronep3.setBounds(115, 122, 70, 20);
         frame.add(playeronep3);
 
         JLabel playeroneh5 = new JLabel("Mission:", SwingConstants.LEFT);
@@ -335,14 +339,14 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwop2.setBounds(865, 101, 90, 20);
         frame.add(playertwop2);
 
-        JLabel playertwoh4 = new JLabel("Armeen:", SwingConstants.LEFT);
+        JLabel playertwoh4 = new JLabel("Armeen im Feld:", SwingConstants.LEFT);
         playertwoh4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playertwoh4.setBounds(800, 122, 70, 20);
+        playertwoh4.setBounds(800, 122, 90, 20);
         frame.add(playertwoh4);
 
         playertwop3 = new JLabel(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())), SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
-        playertwop3.setBounds(865, 122, 90, 20);
+        playertwop3.setBounds(885, 122, 70, 20);
         frame.add(playertwop3);
 
         JLabel playertwoh5 = new JLabel("Mission:", SwingConstants.LEFT);
@@ -677,6 +681,8 @@ public class FieldGUI extends JFrame implements ActionListener {
             playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
         }
         rollDice.setEnabled(false);
+        setArmyText( Gameplay.getInstance().getPlayerOne());
+        setArmyText( Gameplay.getInstance().getPlayerTwo());
         counterHitbox = 1;      // damit wieder ein neues land gew�hlt werden kann
         textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
@@ -833,5 +839,17 @@ public class FieldGUI extends JFrame implements ActionListener {
     // sorgt dafuer, dass die Missionsbeschreibung mehrzeilig angezeigt wird
     private static String breakDescription(Player playerNow) {
         return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
+    }
+    
+    // sorgt fuer eine Aktualisierung der Armeeanzeige
+    public void setArmyText(Player player){
+        if(player.getColor() == Gameplay.getInstance().getPlayerOne().getColor()){
+            playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
+        }
+        else
+        {
+            playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+        }
+
     }
 }
