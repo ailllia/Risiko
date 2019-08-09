@@ -24,7 +24,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JScrollPane scrollbar;
     public static JButton next;
     private JButton undo, rollDice, suspendCoice, spreadNew;
-    private MouseListener hitBoxListener;
+    private MouseListener hitBoxListener, buttonListener;
     private int counterNext = 0;
     private int counterHitbox = 0;
     private Gameplay gameplay = new Gameplay();
@@ -177,6 +177,46 @@ public class FieldGUI extends JFrame implements ActionListener {
             public void mouseExited(MouseEvent mouseEvent) {
             }
         };
+
+        buttonListener = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+                if (mouseEvent.getSource().getClass() != JButton.class)
+                    return;
+
+                JLabel armyLabel = null;
+
+                for (Component c : hitboxPanel.getComponents()) {
+                    if (c.getName().equals("armyLabel")) {
+
+                        armyLabel = (JLabel) c;
+                        //armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                    }
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+
+            }
+        };
+
+
 
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
@@ -551,7 +591,6 @@ public class FieldGUI extends JFrame implements ActionListener {
             case 3:
                 gameplay.redistribution(this.getPlayer());
                 spreadNew.setEnabled(true);
-                undo.setEnabled(true);
                 counterNext = 0;
                 counterHitbox = 0;
                 counterPlayer++;
@@ -600,8 +639,17 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void spreading() {
-        this.setArmiesOnMap();
-        gameplay.redistributionNext(this.getPlayer());
+        if (this.getPlayer().getPlayerArmies() == this.getPlayer().numberOfCountries()) {
+            gameplay.redistributionAbort(this.getPlayer());
+            undo.setEnabled(false);
+            spreadNew.setEnabled(false);
+        }
+        else{
+            this.setArmiesOnMap();
+            gameplay.redistributionNext(this.getPlayer());
+            undo.setEnabled(true);
+            spreadNew.setEnabled(false);
+        }
     }
 
     private void setArmiesOnMap() {
