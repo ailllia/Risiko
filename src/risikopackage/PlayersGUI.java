@@ -26,7 +26,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(title);
         title.setBounds(0, 20, 500, 20);
 
-        JLabel order = new JLabel("Wählt eure Farbe", SwingConstants.CENTER);
+        JLabel order = new JLabel("Waehlt eure Farbe", SwingConstants.CENTER);
         order.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(order);
         order.setBounds(0, 60, 500, 20);
@@ -41,7 +41,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(choosetwo);
         choosetwo.setBounds(250, 100, 250, 20);
 
-        wrongcolor = new JLabel("Die Spieler müssen unterschiedliche Farben wählen!", SwingConstants.CENTER);
+        wrongcolor = new JLabel("Die Spieler muessen unterschiedliche Farben waehlen!", SwingConstants.CENTER);
         wrongcolor.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         wrongcolor.setVisible(false);
         this.add(wrongcolor);
