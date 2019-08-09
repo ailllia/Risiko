@@ -59,16 +59,16 @@ public class Gameplay extends JFrame {
         }
     }
 
-    public void redistributionNext(Player player) {
+    public void redistributionNext(int armies) {
         FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("Verteile jetzt " + player.getArmiesAvailableToMove() + " Armeen auf deinen Laendern um."
+        FieldGUI.textfield.append("Verteile jetzt " + armies + " Armeen auf deinen Laendern um."
                 + "\nMit Linksklick fuegst du eine Einheit hinzu; mit Rechtsklick ziehst du eine Einheit ab."
                 + "Um deine Wahl rueckgaenig zu machen \nund neu zu verteilen, klicke auf 'Rueckgaengig'. \nAchtung: " +
                 "Dies setzt auch deine bereits neuverteilten Armeen zurueck.\n");
     }
 
-    public void redistributionDel(Player player) {
-        FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + player.getArmiesAvailableToMove() + " Armeen auf deine Laender.\n");
+    public void redistributionDel(int armies) {
+        FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + armies + " Armeen auf deine Laender.\n");
     }
 
     // verteilt Laender an die beiden Spieler
