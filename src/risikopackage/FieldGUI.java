@@ -40,7 +40,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel dicePlayerOne, dicePlayerTwo;
 
     private Player getPlayer() {
-        if ((counterPlayer % 2) == 0)
+        if ((counterPlayer % 2) != 0)
             player = Main.playerOne;
         else
             player = Main.playerTwo;
@@ -89,7 +89,6 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
 
                 if (country != null) {  // wenn geklicktes land gefunden
-                    setRemaining();     //wie viele Armeen duerfen verteilt werden
                     if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
@@ -171,18 +170,19 @@ public class FieldGUI extends JFrame implements ActionListener {
                         selectedCountry2 = null;
                         textfield.append("Auswahl aufgehoben.\n");
                     }
-                    if (counterNext == 3 && counterHitbox == 3) {
+                    if (counterNext == 3 && counterHitbox == 0) {
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //linksklick
                             if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                                     && remaining >= 0) {
                                 country.addArmy();
+                                remaining--;
                                 armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
                                 if (remaining > 0) {
                                     textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
                                 } else {
                                     textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
                                     next.setEnabled(true);
-                                    counterPlayer++;
+                                    counterNext = 0;
                                 }
                             } else {
                                 textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
@@ -197,7 +197,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
                             textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
                         } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
-                            textfield.append("Dein Land muss mindestens eine Armee beinhalten.\n");
+                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+                            textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
                         } else {
                             textfield.append("Einheiten koennen nur in den Laendern abgezogen werden, die deiner Farbe entsprechen.\n");
                         }
@@ -631,6 +632,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         counterNext++;
         switch (counterNext) {
             case 1:
+                counterPlayer++;
+                spreadNew.setEnabled(false);
                 this.setRemaining();
                 gameplay.deployArmies(this.getPlayer());
                 break;
@@ -641,8 +644,8 @@ public class FieldGUI extends JFrame implements ActionListener {
             case 3:
                 gameplay.redistribution(this.getPlayer());
                 spreadNew.setEnabled(true);
-                counterNext = 0;
                 counterHitbox = 0;
+                counterNext = 0;
                 rollDice.setEnabled(false);
                 dicePlayerOne.setVisible(false);
                 dicePlayerTwo.setVisible(false);
@@ -651,8 +654,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void reduceArmy() {
-        this.setArmiesOnMap();
-        gameplay.redistributionDel(this.getPlayer());
+        this.setArmiesOnMap(); //remaining funktioniert hier nicht
+        gameplay.redistributionDel(remaining);
     }
 
     private void undoCountryChoice() {
@@ -790,11 +793,11 @@ public class FieldGUI extends JFrame implements ActionListener {
             gameplay.redistributionAbort(this.getPlayer());
             undo.setEnabled(false);
             spreadNew.setEnabled(false);
-            counterPlayer++;
         }
         else{
+            counterNext = 3;
             this.setArmiesOnMap();
-            gameplay.redistributionNext(this.getPlayer());
+            gameplay.redistributionNext(remaining);
             undo.setEnabled(true);
             spreadNew.setEnabled(false);
         }
