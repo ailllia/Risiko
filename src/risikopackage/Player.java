@@ -2,6 +2,7 @@ package risikopackage;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Player {
@@ -57,6 +58,30 @@ public class Player {
         return (continent.completeContinent(occupiedCountriesNames));
     }
 
+    public boolean attackPossible() {
+        boolean countryQualifies = false;
+        List<Country> possibleCountries = new LinkedList<>();
+        for (Country country : occupiedCountries) {
+            if (country.getArmiesInCountry() > 1) {
+                countryQualifies = true;
+                possibleCountries.add(country);
+            }
+        }
+        if (countryQualifies) {
+            for (Country country : possibleCountries) {
+                for (String s : country.getNeighboringCountries()) {
+                    if (occupiedCountriesNames.contains(s)) {
+                        countryQualifies = false;
+                    } else {
+                        countryQualifies = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return countryQualifies;
+ }
+
     public int getPlayerArmies() {
         return playerArmies;
     }
@@ -73,7 +98,7 @@ public class Player {
         playerArmies += availableArmies;
         return availableArmies;
     }
-
+/*
     public boolean armiesAvailableToMove() {
         if (availableArmies > 0) {
             availableArmies--;
@@ -81,7 +106,8 @@ public class Player {
         } else
             return false;
     }
-
+ */
+/*
     public boolean armiesAvailableToWithdraw(Country country) {
         if (country.getArmiesInCountry() > 1) {
             availableArmies++;
@@ -89,15 +115,21 @@ public class Player {
         } else
             return false;
     }
-
+ */
+/*
     public void readyArmiesToMove() {
         for (Country country : occupiedCountries) {
             country.setArmies();
         }
         availableArmies = (playerArmies - this.numberOfCountries());
     }
+*/
+    private void setAvailableArmies() {
+        availableArmies = (playerArmies - this.numberOfCountries());
+    }
 
     public int getArmiesAvailableToMove() {
+        this.setAvailableArmies();
         return availableArmies;
     }
 
