@@ -262,8 +262,10 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         JMenu rules = new JMenu("Spielregeln");
         JMenuItem winning = new JMenuItem("Ende des Spiels");
+        winning.addActionListener(e -> openEndingRules());
         rules.add(winning);
         JMenuItem attack = new JMenuItem("Land befreien");
+        attack.addActionListener(e -> openPlayingRules());
         rules.add(attack);
         bar.add(rules);
 
@@ -842,26 +844,51 @@ public class FieldGUI extends JFrame implements ActionListener {
         this.frame.add(hitboxPanel);
     }
 
-    private void openSelection() {
-        int input = JOptionPane.showConfirmDialog(null, "Willst du wirklich ein neues Spiel anfangen?");
-        switch (input) {
-            case 0:
-                // alle Werte auf null
-                Main.playerOne.emptyAll();
-                Main.playerTwo.emptyAll();
-                // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
-                for (Country i : Main.countries) {
-                    i.setArmies();
-                }
-                frame.dispose();
-                new PlayersGUI();
-            case 1:
-                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            case 2:
-                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        }
+    
+    // erklaert Spielende
+    private void openEndingRules() {
+    	JOptionPane.showMessageDialog(frame, 
+    								  "<html>Das Spiel Risiko endet, wenn ein Spieler seine Mission erfuellt hat.<html>", 
+    								  "Ende des Spiels",
+    								  JOptionPane.PLAIN_MESSAGE);  	
     }
 
+    //erklaert die Spielregeln
+    private void openPlayingRules() {
+    	JOptionPane.showMessageDialog(frame, 
+    								 "<html>Laender werden befreit, indem...<html>", 
+    								 "Land befreien",
+    								 JOptionPane.PLAIN_MESSAGE);    	
+    }
+    
+    // oeffnet Abfrage bzgl. neuem Spiel
+    private void openSelection() {
+    	Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
+    	int n = JOptionPane.showOptionDialog(frame,
+    										"Willst du wirklich ein neues Spiel anfangen?",
+    										"Spiel neu starten",
+    										JOptionPane.YES_NO_OPTION,
+    										JOptionPane.QUESTION_MESSAGE,
+    										null,    
+    										options,  
+    										options[0]); 
+    	switch (n) {
+    		case 0:
+    			// alle Werte auf null
+    			Main.playerOne.emptyAll();
+    			Main.playerTwo.emptyAll();
+    			// die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
+    			for (Country i : Main.countries) {
+    				i.setArmies();
+    			}
+    			frame.dispose();
+    			new PlayersGUI();
+    		case 1:
+    			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    	}
+    }
+
+    // beendet das Programm
     private void endProgram() {
         System.exit(0);
     }
