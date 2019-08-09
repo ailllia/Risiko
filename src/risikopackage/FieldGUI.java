@@ -14,16 +14,8 @@ import java.util.*;
 public class FieldGUI extends JFrame implements ActionListener {
 
     private JFrame frame;
-    private JMenuBar bar;
-    private JLabel playeroneh1, playeroneh2, playeroneh3, playeroneh4, playeroneh5, playeronep1, playeronep2,
-            playeronep3, playeronep4, playeronep5, playeronehr1, playeronehr2, playeronehr3, playeronehr4;
-    private JLabel playertwoh1, playertwoh2, playertwoh3, playertwoh4, playertwoh5, playertwop1, playertwop2,
-            playertwop3, playertwop4, playertwop5, playertwohr1, playertwohr2, playertwohr3, playertwohr4;
-    private JLabel otea, prya, solva;
     private JLabel armiesattacking, armiesdefending;
-    private JPanel hitboxPanel;
     public static JTextArea textfield;
-    private JScrollPane scrollbar;
     public static JButton next;
     private JButton undo, rollDice, suspendCoice, spreadNew;
     private MouseListener hitBoxListener, buttonListener;
@@ -214,51 +206,11 @@ public class FieldGUI extends JFrame implements ActionListener {
             }
         };
 
-        buttonListener = new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-                if (mouseEvent.getSource().getClass() != JButton.class)
-                    return;
-
-                JLabel armyLabel = null;
-
-                for (Component c : hitboxPanel.getComponents()) {
-                    if (c.getName().equals("armyLabel")) {
-
-                        armyLabel = (JLabel) c;
-                        //armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                    }
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
-            }
-        };
-
-
-
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        bar = new JMenuBar();
+        JMenuBar bar = new JMenuBar();
 
         JMenu rules = new JMenu("Spielregeln");
         JMenuItem winning = new JMenuItem("Ende des Spiels");
@@ -281,76 +233,76 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
-        playeroneh1 = new JLabel("Spieler Eins", SwingConstants.LEFT);
+        JLabel playeroneh1 = new JLabel("Spieler Eins", SwingConstants.LEFT);
         playeroneh1.setFont(new Font("Sans-Serif", Font.BOLD, 13));
         playeroneh1.setBounds(20, 58, 170, 20);
         frame.add(playeroneh1);
 
-        playeroneh2 = new JLabel("Farbe:", SwingConstants.LEFT);
+        JLabel playeroneh2 = new JLabel("Farbe:", SwingConstants.LEFT);
         playeroneh2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeroneh2.setBounds(25, 80, 70, 20);
         frame.add(playeroneh2);
 
-        playeronep1 = new JLabel(Main.playerOne.getColor(), SwingConstants.RIGHT);
+        JLabel playeronep1 = new JLabel(Main.playerOne.getColor(), SwingConstants.RIGHT);
         playeronep1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep1.setForeground(Player.PlayerColorCode(Main.playerOne));
         playeronep1.setBounds(95, 80, 90, 20);
         frame.add(playeronep1);
 
-        playeroneh3 = new JLabel("Laender:", SwingConstants.LEFT);
+        JLabel playeroneh3 = new JLabel("Laender:", SwingConstants.LEFT);
         playeroneh3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeroneh3.setBounds(25, 101, 70, 20);
         frame.add(playeroneh3);
 
-        playeronep2 = new JLabel(Integer.toString(Main.playerOne.numberOfCountries()), SwingConstants.RIGHT);
+        JLabel playeronep2 = new JLabel(Integer.toString(Main.playerOne.numberOfCountries()), SwingConstants.RIGHT);
         playeronep2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep2.setBounds(95, 101, 90, 20);
         frame.add(playeronep2);
 
-        playeroneh4 = new JLabel("Armeen:", SwingConstants.LEFT);
+        JLabel playeroneh4 = new JLabel("Armeen:", SwingConstants.LEFT);
         playeroneh4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeroneh4.setBounds(25, 122, 70, 20);
         frame.add(playeroneh4);
 
-        playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies()), SwingConstants.RIGHT);
+        JLabel playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies()), SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep3.setBounds(95, 122, 90, 20);
         frame.add(playeronep3);
 
-        playeroneh5 = new JLabel("Mission:", SwingConstants.LEFT);
+        JLabel playeroneh5 = new JLabel("Mission:", SwingConstants.LEFT);
         playeroneh5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeroneh5.setBounds(25, 143, 70, 20);
         frame.add(playeroneh5);
 
-        playeronep4 = new JLabel(Main.playerOne.getPlayerMission(), SwingConstants.RIGHT);
+        JLabel playeronep4 = new JLabel(Main.playerOne.getPlayerMission(), SwingConstants.RIGHT);
         playeronep4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep4.setBounds(95, 143, 90, 20);
         frame.add(playeronep4);
 
-        playeronep5 = new JLabel(breakDescription(Main.playerOne));
+        JLabel playeronep5 = new JLabel(breakDescription(Main.playerOne));
         playeronep5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep5.setBounds(25, 163, 165, 40);
         frame.add(playeronep5);
 
-        playeronehr1 = new JLabel("");
+        JLabel playeronehr1 = new JLabel("");
         playeronehr1.setOpaque(true);
         playeronehr1.setBackground(new java.awt.Color(204, 204, 204));
         playeronehr1.setBounds(20, 78, 170, 2);
         frame.add(playeronehr1);
 
-        playeronehr2 = new JLabel("");
+        JLabel playeronehr2 = new JLabel("");
         playeronehr2.setOpaque(true);
         playeronehr2.setBackground(new java.awt.Color(204, 204, 204));
         playeronehr2.setBounds(20, 100, 170, 1);
         frame.add(playeronehr2);
 
-        playeronehr3 = new JLabel("");
+        JLabel playeronehr3 = new JLabel("");
         playeronehr3.setOpaque(true);
         playeronehr3.setBackground(new java.awt.Color(204, 204, 204));
         playeronehr3.setBounds(20, 121, 170, 1);
         frame.add(playeronehr3);
 
-        playeronehr4 = new JLabel("");
+        JLabel playeronehr4 = new JLabel("");
         playeronehr4.setOpaque(true);
         playeronehr4.setBackground(new java.awt.Color(204, 204, 204));
         playeronehr4.setBounds(20, 142, 170, 1);
@@ -358,95 +310,95 @@ public class FieldGUI extends JFrame implements ActionListener {
 
 
         //Angaben Spieler2
-        playertwoh1 = new JLabel("Spieler Zwei", SwingConstants.RIGHT);
+        JLabel playertwoh1 = new JLabel("Spieler Zwei", SwingConstants.RIGHT);
         playertwoh1.setFont(new Font("Sans-Serif", Font.BOLD, 13));
         playertwoh1.setBounds(795, 58, 170, 20);
         frame.add(playertwoh1);
 
-        playertwoh2 = new JLabel("Farbe:", SwingConstants.LEFT);
+        JLabel playertwoh2 = new JLabel("Farbe:", SwingConstants.LEFT);
         playertwoh2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwoh2.setBounds(800, 80, 70, 20);
         frame.add(playertwoh2);
 
-        playertwop1 = new JLabel(Main.playerTwo.getColor(), SwingConstants.RIGHT);
+        JLabel playertwop1 = new JLabel(Main.playerTwo.getColor(), SwingConstants.RIGHT);
         playertwop1.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop1.setForeground(Player.PlayerColorCode(Main.playerTwo));
         playertwop1.setBounds(865, 80, 90, 20);
         frame.add(playertwop1);
 
-        playertwoh3 = new JLabel("Laender:", SwingConstants.LEFT);
+        JLabel playertwoh3 = new JLabel("Laender:", SwingConstants.LEFT);
         playertwoh3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwoh3.setBounds(800, 101, 70, 20);
         frame.add(playertwoh3);
 
-        playertwop2 = new JLabel(Integer.toString(Main.playerTwo.numberOfCountries()), SwingConstants.RIGHT);
+        JLabel playertwop2 = new JLabel(Integer.toString(Main.playerTwo.numberOfCountries()), SwingConstants.RIGHT);
         playertwop2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop2.setBounds(865, 101, 90, 20);
         frame.add(playertwop2);
 
-        playertwoh4 = new JLabel("Armeen:", SwingConstants.LEFT);
+        JLabel playertwoh4 = new JLabel("Armeen:", SwingConstants.LEFT);
         playertwoh4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwoh4.setBounds(800, 122, 70, 20);
         frame.add(playertwoh4);
 
-        playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies()), SwingConstants.RIGHT);
+        JLabel playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies()), SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop3.setBounds(865, 122, 90, 20);
         frame.add(playertwop3);
 
-        playertwoh5 = new JLabel("Mission:", SwingConstants.LEFT);
+        JLabel playertwoh5 = new JLabel("Mission:", SwingConstants.LEFT);
         playertwoh5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwoh5.setBounds(800, 143, 70, 20);
         frame.add(playertwoh5);
 
-        playertwop4 = new JLabel(Main.playerTwo.getPlayerMission(), SwingConstants.RIGHT);
+        JLabel playertwop4 = new JLabel(Main.playerTwo.getPlayerMission(), SwingConstants.RIGHT);
         playertwop4.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop4.setBounds(865, 143, 90, 20);
         frame.add(playertwop4);
 
-        playertwop5 = new JLabel(breakDescription(Main.playerTwo));
+        JLabel playertwop5 = new JLabel(breakDescription(Main.playerTwo));
         playertwop5.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop5.setBounds(800, 163, 165, 40);
         frame.add(playertwop5);
 
-        playertwohr1 = new JLabel("");
+        JLabel playertwohr1 = new JLabel("");
         playertwohr1.setOpaque(true);
         playertwohr1.setBackground(new java.awt.Color(204, 204, 204));
         playertwohr1.setBounds(795, 78, 170, 2);
         frame.add(playertwohr1);
 
-        playertwohr2 = new JLabel("");
+        JLabel playertwohr2 = new JLabel("");
         playertwohr2.setOpaque(true);
         playertwohr2.setBackground(new java.awt.Color(204, 204, 204));
         playertwohr2.setBounds(795, 100, 170, 1);
         frame.add(playertwohr2);
 
-        playertwohr3 = new JLabel("");
+        JLabel playertwohr3 = new JLabel("");
         playertwohr3.setOpaque(true);
         playertwohr3.setBackground(new java.awt.Color(204, 204, 204));
         playertwohr3.setBounds(795, 121, 170, 1);
         frame.add(playertwohr3);
 
-        playertwohr4 = new JLabel("");
+        JLabel playertwohr4 = new JLabel("");
         playertwohr4.setOpaque(true);
         playertwohr4.setBackground(new java.awt.Color(204, 204, 204));
         playertwohr4.setBounds(795, 142, 170, 1);
         frame.add(playertwohr4);
 
         //Angaben Kontinente
-        otea = new JLabel("OTEA", SwingConstants.RIGHT);
+        JLabel otea = new JLabel("OTEA", SwingConstants.RIGHT);
         otea.setFont(new Font("Sans-Serif", Font.BOLD, 11));
         otea.setForeground(Color.white);
         otea.setBounds(580, 421, 170, 12);
         frame.add(otea);
 
-        prya = new JLabel("PRYA", SwingConstants.RIGHT);
+        JLabel prya = new JLabel("PRYA", SwingConstants.RIGHT);
         prya.setFont(new Font("Sans-Serif", Font.BOLD, 11));
         prya.setForeground(Color.white);
         prya.setBounds(580, 434, 170, 12);
         frame.add(prya);
 
-        solva = new JLabel("SOLVA", SwingConstants.RIGHT);
+        JLabel solva = new JLabel("SOLVA", SwingConstants.RIGHT);
         solva.setFont(new Font("Sans-Serif", Font.BOLD, 11));
         solva.setForeground(Color.white);
         solva.setBounds(580, 447, 170, 12);
@@ -532,7 +484,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
 
         textfield = new JTextArea();
-        scrollbar = new JScrollPane(textfield);
+        JScrollPane scrollbar = new JScrollPane(textfield);
         scrollbar.setBounds(100, 500, 800, 150);
         textfield.setEditable(false);
         frame.add(scrollbar);
@@ -588,7 +540,6 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private boolean hasEnemyNeighbours(Country country) {
-        boolean bool = false;
         /*
         -> make Country.neighboringCountries a List<Country> instead of List<String>
             therefore:
@@ -658,101 +609,16 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void attack() {
+        ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
         int diceAttacker = random.nextInt(6) + 1;
         int diceDefender = random.nextInt(6) + 1;
-        ImageIcon dicePlayerOne_img;
-        ImageIcon dicePlayerTwo_img;
         if (player == Main.playerOne) {
-            switch (diceAttacker) {
-            case 1:
-                dicePlayerOne_img = new ImageIcon("material/diceone.png");
-                break;
-            case 2:
-                dicePlayerOne_img = new ImageIcon("material/dicetwo.png");
-                break;
-            case 3:
-                dicePlayerOne_img = new ImageIcon("material/dicethree.png");
-                break;
-            case 4:
-                dicePlayerOne_img = new ImageIcon("material/dicefour.png");
-                break;
-            case 5:
-                dicePlayerOne_img = new ImageIcon("material/dicefive.png");
-                break;
-            case 6:
-                dicePlayerOne_img = new ImageIcon("material/dicesix.png");
-                break;
-            default:
-                dicePlayerOne_img = new ImageIcon();
-        }
-            switch (diceDefender) {
-                case 1:
-                    dicePlayerTwo_img = new ImageIcon("material/diceone.png");
-                    break;
-                case 2:
-                    dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
-                    break;
-                case 3:
-                    dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
-                    break;
-                case 4:
-                    dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
-                    break;
-                case 5:
-                    dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
-                    break;
-                case 6:
-                    dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
-                    break;
-                default:
-                    dicePlayerTwo_img = new ImageIcon();
-            }
+            dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
+            dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
         } else {
-            switch (diceDefender) {
-                case 1:
-                    dicePlayerOne_img = new ImageIcon("material/diceone.png");
-                    break;
-                case 2:
-                    dicePlayerOne_img = new ImageIcon("material/dicetwo.png");
-                    break;
-                case 3:
-                    dicePlayerOne_img = new ImageIcon("material/dicethree.png");
-                    break;
-                case 4:
-                    dicePlayerOne_img = new ImageIcon("material/dicefour.png");
-                    break;
-                case 5:
-                    dicePlayerOne_img = new ImageIcon("material/dicefive.png");
-                    break;
-                case 6:
-                    dicePlayerOne_img = new ImageIcon("material/dicesix.png");
-                    break;
-                default:
-                    dicePlayerOne_img = new ImageIcon();
-            }
-            switch (diceAttacker) {
-                case 1:
-                    dicePlayerTwo_img = new ImageIcon("material/diceone.png");
-                    break;
-                case 2:
-                    dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
-                    break;
-                case 3:
-                    dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
-                    break;
-                case 4:
-                    dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
-                    break;
-                case 5:
-                    dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
-                    break;
-                case 6:
-                    dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
-                    break;
-                default:
-                    dicePlayerTwo_img = new ImageIcon();
-            }
+            dicePlayerOne_img = getImageForDiceRoll(diceDefender);
+            dicePlayerTwo_img = getImageForDiceRoll(diceAttacker);
         }
         dicePlayerOne.setIcon(dicePlayerOne_img);
         dicePlayerTwo.setIcon(dicePlayerTwo_img);
@@ -773,6 +639,9 @@ public class FieldGUI extends JFrame implements ActionListener {
                 armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
                 armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
                 textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
+                if (Mission.testMission(player)) {
+                    gameplay.endGameRound();
+                }
             }
         } else {
             textfield.append("Du verlierst eine Einheit.\n");
@@ -784,14 +653,41 @@ public class FieldGUI extends JFrame implements ActionListener {
         textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
 
+    private ImageIcon getImageForDiceRoll(int roll) {
+        ImageIcon img;
+        switch (roll) {
+            case 1:
+                img = new ImageIcon("material/diceone.png");
+                break;
+            case 2:
+                img = new ImageIcon("material/dicetwo.png");
+                break;
+            case 3:
+                img = new ImageIcon("material/dicethree.png");
+                break;
+            case 4:
+                img = new ImageIcon("material/dicefour.png");
+                break;
+            case 5:
+                img = new ImageIcon("material/dicefive.png");
+                break;
+            case 6:
+                img = new ImageIcon("material/dicesix.png");
+                break;
+            default:
+                img = new ImageIcon();
+        }
+        return img;
+    }
+
+
     private void spreading() {
         if (this.getPlayer().getPlayerArmies() == this.getPlayer().numberOfCountries()) {
             gameplay.redistributionAbort(this.getPlayer());
             undo.setEnabled(false);
             spreadNew.setEnabled(false);
             counterPlayer++;
-        }
-        else{
+        } else {
             this.setArmiesOnMap();
             gameplay.redistributionNext(this.getPlayer());
             undo.setEnabled(true);
@@ -844,48 +740,48 @@ public class FieldGUI extends JFrame implements ActionListener {
         this.frame.add(hitboxPanel);
     }
 
-    
+
     // erklaert Spielende
     private void openEndingRules() {
-    	JOptionPane.showMessageDialog(frame, 
-    								  "<html>Das Spiel Risiko endet, wenn ein Spieler seine Mission erfuellt hat.<html>", 
-    								  "Ende des Spiels",
-    								  JOptionPane.PLAIN_MESSAGE);  	
+        JOptionPane.showMessageDialog(frame,
+                "<html>Das Spiel Risiko endet, wenn ein Spieler seine Mission erfuellt hat.<html>",
+                "Ende des Spiels",
+                JOptionPane.PLAIN_MESSAGE);
     }
 
     //erklaert die Spielregeln
     private void openPlayingRules() {
-    	JOptionPane.showMessageDialog(frame, 
-    								 "<html>Laender werden befreit, indem...<html>", 
-    								 "Land befreien",
-    								 JOptionPane.PLAIN_MESSAGE);    	
+        JOptionPane.showMessageDialog(frame,
+                "<html>Laender werden befreit, indem...<html>",
+                "Land befreien",
+                JOptionPane.PLAIN_MESSAGE);
     }
-    
+
     // oeffnet Abfrage bzgl. neuem Spiel
     private void openSelection() {
-    	Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
-    	int n = JOptionPane.showOptionDialog(frame,
-    										"Willst du wirklich ein neues Spiel anfangen?",
-    										"Spiel neu starten",
-    										JOptionPane.YES_NO_OPTION,
-    										JOptionPane.QUESTION_MESSAGE,
-    										null,    
-    										options,  
-    										options[0]); 
-    	switch (n) {
-    		case 0:
-    			// alle Werte auf null
-    			Main.playerOne.emptyAll();
-    			Main.playerTwo.emptyAll();
-    			// die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
-    			for (Country i : Main.countries) {
-    				i.setArmies();
-    			}
-    			frame.dispose();
-    			new PlayersGUI();
-    		case 1:
-    			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-    	}
+        Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
+        int n = JOptionPane.showOptionDialog(frame,
+                "Willst du wirklich ein neues Spiel anfangen?",
+                "Spiel neu starten",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        switch (n) {
+            case 0:
+                // alle Werte auf null
+                Main.playerOne.emptyAll();
+                Main.playerTwo.emptyAll();
+                // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
+                for (Country i : Main.countries) {
+                    i.setArmies();
+                }
+                frame.dispose();
+                new PlayersGUI();
+            case 1:
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        }
     }
 
     // beendet das Programm

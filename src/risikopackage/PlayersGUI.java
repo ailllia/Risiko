@@ -10,8 +10,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
     private final String[] colorsone = {"blau", "rot", "lila", "pink", "grau"};
     private final String[] colorstwo = {"blau", "rot", "lila", "pink", "grau"};
     private JComboBox<String> colorone, colortwo;
-    private JLabel title, order, chooseone, choosetwo, wrongcolor;
-    private JButton startplaying;
+    private JLabel wrongcolor;
 
     public PlayersGUI() {
         this.setLayout(null);
@@ -22,22 +21,22 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        title = new JLabel("Willkommen zu einer neuen Runde Risiko", SwingConstants.CENTER);
+        JLabel title = new JLabel("Willkommen zu einer neuen Runde Risiko", SwingConstants.CENTER);
         title.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
         this.add(title);
         title.setBounds(0, 20, 500, 20);
 
-        order = new JLabel("Wählt eure Farbe", SwingConstants.CENTER);
+        JLabel order = new JLabel("Wählt eure Farbe", SwingConstants.CENTER);
         order.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(order);
         order.setBounds(0, 60, 500, 20);
 
-        chooseone = new JLabel("Spieler Eins", SwingConstants.CENTER);
+        JLabel chooseone = new JLabel("Spieler Eins", SwingConstants.CENTER);
         chooseone.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         this.add(chooseone);
         chooseone.setBounds(0, 100, 250, 20);
 
-        choosetwo = new JLabel("Spieler Zwei", SwingConstants.CENTER);
+        JLabel choosetwo = new JLabel("Spieler Zwei", SwingConstants.CENTER);
         choosetwo.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         this.add(choosetwo);
         choosetwo.setBounds(250, 100, 250, 20);
@@ -58,7 +57,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(colortwo);
         colortwo.setBounds(325, 120, 100, 20);
 
-        startplaying = new JButton("Spiel starten");
+        JButton startplaying = new JButton("Spiel starten");
         this.add(startplaying);
         startplaying.setBounds(170, 170, 160, 20);
         startplaying.addActionListener(e -> startfct());
@@ -67,7 +66,6 @@ public class PlayersGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        // TODO Auto-generated method stub
     }
 
     //create players, "close" PrepWindow, open playingfield

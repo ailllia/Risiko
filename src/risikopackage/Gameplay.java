@@ -8,9 +8,6 @@ import java.util.Random;
 
 public class Gameplay extends JFrame {
     // hier werden die spielzuege in einzelnen funktionen aufgerufen
-    boolean continuing = false; // wird duch klicken des buttons "weiter" auf true gesetzt sodass
-    // die naechste funktion aufgerufen wird
-
     public Gameplay() {
     }
 
@@ -42,7 +39,7 @@ public class Gameplay extends JFrame {
     }
 
     public void redistribution(Player player) {
-        FieldGUI.next.setEnabled(false);
+        //FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("\n" + player.getColor() + ": Nun kannst du noch deine Einheiten neuverteilen, " +
                 "wenn du das willst." + " Klicke dafuer auf 'Neuverteilen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
@@ -64,12 +61,18 @@ public class Gameplay extends JFrame {
     public void redistributionNext(Player player) {
         FieldGUI.textfield.append("Verteile jetzt " + player.getArmiesAvailableToMove() + " Armeen auf deine Laender."
                 + "\nMit Linksklick fuegst du eine Einheit hinzu; mit Rechtsklick ziehst du eine Einheit ab."
-                + "Um deine Wahl rueckgaenig zu machen und neu zu verteilen, klicke auf 'Rueckgaengig'. \nAchtung: " +
+                + "\nUm deine Wahl rueckgaenig zu machen und neu zu verteilen, klicke auf 'Rueckgaengig'.\nAchtung: " +
                 "Dies setzt auch deine bereits neuverteilten Armeen zurueck.\n");
     }
 
     public void redistributionDel(Player player) {
         FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + player.getArmiesAvailableToMove() + " Armeen auf deine Laender.\n");
+    }
+
+    public void endGameRound() {
+        FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
+                "erfuellt und damit dieses Spiel gewonnen!\nUeber 'Spiel abbrechen' im Menue oben links kann eine" +
+                " neue Runde gestartet werden.");
     }
 
     // verteilt Laender an die beiden Spieler
