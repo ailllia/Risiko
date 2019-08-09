@@ -86,7 +86,7 @@ public class Player {
         for (Country country : occupiedCountries) {
             country.setArmies();
         }
-        availableArmies = (playerArmies - occupiedCountries.size());
+        availableArmies = (playerArmies - this.numberOfCountries());
     }
 
     public int getArmiesAvailableToMove() {
