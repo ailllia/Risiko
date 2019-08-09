@@ -29,8 +29,8 @@ public abstract class Mission {
     public static String getDescription(String title) {
         String thatMissionDescription = "blubb";
         for (int i = 0; i < 6; i++) {
-            if (title.equals(Main.missions.get(i).missionTitle)) {
-                thatMissionDescription = Main.missions.get(i).missionDescription;
+            if (title.equals(Gameplay.getInstance().getMissions().get(i).missionTitle)) {
+                thatMissionDescription = Gameplay.getInstance().getMissions().get(i).missionDescription;
             }
         }
         return thatMissionDescription;

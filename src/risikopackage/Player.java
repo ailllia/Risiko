@@ -33,10 +33,19 @@ public class Player {
     public String getCountryName(int i) {
         return occupiedCountriesNames.get(i);
     }
+    
+    public Country getCountry(int i) {
+        return occupiedCountries.get(i);
+    }
 
     public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);
         this.occupiedCountries.add(country);
+    }
+    
+    public void deleteCountryToList(int i) {
+        this.occupiedCountriesNames.remove(i);
+        this.occupiedCountries.remove(i);
     }
 
     public int numberOfCountries() {
@@ -57,7 +66,7 @@ public class Player {
             availableArmies = 2;
         else
             availableArmies = (occupiedCountriesNames.size() / 3);
-        for (Continent continent : Main.continents) {
+        for (Continent continent : Gameplay.getInstance().getContinents()) {
             if (continentComplete(continent))
                 availableArmies += continent.getBonusArmies();
         }
@@ -93,9 +102,10 @@ public class Player {
     }
 
     // bestimmt und nennt Armeen im Spiel
-    private void setNumberOfArmies(List<Country> countries) {
-        for (int i = 0; i < 14; i++) {
-            for (int j = 0; j < 7; j++) {
+    private void setNumberOfArmies(List<Country> countries, Player playerNow) {
+        playerArmies = 0;
+    	for (int i = 0; i < 14; i++) {
+            for (int j = 0; j <  playerNow.numberOfCountries(); j++) {
                 if (this.getCountryName(j).equals(countries.get(i).getCountryName())) {
                     this.playerArmies += countries.get(i).getArmiesInCountry();
                 }
@@ -103,11 +113,11 @@ public class Player {
         }
     }
 
-    public int numberOfArmies() {
-        setNumberOfArmies(Main.countries);
+    public int numberOfArmies(Player playerNow) {
+        setNumberOfArmies(Gameplay.getInstance().getCountries(), playerNow);
         return playerArmies;
     }
-
+    
     // bestimmt und nennt Farben
     public void setColor(String color) {
         this.color = color;
