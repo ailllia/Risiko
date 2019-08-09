@@ -18,7 +18,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     public static JTextArea textfield;
     public static JButton next;
     private JButton undo, rollDice, spreadNew;
-    private MouseListener hitBoxListener, buttonListener;
+    private MouseListener hitBoxListener;
     private int counterNext = 0;
     private int counterHitbox = 0;
     private int counter = 0;
@@ -31,7 +31,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel dicePlayerOne, dicePlayerTwo;
 
     private Player getPlayer() {
-        if ((counterPlayer % 2) != 0)
+        if ((counterPlayer % 2) == 0)
             player = Gameplay.getInstance().getPlayerOne();
         else
             player = Gameplay.getInstance().getPlayerTwo();
@@ -79,123 +79,42 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
 
                 if (country != null) {  // wenn geklicktes land gefunden
+                    setRemaining();     //wie viele Armeen duerfen verteilt werden
                     if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                            if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
-                                    && remaining >= 0) { //es sind noch einheiten ueber
-                                country.addArmy();
-                                counter++;
-                                remaining -= 1;
-                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                                setArmyText(getPlayer());
-                                if (remaining > 0) {
-                                    textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
-                                } else {
-                                    textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
-                                    next.setEnabled(true);
-                                    counterHitbox++;
-                                }
-                            } else {
-                                textfield.append("Verteile die Einheiten in den Laender, die deiner Farbe entsprechen.\n");
-                            }
+                            deployArmiesLeftClick(armyLabel, country);
                         }
                     }
                     if (counterNext == 1 && country.getArmiesInCountry() > 1
                             && mouseEvent.getButton() == MouseEvent.BUTTON3) {
-                        if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
-                                && remaining > 1) {                                       //es sind noch einheiten ueber
-                            country.loseArmy();
-                            counter--;
-                            remaining -= counter;
-                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                            setArmyText(getPlayer());
-                            if (counterHitbox != 0) {
-                                counterHitbox--;
-                                next.setEnabled(false);
-                            }
-                        }
-                        textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+                        deployArmiesRightClick(armyLabel, country);
                     }
 
                     if (counterNext == 2 && counterHitbox == 1) {       //angriffsrunde, auswahl des eigenen landes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                            if (country.getColorOfOwnerString().equals(getPlayer().getColor())
-                                    && country.getArmiesInCountry() > 1 && hasEnemyNeighbours(country)) {
-                                selectedCountry1 = country;
-                                armiesattacking = armyLabel;
-                                textfield.append("Du hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
-                                        " auf ein benachbartes Land (mit schwarzem Strich verbunden) deines Gegners.\n");
-                                counterHitbox++;
-                            } else {
-                                textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
-                                        " Es muss mindestens ein gegnerisches Land als Nachbar haben.\n");
-                            }
+                            chooseOwnCountryLeftClick(armyLabel, country);
                         }
                     }
                     if (counterNext == 2 && mouseEvent.getButton() == MouseEvent.BUTTON3
                             && country.equals(selectedCountry1)) {
-                        counterHitbox--;
-                        selectedCountry1 = null;
-                        textfield.append("Auswahl aufgehoben.\n");
+                        chooseOwnCountryRightClick();
                     }
                     if (counterNext == 2 && counterHitbox == 2) {   //angriffsphase, auswahl des gegnerlandes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                            if (!country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert gegner
-                                    && country.isNeighbor(selectedCountry1)) {      //land ist nachbar
-                                selectedCountry2 = country;
-                                armiesdefending = armyLabel;
-                                rollDice.setEnabled(true);
-                                counterHitbox++;
-                                textfield.append("Du hast " + selectedCountry2.getCountryName() + " ausgewaehlt." +
-                                        " Klicke 'Wuerfeln' um eine Befreiungsaktion zu starten.\n");
-                            } else {
-                                textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
-                            }
+                            chooseEnemyCountryLeftClick(armyLabel, country);
                         }
                     }
                     if (counterNext == 2 && mouseEvent.getButton() == MouseEvent.BUTTON3
                             && country.equals(selectedCountry2)) {
-                        if (counterHitbox == 4) {
-                            rollDice.setEnabled(false);
-                        }
-                        counterHitbox--;
-                        selectedCountry2 = null;
-                        textfield.append("Auswahl aufgehoben.\n");
+                        chooseEnemyCountryRightClick();
                     }
-                    if (counterNext == 3 && counterHitbox == 0) {
-                        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //linksklick
-                            if (country.getColorOfOwnerString().equals(getPlayer().getColor())
-                                    && remaining >= 0) {
-                                country.addArmy();
-                                remaining--;
-                                armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                                setArmyText(getPlayer());
-                                if (remaining > 0) {
-                                    textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
-                                } else {
-                                    textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
-                                    next.setEnabled(true);
-                                    counterNext = 0;
-                                }
-                            } else {
-                                textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
-                            }
+                    if (counterNext == 3 && counterHitbox == 3) {
+                        if (mouseEvent.getButton() == MouseEvent.BUTTON1) { //neuverteilen
+                            redistributionLeftClick(armyLabel, country);
                         }
                     }
                     if (counterNext == 3 && mouseEvent.getButton() == MouseEvent.BUTTON3) {
-                        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
-                                && country.getArmiesInCountry() > 1) {
-                            country.loseArmy();
-                            remaining++;
-                            setArmyText(getPlayer());
-                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                            textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
-                        } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
-                            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-                            textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
-                        } else {
-                            textfield.append("Einheiten koennen nur in den Laendern abgezogen werden, die deiner Farbe entsprechen.\n");
-                        }
+                        redistributionRightClick(armyLabel, country);
                     }
                 }
             }
@@ -409,7 +328,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
 
         //Angaben Laender
-        //Laender werden in Maps geladen die die zugeh�rigen Koordinaten enthalten
+        //Laender werden in Maps geladen die die zugehoerigen Koordinaten enthalten
         //for-Schleife ruft dann f�r jedes land die funktion auf die die elemente dem frame / panel hinzuf�gt
 
         /*
@@ -498,14 +417,14 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.add(next);
 
         undo = new JButton("Rueckgaengig");
-        undo.setBounds(200, 470, 105, 20);
+        undo.setBounds(220, 470, 105, 20);
         undo.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         undo.setEnabled(false);
         undo.addActionListener(e -> reduceArmy());
         frame.add(undo);
 
         rollDice = new JButton("Wuerfeln");
-        rollDice.setBounds(500, 470, 105, 20);
+        rollDice.setBounds(380, 470, 105, 20);
         rollDice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         rollDice.setEnabled(false);
         rollDice.addActionListener(e -> attack());
@@ -533,6 +452,117 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
+    }
+
+    private void deployArmiesLeftClick(JLabel armyLabel, Country country) {
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
+                && remaining >= 0) { //es sind noch einheiten ueber
+            country.addArmy();
+            counter++;
+            remaining -= counter;
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+            setArmyText(getPlayer());
+            if (remaining > 0) {
+                textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+            } else {
+                textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
+                next.setEnabled(true);
+                counterHitbox++;
+            }
+        } else {
+            textfield.append("Verteile die Einheiten in den Laender, die deiner Farbe entsprechen.\n");
+        }
+    }
+
+    private void deployArmiesRightClick(JLabel armyLabel, Country country) {
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
+                && remaining > 1) {                                       //es sind noch einheiten ueber
+            country.loseArmy();
+            counter--;
+            remaining -= counter;
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+            setArmyText(getPlayer());
+            if (counterHitbox != 0) {
+                counterHitbox--;
+                next.setEnabled(false);
+            }
+        }
+        textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+    }
+
+    private void chooseOwnCountryLeftClick(JLabel armyLabel, Country country) {
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && country.getArmiesInCountry() > 1 && hasEnemyNeighbours(country)) {
+            selectedCountry1 = country;
+            armiesattacking = armyLabel;
+            textfield.append("Du hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
+                    " auf ein benachbartes Land (mit schwarzem Strich verbunden) deines Gegners.\n");
+            counterHitbox++;
+        } else {
+            textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
+                    " Es muss mindestens ein gegnerisches Land als Nachbar haben.\n");
+        }
+    }
+
+    private void chooseOwnCountryRightClick() {
+        counterHitbox--;
+        selectedCountry1 = null;
+        textfield.append("Auswahl aufgehoben.\n");
+    }
+
+    private void chooseEnemyCountryLeftClick(JLabel armyLabel, Country country) {
+        if (!country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert gegner
+                && country.isNeighbor(selectedCountry1)) {      //land ist nachbar
+            selectedCountry2 = country;
+            armiesdefending = armyLabel;
+            rollDice.setEnabled(true);
+            counterHitbox++;
+            textfield.append("Du hast " + selectedCountry2.getCountryName() + " ausgewaehlt." +
+                    " Klicke 'Wuerfeln' um eine Befreiungsaktion zu starten.\n");
+        } else {
+            textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
+        }
+    }
+
+    private void chooseEnemyCountryRightClick() {
+        if (counterHitbox == 4) {
+            rollDice.setEnabled(false);
+        }
+        counterHitbox--;
+        selectedCountry2 = null;
+        textfield.append("Auswahl aufgehoben.\n");
+    }
+
+    private void redistributionLeftClick(JLabel armyLabel, Country country) {
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && remaining >= 0) {
+            country.addArmy();
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+            setArmyText(getPlayer());
+            if (remaining > 0) {
+                textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
+            } else {
+                textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
+                next.setEnabled(true);
+            }
+        } else {
+            textfield.append("Verteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
+        }
+    }
+
+    private void redistributionRightClick(JLabel armyLabel, Country country) {
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && country.getArmiesInCountry() > 1) {
+            country.loseArmy();
+            remaining++;
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+            textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
+        } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
+            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+            textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
+        } else {
+            textfield.append("Einheiten koennen nur in den Laendern abgezogen werden, die deiner Farbe entsprechen.\n");
+        }
     }
 
     private boolean hasEnemyNeighbours(Country country) {
@@ -578,24 +608,21 @@ public class FieldGUI extends JFrame implements ActionListener {
         counterNext++;
         switch (counterNext) {
             case 1:
-                counterPlayer++;
-                spreadNew.setEnabled(false);
-                undo.setEnabled(false);
-                this.setRemaining();
-                Gameplay.getInstance().deployArmies(this.getPlayer());
+                Gameplay.getInstance().deployArmiesText(this.getPlayer());
                 break;
             case 2:
                 counter = 0;
-                Gameplay.getInstance().attackphase(this.getPlayer());
+                Gameplay.getInstance().attackphaseText(this.getPlayer());
                 break;
             case 3:
-                Gameplay.getInstance().redistribution(this.getPlayer());
+                Gameplay.getInstance().redistributionText(this.getPlayer());
                 spreadNew.setEnabled(true);
                 counterHitbox = 0;
                 counterNext = 0;
                 rollDice.setEnabled(false);
                 dicePlayerOne.setVisible(false);
                 dicePlayerTwo.setVisible(false);
+                counterPlayer++;
                 break;
         }
     }
@@ -605,14 +632,13 @@ public class FieldGUI extends JFrame implements ActionListener {
         Gameplay.getInstance().redistributionDel(remaining);
     }
 
-    private void undoCountryChoice() {
-    }
-
     private void attack() {
         ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
-        int diceAttacker = random.nextInt(6) + 1;
-        int diceDefender = random.nextInt(6) + 1;
+        int diceAttacker = 6;
+        int diceDefender = 1;
+        //int diceAttacker = random.nextInt(6) + 1;
+        //int diceDefender = random.nextInt(6) + 1;
         if (player == Gameplay.getInstance().getPlayerOne()) {
             dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
             dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
@@ -670,7 +696,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
                 textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
                 if (Mission.testMission(player)) {
-                    Gameplay.getInstance().endGameRound();
+                    Gameplay.getInstance().finishedGameText();      //pruefe ob spiel gewonnen
+                    return;
                 }
             }
         } else {
@@ -681,8 +708,8 @@ public class FieldGUI extends JFrame implements ActionListener {
             playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
         }
         rollDice.setEnabled(false);
-        setArmyText( Gameplay.getInstance().getPlayerOne());
-        setArmyText( Gameplay.getInstance().getPlayerTwo());
+        setArmyText(Gameplay.getInstance().getPlayerOne());
+        setArmyText(Gameplay.getInstance().getPlayerTwo());
         counterHitbox = 1;      // damit wieder ein neues land gew�hlt werden kann
         textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
@@ -729,7 +756,6 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void setArmiesOnMap() {
-        this.setRemaining();
         this.getPlayer().readyArmiesToMove();
         //Anzeige Armeen in Laendern aktualisieren
     }
@@ -840,16 +866,13 @@ public class FieldGUI extends JFrame implements ActionListener {
     private static String breakDescription(Player playerNow) {
         return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
     }
-    
+
     // sorgt fuer eine Aktualisierung der Armeeanzeige
-    public void setArmyText(Player player){
-        if(player.getColor() == Gameplay.getInstance().getPlayerOne().getColor()){
+    private void setArmyText(Player player) {
+        if (player.getColor().equals(Gameplay.getInstance().getPlayerOne().getColor())) {
             playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
-        }
-        else
-        {
+        } else {
             playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
         }
-
     }
 }

@@ -32,19 +32,19 @@ public class Gameplay extends JFrame {
         chooseMission(playerOne, playerTwo, missions, chance);
     }
 
-    public void welcome() { // Erste Textausgaben
+    public void welcomeText() { // Erste Textausgaben
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nDie 14 Laender wurden bereits unter " +
                 "den Spielern aufgeteilt. Klickt auf 'Weiter' um fortzufahren.\n");
     }
 
-    public void deployArmies(Player player) {
+    public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("\n" + player.getColor() + ": Verteile jetzt " + player.getNewArmies() +
                 " neue Armeen auf deine Laender.\nLinksklicke dazu auf das Land, deren Einheitenzahl du " +
                 "erhoehen willst.\nMit Rechtsklick kannst du eine verteilte Armee wieder abziehen und neu setzen.\n");
     }
 
-    public void attackphase(Player player) {
+    public void attackphaseText(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst nun von deinem Gegner besetzte Laender " +
                 "befreien.\nWaehle dazu ein Land in deinem Besitz, das mindestens 2 Armeen besitzt, mit Linksklick " +
                 "aus und anschliessend ein Land deines Gegners\nauf die gleiche Weise. Klicke auf 'Wuerfeln' um " +
@@ -52,7 +52,7 @@ public class Gameplay extends JFrame {
                 "Mit Rechtsklick kannst du deine Laenderwahl aufheben.\n");
     }
 
-    public void redistribution(Player player) {
+    public void redistributionText(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Nun kannst du noch deine Einheiten neuverteilen, " +
                 "wenn du das willst." + " Klicke dafuer auf 'Neuverteilen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
@@ -60,14 +60,6 @@ public class Gameplay extends JFrame {
 
     public void redistributionAbort(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug.\n");
-    }
-
-    public void missionstate1(Player player) {
-        if (Mission.testMission(player)) {
-            FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission erfuellt. Herzlichen Glückwunsch zum Sieg.\n Das Spiel ist damit beendet\n.");
-        } else {
-            FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast deine Mission noch nicht erfuellt.\n");
-        }
     }
 
     public void redistributionNext(int armies) {
@@ -82,7 +74,7 @@ public class Gameplay extends JFrame {
         FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + armies + " Armeen auf deine Laender.\n");
     }
 
-    public void endGameRound() {
+    public void finishedGameText() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
                 "erfuellt und damit dieses Spiel gewonnen!\nUeber 'Spiel abbrechen' im Menue oben links kann eine" +
                 " neue Runde gestartet werden.");

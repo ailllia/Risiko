@@ -37,22 +37,21 @@ public abstract class Mission {
     }
 
     // testet, ob Mission komplett ist
-    public static boolean testMission(Player playerNow) {
-
-        switch (playerNow.getPlayerMission()) {
+    public static boolean testMission(Player currentPlayer) {
+        switch (currentPlayer.getPlayerMission()) {
             case "Iwein":       // Befreie die Kontinente Otea und Solva.
-                return (Continent.complete("Otea", playerNow) && Continent.complete("Solva", playerNow));
+                return (Continent.complete("Otea", currentPlayer) && Continent.complete("Solva", currentPlayer));
 
             case "Gawein":      // Befreie die Kontinente Solva und Priya.
-                return (Continent.complete("Priya", playerNow) && Continent.complete("Solva", playerNow));
+                return (Continent.complete("Priya", currentPlayer) && Continent.complete("Solva", currentPlayer));
 
             case "Parzival":    // Befreie die Kontinente Priya und Otea.
-                return (Continent.complete("Priya", playerNow) && Continent.complete("Otea", playerNow));
+                return (Continent.complete("Priya", currentPlayer) && Continent.complete("Otea", currentPlayer));
 
             case "Tristan":     // Befreie und besetze insgesamt 11 Laender.
             case "Keie":
             case "Erec":
-                return (playerNow.numberOfCountries() >= 11);
+                return (currentPlayer.numberOfCountries() >= 11);
         }
         return false;
     }
