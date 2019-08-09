@@ -33,10 +33,19 @@ public class Player {
     public String getCountryName(int i) {
         return occupiedCountriesNames.get(i);
     }
+    
+    public Country getCountry(int i) {
+        return occupiedCountries.get(i);
+    }
 
     public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);
         this.occupiedCountries.add(country);
+    }
+    
+    public void deleteCountryToList(int i) {
+        this.occupiedCountriesNames.remove(i);
+        this.occupiedCountries.remove(i);
     }
 
     public int numberOfCountries() {
@@ -106,6 +115,11 @@ public class Player {
     public int numberOfArmies() {
         setNumberOfArmies(Main.countries);
         return playerArmies;
+    }
+    
+    public int numberOfArmiesMinus() {
+    	playerArmies -= 1;
+    	return playerArmies;
     }
 
     // bestimmt und nennt Farben
