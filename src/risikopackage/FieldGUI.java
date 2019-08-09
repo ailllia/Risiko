@@ -618,11 +618,12 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void attack() {
         Random random = new Random();
-        int dice1 = random.nextInt(6) + 1;
-        int dice2 = random.nextInt(6) + 1;
+        int diceAttacker = random.nextInt(6) + 1;
+        int diceDefender = random.nextInt(6) + 1;
         ImageIcon dicePlayerOne_img;
         ImageIcon dicePlayerTwo_img;
-        switch (dice1) {
+        if (player == Main.playerOne) {
+            switch (diceAttacker) {
             case 1:
                 dicePlayerOne_img = new ImageIcon("material/diceone.png");
                 break;
@@ -644,36 +645,80 @@ public class FieldGUI extends JFrame implements ActionListener {
             default:
                 dicePlayerOne_img = new ImageIcon();
         }
-
-        switch (dice2) {
-            case 1:
-                dicePlayerTwo_img = new ImageIcon("material/diceone.png");
-                break;
-            case 2:
-                dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
-                break;
-            case 3:
-                dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
-                break;
-            case 4:
-                dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
-                break;
-            case 5:
-                dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
-                break;
-            case 6:
-                dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
-                break;
-            default:
-                dicePlayerTwo_img = new ImageIcon();
+            switch (diceDefender) {
+                case 1:
+                    dicePlayerTwo_img = new ImageIcon("material/diceone.png");
+                    break;
+                case 2:
+                    dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
+                    break;
+                case 3:
+                    dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
+                    break;
+                case 4:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
+                    break;
+                case 5:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
+                    break;
+                case 6:
+                    dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
+                    break;
+                default:
+                    dicePlayerTwo_img = new ImageIcon();
+            }
+        } else {
+            switch (diceDefender) {
+                case 1:
+                    dicePlayerOne_img = new ImageIcon("material/diceone.png");
+                    break;
+                case 2:
+                    dicePlayerOne_img = new ImageIcon("material/dicetwo.png");
+                    break;
+                case 3:
+                    dicePlayerOne_img = new ImageIcon("material/dicethree.png");
+                    break;
+                case 4:
+                    dicePlayerOne_img = new ImageIcon("material/dicefour.png");
+                    break;
+                case 5:
+                    dicePlayerOne_img = new ImageIcon("material/dicefive.png");
+                    break;
+                case 6:
+                    dicePlayerOne_img = new ImageIcon("material/dicesix.png");
+                    break;
+                default:
+                    dicePlayerOne_img = new ImageIcon();
+            }
+            switch (diceAttacker) {
+                case 1:
+                    dicePlayerTwo_img = new ImageIcon("material/diceone.png");
+                    break;
+                case 2:
+                    dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
+                    break;
+                case 3:
+                    dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
+                    break;
+                case 4:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
+                    break;
+                case 5:
+                    dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
+                    break;
+                case 6:
+                    dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
+                    break;
+                default:
+                    dicePlayerTwo_img = new ImageIcon();
+            }
         }
-
         dicePlayerOne.setIcon(dicePlayerOne_img);
         dicePlayerTwo.setIcon(dicePlayerTwo_img);
         dicePlayerOne.setVisible(true);
         dicePlayerTwo.setVisible(true);
-        textfield.append("Du wuerfelst eine " + dice1 + "!\nDer Besetzer wuerfelt eine " + dice2 + "!\n");
-        if (dice1 > dice2) {
+        textfield.append("Du wuerfelst eine " + diceAttacker + "!\nDer Besetzer wuerfelt eine " + diceDefender + "!\n");
+        if (diceAttacker > diceDefender) {
             if (selectedCountry2.getArmiesInCountry() > 1) {
                 textfield.append("Der Besetzer verliert eine Einheit!\n");
                 selectedCountry2.loseArmy();
