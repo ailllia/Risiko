@@ -213,7 +213,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             public void mouseExited(MouseEvent mouseEvent) {
             }
         };
-
+/*
         buttonListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
@@ -251,7 +251,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
             }
         };
-
+*/
 
 
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -629,6 +629,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         counterNext++;
         switch (counterNext) {
             case 1:
+                this.setRemaining();
                 gameplay.deployArmies(this.getPlayer());
                 break;
             case 2:
@@ -798,6 +799,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void setArmiesOnMap() {
+        this.setRemaining();
         this.getPlayer().readyArmiesToMove();
         //Anzeige Armeen in Laendern aktualisieren
     }
