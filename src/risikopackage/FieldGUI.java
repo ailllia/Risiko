@@ -36,6 +36,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     private Country selectedCountry2;
     private Player player;
     private int counterPlayer = 0;
+    private String dice_source1, dice_source2;
+    private JLabel dicePlayerOne, dicePlayerTwo;
 
     private Player getPlayer() {
         if ((counterPlayer % 2) == 0)
@@ -211,9 +213,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             @Override
             public void mouseExited(MouseEvent mouseEvent) {
             }
-        }
-
-        ;
+        };
 
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
@@ -228,7 +228,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         rules.add(attack);
         bar.add(rules);
 
-        JMenu quitGame =  new JMenu("Spiel abbrechen");         
+        JMenu quitGame = new JMenu("Spiel abbrechen");
         JMenuItem endGame = new JMenuItem("Programm beenden");
         endGame.addActionListener(e -> endProgram());
         quitGame.add(endGame);
@@ -236,7 +236,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         newGame.addActionListener(e -> openSelection());
         quitGame.add(newGame);
         bar.add(quitGame);
-        
+
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
@@ -529,6 +529,16 @@ public class FieldGUI extends JFrame implements ActionListener {
         spreadNew.addActionListener(e -> spreading());
         frame.add(spreadNew);
 
+        dicePlayerOne = new JLabel(new ImageIcon(dice_source1));
+        dicePlayerOne.setBounds(60, 340, 80, 80);
+        dicePlayerOne.setVisible(false);
+        frame.add(dicePlayerOne);
+
+        dicePlayerTwo = new JLabel(new ImageIcon(dice_source2));
+        dicePlayerTwo.setBounds(840, 340, 80, 80);
+        dicePlayerTwo.setVisible(false);
+        frame.add(dicePlayerTwo);
+
         frame.add(createMainPanel());
         frame.setSize(1000, 750);
         frame.setLocationRelativeTo(null);
@@ -569,7 +579,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     .filter(country1 -> country1.getCountryName().equals(s))
                     .findFirst()
                     .orElse(null);
-            if (!country.getColorOfOwnerString().equals(neighbor.getColorOfOwnerString())) {
+            if (neighbor != null && !country.getColorOfOwnerString().equals(neighbor.getColorOfOwnerString())) {
                 return true;
             }
         }
@@ -592,6 +602,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 counterHitbox = 0;
                 counterPlayer++;
                 rollDice.setEnabled(false);
+                dicePlayerOne.setVisible(false);
+                dicePlayerTwo.setVisible(false);
                 break;
         }
     }
@@ -608,7 +620,58 @@ public class FieldGUI extends JFrame implements ActionListener {
         Random random = new Random();
         int dice1 = random.nextInt(6) + 1;
         int dice2 = random.nextInt(6) + 1;
+        ImageIcon dicePlayerOne_img;
+        ImageIcon dicePlayerTwo_img;
+        switch (dice1) {
+            case 1:
+                dicePlayerOne_img = new ImageIcon("material/diceone.png");
+                break;
+            case 2:
+                dicePlayerOne_img = new ImageIcon("material/dicetwo.png");
+                break;
+            case 3:
+                dicePlayerOne_img = new ImageIcon("material/dicethree.png");
+                break;
+            case 4:
+                dicePlayerOne_img = new ImageIcon("material/dicefour.png");
+                break;
+            case 5:
+                dicePlayerOne_img = new ImageIcon("material/dicefive.png");
+                break;
+            case 6:
+                dicePlayerOne_img = new ImageIcon("material/dicesix.png");
+                break;
+            default:
+                dicePlayerOne_img = new ImageIcon();
+        }
 
+        switch (dice1) {
+            case 1:
+                dicePlayerTwo_img = new ImageIcon("material/diceone.png");
+                break;
+            case 2:
+                dicePlayerTwo_img = new ImageIcon("material/dicetwo.png");
+                break;
+            case 3:
+                dicePlayerTwo_img = new ImageIcon("material/dicethree.png");
+                break;
+            case 4:
+                dicePlayerTwo_img = new ImageIcon("material/dicefour.png");
+                break;
+            case 5:
+                dicePlayerTwo_img = new ImageIcon("material/dicefive.png");
+                break;
+            case 6:
+                dicePlayerTwo_img = new ImageIcon("material/dicesix.png");
+                break;
+            default:
+                dicePlayerTwo_img = new ImageIcon();
+        }
+
+        dicePlayerOne.setIcon(dicePlayerOne_img);
+        dicePlayerTwo.setIcon(dicePlayerTwo_img);
+        dicePlayerOne.setVisible(true);
+        dicePlayerTwo.setVisible(true);
         textfield.append("Du wuerfelst eine " + dice1 + "!\nDer Besetzer wuerfelt eine " + dice2 + "!\n");
         if (dice1 > dice2) {
             if (selectedCountry2.getArmiesInCountry() > 1) {
@@ -681,23 +744,23 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openSelection() {
-    	int input = JOptionPane.showConfirmDialog(null, "Willst du wirklich ein neues Spiel anfangen?");
-		switch (input) {
-		case 0 : 
-			// alle Werte auf null
-			Main.playerOne.emptyAll();
-	        Main.playerTwo.emptyAll();
-	        // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
-	        for (Country i : Main.countries) {
-	            i.setArmies();
-	        }
-	        frame.dispose();
-	        new PlayersGUI();
-		case 1 : 
-			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		case 2 :
-			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		}
+        int input = JOptionPane.showConfirmDialog(null, "Willst du wirklich ein neues Spiel anfangen?");
+        switch (input) {
+            case 0:
+                // alle Werte auf null
+                Main.playerOne.emptyAll();
+                Main.playerTwo.emptyAll();
+                // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
+                for (Country i : Main.countries) {
+                    i.setArmies();
+                }
+                frame.dispose();
+                new PlayersGUI();
+            case 1:
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            case 2:
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        }
     }
 
     private void endProgram() {
