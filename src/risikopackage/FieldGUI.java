@@ -423,7 +423,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         Map<String, ArrayList<Integer>> hitBoxPanels = new HashMap<>();
         Map<String, ArrayList<Integer>> armyCountLabels = new HashMap<>();
 
-        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 50, 70, 15)));
+        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 70, 70, 15)));
         hitBoxPanels.put("AMRA", new ArrayList<>(Arrays.asList(482, 80, 30, 30)));
         armyCountLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 85, 70, 20)));
 
