@@ -8,9 +8,6 @@ import java.util.Random;
 
 public class Gameplay extends JFrame {
     // hier werden die spielzuege in einzelnen funktionen aufgerufen
-    boolean continuing = false; // wird duch klicken des buttons "weiter" auf true gesetzt sodass
-    // die naechste funktion aufgerufen wird
-
     public Gameplay() {
     }
 
@@ -69,6 +66,12 @@ public class Gameplay extends JFrame {
 
     public void redistributionDel(int armies) {
         FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + armies + " Armeen auf deine Laender.\n");
+    }
+
+    public void endGameRound() {
+        FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
+                "erfuellt und damit dieses Spiel gewonnen!\nUeber 'Spiel abbrechen' im Menue oben links kann eine" +
+                " neue Runde gestartet werden.");
     }
 
     // verteilt Laender an die beiden Spieler

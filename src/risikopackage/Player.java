@@ -8,7 +8,6 @@ public class Player {
     private String color;
     private String playerMission;
     private int playerArmies;
-    private int playernew;
     private int availableArmies;
     private List<String> occupiedCountriesNames;
     private List<Country> occupiedCountries;
@@ -92,23 +91,21 @@ public class Player {
     public int getArmiesAvailableToMove() {
         return availableArmies;
     }
-    
+
     // bestimmt und nennt Armeen im Spiel
-    public void setNumberOfArmies(List<Country> countries)
-    {
+    private void setNumberOfArmies(List<Country> countries) {
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 7; j++) {
                 if (this.getCountryName(j).equals(countries.get(i).getCountryName())) {
-                	this.playerArmies += countries.get(i).getArmiesInCountry();
+                    this.playerArmies += countries.get(i).getArmiesInCountry();
                 }
             }
         }
     }
-    
-    public int numberOfArmies()
-    {
-    	setNumberOfArmies(Main.countries);
-    	return playerArmies;
+
+    public int numberOfArmies() {
+        setNumberOfArmies(Main.countries);
+        return playerArmies;
     }
 
     // bestimmt und nennt Farben
@@ -128,16 +125,14 @@ public class Player {
     public String getPlayerMission() {
         return playerMission;
     }
-    
-    // leert Spielerangaben f�r neues Spiel
-    public void emptyAll()
-    {
-    	this.color = "black";
-    	this.playerMission = "none";
-    	this.playerArmies = 0;
-    	this.playernew = 0;
-    	this.availableArmies = 0;
-    	this.occupiedCountriesNames.clear();
+
+    // leert Spielerangaben fuer neues Spiel
+    public void emptyAll() {
+        this.color = "black";
+        this.playerMission = "none";
+        this.playerArmies = 0;
+        this.availableArmies = 0;
+        this.occupiedCountriesNames.clear();
     }
 
     @Override
@@ -147,18 +142,24 @@ public class Player {
 
     public static Color PlayerColorCode(Player player) {
         Color color;
-        if (player.getColor().equals("blau")) {              //switch?
-            color = new java.awt.Color(0, 0, 255);
-        } else if (player.getColor().equals("rot")) {
-            color = new java.awt.Color(255, 0, 0);
-        } else if (player.getColor().equals("lila")) {
-            color = new java.awt.Color(157, 60, 156);
-        } else if (player.getColor().equals("pink")) {
-            color = new java.awt.Color(255, 0, 255);
-        } else if (player.getColor().equals("grau")) {
-            color = new java.awt.Color(76, 76, 76);
-        } else {
-            color = new java.awt.Color(0, 0, 0);
+        switch (player.getColor()) {
+            case "blau":
+                color = new java.awt.Color(0, 0, 255);
+                break;
+            case "rot":
+                color = new java.awt.Color(255, 0, 0);
+                break;
+            case "lila":
+                color = new java.awt.Color(157, 60, 156);
+                break;
+            case "pink":
+                color = new java.awt.Color(255, 0, 255);
+                break;
+            case "grau":
+                color = new java.awt.Color(76, 76, 76);
+                break;
+            default:
+                color = new java.awt.Color(0, 0, 0);
         }
         return color;
     }
