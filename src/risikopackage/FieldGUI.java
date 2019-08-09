@@ -14,7 +14,7 @@ import java.util.*;
 public class FieldGUI extends JFrame implements ActionListener {
 
     private JFrame frame;
-    private JLabel armiesattacking, armiesdefending;
+    private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
     public static JTextArea textfield;
     public static JButton next;
     private JButton undo, rollDice, suspendCoice, spreadNew;
@@ -255,7 +255,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh3.setBounds(25, 101, 70, 20);
         frame.add(playeroneh3);
 
-        JLabel playeronep2 = new JLabel(Integer.toString(Main.playerOne.numberOfCountries()), SwingConstants.RIGHT);
+        playeronep2 = new JLabel(Integer.toString(Main.playerOne.numberOfCountries()), SwingConstants.RIGHT);
         playeronep2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep2.setBounds(95, 101, 90, 20);
         frame.add(playeronep2);
@@ -265,7 +265,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh4.setBounds(25, 122, 70, 20);
         frame.add(playeroneh4);
 
-        JLabel playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies()), SwingConstants.RIGHT);
+        playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies()), SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep3.setBounds(95, 122, 90, 20);
         frame.add(playeronep3);
@@ -332,7 +332,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh3.setBounds(800, 101, 70, 20);
         frame.add(playertwoh3);
 
-        JLabel playertwop2 = new JLabel(Integer.toString(Main.playerTwo.numberOfCountries()), SwingConstants.RIGHT);
+        playertwop2 = new JLabel(Integer.toString(Main.playerTwo.numberOfCountries()), SwingConstants.RIGHT);
         playertwop2.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop2.setBounds(865, 101, 90, 20);
         frame.add(playertwop2);
@@ -342,7 +342,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh4.setBounds(800, 122, 70, 20);
         frame.add(playertwoh4);
 
-        JLabel playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies()), SwingConstants.RIGHT);
+        playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies()), SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop3.setBounds(865, 122, 90, 20);
         frame.add(playertwop3);
@@ -643,6 +643,40 @@ public class FieldGUI extends JFrame implements ActionListener {
                 armiesdefending.setForeground(selectedCountry2.getColorOfOwnerCode());
                 armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
                 armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
+                
+                if (selectedCountry1.getColorOfOwnerString() == Main.playerOne.getColor())
+                {
+                	int j = 0;
+                	for (int i = 0; i < Main.playerTwo.numberOfCountries(); i++)
+                	{	
+                		if (selectedCountry2.getCountryName().equals(Main.playerTwo.getCountryName(i)))
+                		{
+                			j = i;
+                		}
+                	}
+                	Main.playerOne.addCountryToList(Main.playerTwo.getCountryName(j), Main.playerTwo.getCountry(j));
+                	Main.playerTwo.deleteCountryToList(j);
+                	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));
+                    playertwop2.setText(Integer.toString(Main.playerTwo.numberOfCountries()));
+
+                }
+                else
+                {
+                	int j = 0;
+                	for (int i = 0; i < Main.playerOne.numberOfCountries(); i++)
+                	{	
+                		if (selectedCountry2.getCountryName().equals(Main.playerOne.getCountryName(i)))
+                		{
+                			j = i;
+                		}
+                	}
+                	Main.playerTwo.addCountryToList(Main.playerOne.getCountryName(j), Main.playerOne.getCountry(j));
+                	Main.playerOne.deleteCountryToList(j);
+                	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));
+                    playertwop2.setText(Integer.toString(Main.playerTwo.numberOfCountries()));
+                }
+                
+                
                 textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
                 if (Mission.testMission(player)) {
                     gameplay.endGameRound();
