@@ -585,6 +585,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             case 1:
                 counterPlayer++;
                 spreadNew.setEnabled(false);
+                undo.setEnabled(false);
                 this.setRemaining();
                 gameplay.deployArmies(this.getPlayer());
                 break;
@@ -688,7 +689,6 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void spreading() {
         if (this.getPlayer().getPlayerArmies() == this.getPlayer().numberOfCountries()) {
             gameplay.redistributionAbort(this.getPlayer());
-            undo.setEnabled(false);
             spreadNew.setEnabled(false);
         }
         else{
