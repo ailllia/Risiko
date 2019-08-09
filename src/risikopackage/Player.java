@@ -49,6 +49,10 @@ public class Player {
         return (continent.completeContinent(occupiedCountriesNames));
     }
 
+    public int getPlayerArmies() {
+        return playerArmies;
+    }
+
     public int getNewArmies() {
         if (occupiedCountriesNames.size() < 9)
             availableArmies = 2;
