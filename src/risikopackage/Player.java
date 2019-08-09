@@ -102,9 +102,10 @@ public class Player {
     }
 
     // bestimmt und nennt Armeen im Spiel
-    private void setNumberOfArmies(List<Country> countries) {
-        for (int i = 0; i < 14; i++) {
-            for (int j = 0; j < 7; j++) {
+    private void setNumberOfArmies(List<Country> countries, Player playerNow) {
+        playerArmies = 0;
+    	for (int i = 0; i < 14; i++) {
+            for (int j = 0; j <  playerNow.numberOfCountries(); j++) {
                 if (this.getCountryName(j).equals(countries.get(i).getCountryName())) {
                     this.playerArmies += countries.get(i).getArmiesInCountry();
                 }
@@ -112,16 +113,11 @@ public class Player {
         }
     }
 
-    public int numberOfArmies() {
-        setNumberOfArmies(Main.countries);
+    public int numberOfArmies(Player playerNow) {
+        setNumberOfArmies(Main.countries, playerNow);
         return playerArmies;
     }
     
-    public int numberOfArmiesMinus() {
-    	playerArmies -= 1;
-    	return playerArmies;
-    }
-
     // bestimmt und nennt Farben
     public void setColor(String color) {
         this.color = color;
