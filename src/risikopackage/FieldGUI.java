@@ -645,7 +645,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 dicePlayerOne_img = new ImageIcon();
         }
 
-        switch (dice1) {
+        switch (dice2) {
             case 1:
                 dicePlayerTwo_img = new ImageIcon("material/diceone.png");
                 break;
