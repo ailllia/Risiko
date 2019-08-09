@@ -265,7 +265,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeroneh4.setBounds(25, 122, 70, 20);
         frame.add(playeroneh4);
 
-        playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies()), SwingConstants.RIGHT);
+        playeronep3 = new JLabel(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)), SwingConstants.RIGHT);
         playeronep3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playeronep3.setBounds(95, 122, 90, 20);
         frame.add(playeronep3);
@@ -342,7 +342,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         playertwoh4.setBounds(800, 122, 70, 20);
         frame.add(playertwoh4);
 
-        playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies()), SwingConstants.RIGHT);
+        playertwop3 = new JLabel(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)), SwingConstants.RIGHT);
         playertwop3.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         playertwop3.setBounds(865, 122, 90, 20);
         frame.add(playertwop3);
@@ -423,7 +423,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         Map<String, ArrayList<Integer>> hitBoxPanels = new HashMap<>();
         Map<String, ArrayList<Integer>> armyCountLabels = new HashMap<>();
 
-        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 70, 70, 15)));
+        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 50, 70, 15)));
         hitBoxPanels.put("AMRA", new ArrayList<>(Arrays.asList(482, 80, 30, 30)));
         armyCountLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 85, 70, 20)));
 
@@ -634,7 +634,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             if (selectedCountry2.getArmiesInCountry() > 1) {
                 textfield.append("Der Besetzer verliert eine Einheit!\n");
                 selectedCountry2.loseArmy();
-                armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
+                armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));              	
             } else {
                 selectedCountry2.changeOwner(selectedCountry1.getColorOfOwnerString());
                 selectedCountry2.setColorOfOwnerCode(selectedCountry1.getColorOfOwnerCode());
@@ -650,14 +650,16 @@ public class FieldGUI extends JFrame implements ActionListener {
                 	for (int i = 0; i < Main.playerTwo.numberOfCountries(); i++)
                 	{	
                 		if (selectedCountry2.getCountryName().equals(Main.playerTwo.getCountryName(i)))
-                		{
+                		{ 
                 			j = i;
                 		}
                 	}
                 	Main.playerOne.addCountryToList(Main.playerTwo.getCountryName(j), Main.playerTwo.getCountry(j));
                 	Main.playerTwo.deleteCountryToList(j);
-                	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));
+                	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));                	
                     playertwop2.setText(Integer.toString(Main.playerTwo.numberOfCountries()));
+                    playeronep3.setText(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)));
+                    playertwop3.setText(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)));
 
                 }
                 else
@@ -674,6 +676,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 	Main.playerOne.deleteCountryToList(j);
                 	playeronep2.setText(Integer.toString(Main.playerOne.numberOfCountries()));
                     playertwop2.setText(Integer.toString(Main.playerTwo.numberOfCountries()));
+                    playeronep3.setText(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)));
+                    playertwop3.setText(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)));
                 }
                 
                 
@@ -685,8 +689,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         } else {
             textfield.append("Du verlierst eine Einheit.\n");
             selectedCountry1.loseArmy();
-            armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
-        }
+            armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));            
+           	playeronep3.setText(Integer.toString(Main.playerOne.numberOfArmies(Main.playerOne)));
+           	playertwop3.setText(Integer.toString(Main.playerTwo.numberOfArmies(Main.playerTwo)));
+          }
         rollDice.setEnabled(false);
         counterHitbox = 1;      // damit wieder ein neues land gew�hlt werden kann
         textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
