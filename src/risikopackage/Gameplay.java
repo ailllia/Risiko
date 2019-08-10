@@ -33,45 +33,45 @@ public class Gameplay extends JFrame {
     }
 
     public void welcomeText() { // Erste Textausgaben
-        FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt. " +
-                "Die Anzahl der Armeen steht in der Farbe des Spielers auf dem Land.\nKlickt auf 'Weiter' um fortzufahren.\n");
+        FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt." +
+                " Die Anzahl der Armeen steht in der Farbe des Spielers auf dem Land.\nIn den Spielregeln werden" +
+                " die Phasen eines Spielzuges erklärt.\nKlicke auf 'Weiter' um fortzufahren.\n");
     }
 
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + "\nVerteile jetzt " + player.getNewArmies() +
-                " neue Armeen auf deine Laender.\nLinksklicke dazu auf das Land, deren Einheitenzahl du " +
-                "erhoehen willst.\nMit Rechtsklick kannst du eine verteilte Armee wieder abziehen und neu setzen.\n");
+        FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + ".\n\nVerteile " + player.getNewArmies() +
+                " neue Armeen auf deine Laender.\nKlicke dafür auf die Zahlen in den Laendern.\nMit Linksklick" +
+                " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n");
     }
 
     public void attackphaseText() {
-        FieldGUI.textfield.append("\nDu kannst nun von deinem Gegner besetzte Laender " +
-                "befreien.\nWaehle dazu ein Land in deinem Besitz, das mindestens 2 Armeen besitzt, mit Linksklick " +
-                "aus und anschliessend ein Land deines Gegners\nauf die gleiche Weise. Klicke auf 'Wuerfeln' um " +
-                "deinen Zug zu machen. Wenn du kein weiteres Land befreien moechtest, klicke auf 'Weiter'.\n" +
-                "Mit Rechtsklick kannst du deine Laenderwahl aufheben.\n");
+        FieldGUI.textfield.append("\nBefreie Laender, die von deinem Gegner besetzt sind.\nWaehle dazu ein Land aus," +
+                " das in deinem Besitz ist und in dem mindestens 2 Armeen stationiert sind. Waehle danach\n ein gegnerisches" +
+                " Nachbarland aus.\nMit Rechtsklick kannst du deine jeweilige Auswahl aufheben.\nKlicke auf 'Wuerfeln' um" +
+                " den Befreiungsversuch zu starten.\nWenn du nicht weisst, ob du einen Befreiungsversuch starten kannst," +
+                " klicke 'Pruefen'.\nKlicke auf 'Weiter', um zur nächsten Spielphase zu gelangen.\n");
     }
 
     public void attackPossibleText() {
-        FieldGUI.textfield.append("\nEs ist ein Angriff möglich.\n");
+        FieldGUI.textfield.append("\nEs ist ein Angriff möglich. Starte einen Befreiungsversuch, oder klicke auf" +
+                " 'Weiter', um zur nächsten Spielphase zu gelangen.\n");
     }
 
     public void attackNotPossibleText() {
-        FieldGUI.textfield.append("\nEs ist kein Angriff möglich. Klicke auf 'Weiter', " +
-                "um zur nächsten Spielphase zu gelangen.\n");
+        FieldGUI.textfield.append("\nEs ist kein Angriff möglich. Klicke auf 'Weiter', um zur nächsten Spielphase zu" +
+                " gelangen.\n");
     }
 
     public void redistributionText() {
-        FieldGUI.textfield.append("\nDu hast jetzt die Moeglichkeit, deine Einheiten neu zu " +
-                "verteilen." + "\nZiehe dafür zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab." +
-                " Mit Linksklick fuegst du\ndie abgezogenen Einheiten einem Land hinzu. " +
-                "\nWenn du dir unsicher bist, ob  du Einheiten verteilen kannst, klicke 'Prüfen'." +
-                "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
+        FieldGUI.textfield.append("\nVersetze deine Armeen.\nZiehe dafür" +
+                " zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab. Mit Linksklick fuegst" +
+                " du\ndie abgezogenen Einheiten einem Land hinzu.\nWenn du nicht weisst, ob du Einheiten verteilen" +
+                " kannst, klicke 'Pruefen'.\nKlicke auf 'Weiter', um deinen Zug zu beenden.\n");
     }
 
     public void redistributionAbortText() {
-        FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, " +
-                "indem du auf 'Weiter' klickst.\n");
+        FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, indem du auf 'Weiter' klickst.\n");
     }
 
     public void redistributionContText(Player player) {
@@ -80,8 +80,8 @@ public class Gameplay extends JFrame {
 
     public void finishedGameText() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
-                "erfuellt und damit dieses Spiel gewonnen!\nUeber 'Spiel abbrechen' im Menue oben links kann eine" +
-                " neue Runde gestartet werden.");
+                "erfuellt und damit dieses Spiel gewonnen!\nStarte eine neue Runde ueber 'Spiel abbrechen' ->" +
+                " 'neues Spiel starten'.");
     }
 
     // verteilt Laender an die beiden Spieler
