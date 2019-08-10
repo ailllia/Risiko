@@ -78,7 +78,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
             this.setVisible(false);
             Gameplay.getInstance().initialising();
             new FieldGUI();
-            Gameplay.getInstance().welcome();
+            Gameplay.getInstance().welcomeText();
         }
     }
 }
