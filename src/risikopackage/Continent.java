@@ -20,7 +20,7 @@ public class Continent {
 
     /**
      * Sets bonus armies that come with the continent.
-     * @see: getBonusArmies()
+     * @see getBonusArmies()
      */
     private void setBonusArmies() {
         if (belongingCountries.size() < 5)
@@ -31,7 +31,7 @@ public class Continent {
 
     /**
      * Gets the name of the continent.
-     * @return: name of the continent
+     * @return name of the continent
      */
     public String getName() {
         return continentName;
@@ -40,7 +40,7 @@ public class Continent {
     /**
      * Returns whether a list contains the complete continent.
      * @param countries the list of countries that might contain the complete continent
-     * @return: true if countries contains the complete continent; false otherwise
+     * @return true if countries contains the complete continent; false otherwise
      */
     public boolean completeContinent(List<String> countries) {
         int matchingCountries = 0;
@@ -57,8 +57,8 @@ public class Continent {
 
     /**
      * Gets the number of bonus armies.
-     * @return: the number of bonus armies
-     * @see: setBonusArmies()
+     * @return the number of bonus armies
+     * @see setBonusArmies()
      */
     public int getBonusArmies() {
         return bonusArmies;
@@ -68,7 +68,7 @@ public class Continent {
      * Returns true if a continent is owned completely by a player.
      * @param cName the name of the continent
      * @param PlayerNow the player whose turn it is
-     * @return: false by default
+     * @return false by default
      */
     public static boolean complete(String cName, Player PlayerNow) {
         Gameplay gameplayInstance = Gameplay.getInstance();
