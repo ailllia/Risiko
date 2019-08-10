@@ -136,12 +136,24 @@ public class FieldGUI extends JFrame implements ActionListener {
         JMenuBar bar = new JMenuBar();
 
         JMenu rules = new JMenu("Spielregeln");
-        JMenuItem winning = new JMenuItem("Ende des Spiels");
-        winning.addActionListener(e -> openEndingRules());
-        rules.add(winning);
+        JMenuItem programme = new JMenuItem("Spielplan");
+        programme.addActionListener(e -> openProgramme());
+        rules.add(programme);
+        JMenuItem goal = new JMenuItem("Ziel des Spiels");
+        goal.addActionListener(e -> openGoalRules());
+        rules.add(goal);
+        JMenuItem gettingArmies = new JMenuItem("Neue Armeen");
+        gettingArmies.addActionListener(e -> openNewArmiesRules());
+        rules.add(gettingArmies);
         JMenuItem attack = new JMenuItem("Land befreien");
         attack.addActionListener(e -> openPlayingRules());
         rules.add(attack);
+        JMenuItem redistribute = new JMenuItem("Umverteilen");
+        redistribute.addActionListener(e -> openRedistributionRules());
+        rules.add(redistribute);
+        JMenuItem winning = new JMenuItem("Ende des Spiels");
+        winning.addActionListener(e -> openEndingRules());
+        rules.add(winning);
         bar.add(rules);
 
         JMenu quitGame = new JMenu("Spiel abbrechen");
@@ -330,7 +342,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         //Angaben Laender
         //Laender werden in Maps geladen die die zugehoerigen Koordinaten enthalten
-        //for-Schleife ruft dann f�r jedes land die funktion auf die die elemente dem frame / panel hinzuf�gt
+        //for-Schleife ruft dann fuer jedes land die funktion auf die die elemente dem frame / panel hinzufuegt
 
         /*
         List of countries
@@ -558,8 +570,8 @@ public class FieldGUI extends JFrame implements ActionListener {
             setArmyText(getPlayer());
             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
             textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
-        } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
-            armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
+        } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && country.getArmiesInCountry() == 1) {
             textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
         }
     }
@@ -604,6 +616,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
+        Gameplay gameplayInstance = Gameplay.getInstance();
         if (counterNext == 0) {
             textfield.setText("");
             counterHitbox = 0;
@@ -613,16 +626,16 @@ public class FieldGUI extends JFrame implements ActionListener {
             case 1:
                 counterPlayer++;
                 check.setEnabled(false);
-                Gameplay.getInstance().deployArmiesText(this.getPlayer());
+                gameplayInstance.deployArmiesText(this.getPlayer());
                 break;
             case 2:
                 counter = 0;
                 this.setRemaining();
-                Gameplay.getInstance().attackphaseText();
+                gameplayInstance.attackphaseText();
                 check.setEnabled(true);
                 break;
             case 3:
-                Gameplay.getInstance().redistributionText();
+                gameplayInstance.redistributionText();
                 check.setEnabled(true);
                 counterNext = 0;
                 rollDice.setEnabled(false);
@@ -636,10 +649,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         check.setEnabled(true);
         ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
-//        int diceAttacker = random.nextInt(6) + 1;
-//        int diceDefender = random.nextInt(6) + 1;
-        int diceAttacker = 6;
-        int diceDefender = 1;
+        int diceAttacker = random.nextInt(6) + 1;
+        int diceDefender = random.nextInt(6) + 1;
         if (player == Gameplay.getInstance().getPlayerOne()) {
             dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
             dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
@@ -745,21 +756,22 @@ public class FieldGUI extends JFrame implements ActionListener {
 
 
     private void checking() {
+        Gameplay gameplayInstance = Gameplay.getInstance();
         switch (counterNext) {
             case 0:
                 if (this.getPlayer().getPlayerArmies() == this.getPlayer().numberOfCountries()) {
-                    Gameplay.getInstance().redistributionAbortText();
+                    gameplayInstance.redistributionAbortText();
                     check.setEnabled(false);
                 } else {
-                    Gameplay.getInstance().redistributionContText(this.getPlayer());
+                    gameplayInstance.redistributionContText(this.getPlayer());
                     check.setEnabled(false);
                 } break;
             case 2:
                 if (this.getPlayer().attackPossible()) {
-                    Gameplay.getInstance().attackPossibleText();
+                    gameplayInstance.attackPossibleText();
                     check.setEnabled(false);
                 } else {
-                    Gameplay.getInstance().attackNotPossibleText();
+                    gameplayInstance.attackNotPossibleText();
                     check.setEnabled(false);
                 }
                 break;
@@ -812,7 +824,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     // erklaert Spielende
     private void openEndingRules() {
         JOptionPane.showMessageDialog(frame,
-                "<html>Das Spiel Risiko endet, wenn ein Spieler seine Mission erfuellt hat.<html>",
+                "<html>Das Spiel Risiko endet, wenn der erste Spieler seine Mission erfuellt hat.<html>",
                 "Ende des Spiels",
                 JOptionPane.PLAIN_MESSAGE);
     }
@@ -820,8 +832,62 @@ public class FieldGUI extends JFrame implements ActionListener {
     //erklaert die Spielregeln
     private void openPlayingRules() {
         JOptionPane.showMessageDialog(frame,
-                "<html>Laender werden befreit, indem...<html>",
+                "In der zweiten Phase koennen Laender befreit werden. Eine Befreiungsaktion ist moeglich, wenn" +
+                        "\n- in dem Land, von dem die Aktion gestartet werden soll, mehr als eine Armee stationiert ist und" +
+                        "\n- das zu befreiende Land vom Gegner besetzt ist und ein Nachbarland vom Ausgangsland ist." +
+                        "\nZuerst wird das Ausgangsland mit Linksklick auf die Zahl der Armeen ausgewaehlt. Das zu befreiende" +
+                        "\nLand wird auf die gleiche Weise ausgewaehlt. Mit Rechtsklick kann die jeweilige Auswahl" +
+                        "\nrueckgaengig gemacht werden." +
+                        "\nSind die beiden Laender ausgewaehlt, muss mit dem 'Wuerfeln'-Button gewuerfelt werden." +
+                        "\nEs gewinnt der Spieler mit dem hoeheren Ergebnis; bei Gleichstand gewinnt der Verteidiger." +
+                        "\nVon den Armeen des Verlierers wird eine Einheit abgezogen." +
+                        "\nVerliert die Besatzungsmacht alle Armeen in einem Land, zieht der Befreier mit einer Armee ein." +
+                        "\nUeber den 'Pruefen'-Button kann getestet werden, ob eine Befreiungsaktion moeglich ist." +
+                        "\nDiese Phase ist freiwillig und kann uebersprungen werden.",
                 "Land befreien",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void openGoalRules() {
+        JOptionPane.showMessageDialog(frame,
+                "<html>Ziel des Spieles ist es, deine Mission vor deinem Gegner zu erfuellen.<html>",
+                "Ziel des Spieles",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void openRedistributionRules() {
+        JOptionPane.showMessageDialog(frame,
+                "Am Ende jeden Spielzugs hat jeder Spieler die Moeglichkeit, seine Armeen umzusetzen." +
+                        "\nMit Rechtsklick wird eine Armee aus einem Land abgezogen, in dem zwei oder mehr Armeen" +
+                        "\nstationiert sind. Mit Linksklick wird die Armee in ein anderes Land gesetzt." +
+                        "\nUeber den 'Pruefen'-Button kann getestet werden, ob ein Umsetzen der Armeen moeglich ist." +
+                        "\nDiese Phase ist freiwillig und kann uebersprungen werden.",
+                "Armeen umverteilen",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void openNewArmiesRules() {
+        JOptionPane.showMessageDialog(frame,
+                "Am Anfang jeden Spielzugs bekommt jeder Spieler neue Armeen, die verteilt werden müssen." +
+                        "\nJeder Spieler bekommt (Anzahl der besetzten Laender / 3) Armeen, mindestens aber 2." +
+                        "\nBesitzt ein Spieler einen kompletten Kontinent, bekommt er Bonusarmeen:" +
+                        "\nOtea: 1 Bonusarmee\nPriya: 2 Bonusarmeen\nSolva: 2 Bonusarmeen" +
+                        "\nDie Verteilung der Armeen bleibt dem Spieler ueberlassen. Mit Linksklick auf die Zahl der Armeen" +
+                        "\nin einem Land wird diesem eine Armee hinzugefuegt. Mit Rechtsklick wird eine Armee abgezogen.",
+                "Neue Armeen",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void openProgramme() {
+        JOptionPane.showMessageDialog(frame,
+                "Auf dem Spielplan sind 7 Laender abgebildet. Diese sind in der Farbe eines der" +
+                        "\ndrei Kontinente eingefaerbt. Die Legende ist in der rechten unteren Ecke." +
+                        "\nBenachbarte Laender werden durch eine braune, gestrichelte Linie ausgewiesen." +
+                        "\nDie Namen der Laender stehen auf den Laendern. Unter dem Namen steht die Anzahl" +
+                        "\nder Armeen im Land. Die Zahl ist in der Farbe des Spielers, der das Land besitzt." +
+                        "\nFuer die Aktionen Armeen setzen und umverteilen sowie Laender auswaehlen muss diese" +
+                        "\nZahl angeklickt werden.",
+                "Aufbau des Spielplans",
                 JOptionPane.PLAIN_MESSAGE);
     }
 
