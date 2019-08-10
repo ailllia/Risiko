@@ -808,6 +808,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         hitboxPanel.setName(country.getCountryName().toUpperCase());
         hitboxPanel.setBounds(hitBoxCoord.get(0), hitBoxCoord.get(1), hitBoxCoord.get(2), hitBoxCoord.get(3));
         //hitboxPanel.setVisible(false);
+        hitboxPanel.setBackground(new java.awt.Color(0, 0, 0, 0));
         hitboxPanel.addMouseListener(this.hitBoxListener);
 
         //JLabel Army Count
