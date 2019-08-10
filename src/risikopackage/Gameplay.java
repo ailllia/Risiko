@@ -15,6 +15,9 @@ public class Gameplay extends JFrame {
     private List<Continent> continents = new ArrayList<>();
     private List<Mission> missions = new ArrayList<>();
 
+    /**
+     * Constructor for Gameplay
+     */
     private Gameplay() {
     }
 
