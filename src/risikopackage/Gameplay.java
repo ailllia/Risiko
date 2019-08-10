@@ -16,7 +16,7 @@ public class Gameplay extends JFrame {
     private List<Mission> missions = new ArrayList<>();
 
     /**
-     * Constructor for Gameplay
+     * Creates a new Gameplay.
      */
     private Gameplay() {
     }
