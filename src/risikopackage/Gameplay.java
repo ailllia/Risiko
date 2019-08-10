@@ -19,8 +19,8 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
-     * @return
+     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null
+     * @return instance
      */
     public static Gameplay getInstance() {
         if (instance == null) {
@@ -30,7 +30,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Initialises the game.
      */
     public void initialising() {
         Random chance = new Random();
@@ -40,7 +40,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Welcomes the players to a round of Risk.
      */
     public void welcomeText() {
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt." +
@@ -49,8 +49,8 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
-     * @param player
+     * Informs the player that he has to deploy armies.
+     * @param player the player whose turn it is
      */
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
@@ -60,7 +60,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Informs the player that he can attack other countries if he wants.
      */
     public void attackphaseText() {
         FieldGUI.textfield.append("\n\tBefreie Laender, die von deinem Gegner besetzt sind.\nWaehle dazu ein Land aus," +
@@ -71,7 +71,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Informs the player that an attack is possible.
      */
     public void attackPossibleText() {
         FieldGUI.textfield.append("\nEs ist ein Angriff möglich. Starte einen Befreiungsversuch, oder klicke auf" +
@@ -79,7 +79,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Informs the player that an attack is impossible.
      */
     public void attackNotPossibleText() {
         FieldGUI.textfield.append("\nEs ist kein Angriff möglich. Klicke auf 'Weiter', um zur nächsten Spielphase zu" +
@@ -87,7 +87,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Informs the player that he can redistribute armies if he wants.
      */
     public void redistributionText() {
         FieldGUI.textfield.append("\n\tVersetze deine Armeen.\nZiehe dafür" +
@@ -97,22 +97,24 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
+     * Appends a message to the textfield that no armies can be redistributed.
+     * Informs the player that he has no armies to be redistributed.
      */
     public void redistributionAbortText() {
         FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, indem du auf 'Weiter' klickst.\n");
     }
 
     /**
-     *
-     * @param player
+     * Appends a message to the textfield that the player can redistribute armies.
+     * Informs the player that he has armies to be redistributed.
+     * @param player the player whose turn it is
      */
     public void redistributionContText(Player player) {
         FieldGUI.textfield.append("\nDu kannst " + player.getArmiesAvailableToMove() + " Einheit/en neu verteilen.\n");
     }
 
     /**
-     *
+     * Appends a congratulatory message to the textfield and signifies the end of the game.
      */
     public void finishedGameText() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
@@ -121,11 +123,11 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
-     * @param playerOne
-     * @param playerTwo
-     * @param countries
-     * @param chance
+     * Randomly distributes seven countries to the players
+     * @param playerOne the first player to get seven countries
+     * @param playerTwo the second player to get seven countries
+     * @param countries the list with countries to be distributed to the players
+     * @param chance the random generator to determine the positions of the seven first countries to be distributed in countries
      */
     private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
         List<Country> countriesCopy = new ArrayList<>(countries);
@@ -163,10 +165,10 @@ public class Gameplay extends JFrame {
     */
 
     /**
-     *
+     * Sets armies and the owner of countries.
      * @param playerOne
      * @param playerTwo
-     * @param countries
+     * @param countries the list of countries which contains the countries of the player
      */
     private static void paintCountries(Player playerOne, Player playerTwo, List<Country> countries) {
         Color rgbCodesOne = Player.PlayerColorCode(playerOne);
@@ -192,11 +194,11 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
-     * @param playerOne
-     * @param playerTwo
-     * @param missions
-     * @param chance
+     * Randomly distributes a mission to the two players.
+     * @param playerOne the first player to get a mission
+     * @param playerTwo the second player to get a mission
+     * @param missions the list with missions from which the chosen missions will come from
+     * @param chance the random generator to determine the position of the chosen mission in missions
      */
     private static void chooseMission(Player playerOne, Player playerTwo, List<Mission> missions, Random chance) {
         List<Mission> missionsCopy = new ArrayList<>(missions);
@@ -210,40 +212,40 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     *
-     * @return
+     * Gets the first player.
+     * @return playerOne
      */
     public Player getPlayerOne() {
         return playerOne;
     }
 
     /**
-     *
-     * @return
+     * Gets the second player.
+     * @return playerTwo
      */
     public Player getPlayerTwo() {
         return playerTwo;
     }
 
     /**
-     *
-     * @return
+     * Gets the list containing countries
+     * @return countries
      */
     public List<Country> getCountries() {
         return countries;
     }
 
     /**
-     *
-     * @return
+     * Gets the list containing continents
+     * @return continents
      */
     public List<Continent> getContinents() {
         return continents;
     }
 
     /**
-     *
-     * @return
+     * Gets the list containing missions
+     * @return missions
      */
     public List<Mission> getMissions() {
         return missions;
