@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Loadtxtfiles {
 
     /**
-     * Constructor for Loadtxtfiles
+     * Creates a new Loadtxtfiles.
      */
     public Loadtxtfiles() {
     }
