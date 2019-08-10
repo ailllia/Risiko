@@ -57,7 +57,7 @@ public class Continent {
             case "Priya":
                 int pryas = 0;
                 for (int i = 0; i < PlayerNow.numberOfCountries(); i++) {
-                    for (int j = 0; j < Gameplay.getInstance().getContinents().get(2).belongingCountries.size(); j++) {
+                    for (int j = 0; j < Gameplay.getInstance().getContinents().get(1).belongingCountries.size(); j++) {
                         if (PlayerNow.getCountryName(i).equals(Gameplay.getInstance().getContinents().get(2).belongingCountries.get(j))) {
                             pryas += 1;
                         }
