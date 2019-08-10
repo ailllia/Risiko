@@ -39,43 +39,43 @@ public class Gameplay extends JFrame {
 
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Verteile jetzt " + player.getNewArmies() +
+        FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + "\nVerteile jetzt " + player.getNewArmies() +
                 " neue Armeen auf deine Laender.\nLinksklicke dazu auf das Land, deren Einheitenzahl du " +
                 "erhoehen willst.\nMit Rechtsklick kannst du eine verteilte Armee wieder abziehen und neu setzen.\n");
     }
 
-    public void attackphaseText(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst nun von deinem Gegner besetzte Laender " +
+    public void attackphaseText() {
+        FieldGUI.textfield.append("\nDu kannst nun von deinem Gegner besetzte Laender " +
                 "befreien.\nWaehle dazu ein Land in deinem Besitz, das mindestens 2 Armeen besitzt, mit Linksklick " +
                 "aus und anschliessend ein Land deines Gegners\nauf die gleiche Weise. Klicke auf 'Wuerfeln' um " +
                 "deinen Zug zu machen. Wenn du kein weiteres Land befreien moechtest, klicke auf 'Weiter'.\n" +
                 "Mit Rechtsklick kannst du deine Laenderwahl aufheben.\n");
     }
 
-    public void attackPossibleText(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Es ist ein Angriff möglich.\n");
+    public void attackPossibleText() {
+        FieldGUI.textfield.append("\nEs ist ein Angriff möglich.\n");
     }
 
-    public void attackNotPossibleText(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Es ist kein Angriff möglich. Klicke auf 'Weiter', " +
+    public void attackNotPossibleText() {
+        FieldGUI.textfield.append("\nEs ist kein Angriff möglich. Klicke auf 'Weiter', " +
                 "um zur nächsten Spielphase zu gelangen.\n");
     }
 
-    public void redistributionText(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Du hast jetzt die Moeglichkeit, deine Einheiten neu zu " +
+    public void redistributionText() {
+        FieldGUI.textfield.append("\nDu hast jetzt die Moeglichkeit, deine Einheiten neu zu " +
                 "verteilen." + "\nZiehe dafür zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab." +
                 " Mit Linksklick fuegst du\ndie abgezogenen Einheiten einem Land hinzu. " +
                 "\nWenn du dir unsicher bist, ob  du Einheiten verteilen kannst, klicke 'Prüfen'." +
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
     }
 
-    public void redistributionAbortText(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug, " +
+    public void redistributionAbortText() {
+        FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, " +
                 "indem du auf 'Weiter' klickst.\n");
     }
 
     public void redistributionContText(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst " + player.getArmiesAvailableToMove() + " Einheit/en neu verteilen.\n");
+        FieldGUI.textfield.append("\nDu kannst " + player.getArmiesAvailableToMove() + " Einheit/en neu verteilen.\n");
     }
 
     public void finishedGameText() {
