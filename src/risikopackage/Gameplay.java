@@ -32,7 +32,7 @@ public class Gameplay extends JFrame {
         chooseMission(playerOne, playerTwo, missions, chance);
     }
 
-    public void welcome() { // Erste Textausgaben
+    public void welcomeText() { // Erste Textausgaben
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt. " +
                 "Die Anzahl der Armeen steht in der Farbe des Spielers auf dem Land.\nKlickt auf 'Weiter' um fortzufahren.\n");
     }
@@ -52,11 +52,11 @@ public class Gameplay extends JFrame {
                 "Mit Rechtsklick kannst du deine Laenderwahl aufheben.\n");
     }
 
-    public void attackPossible(Player player) {
+    public void attackPossibleText(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Es ist ein Angriff möglich.\n");
     }
 
-    public void attackNotPossible(Player player) {
+    public void attackNotPossibleText(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Es ist kein Angriff möglich. Klicke auf 'Weiter', " +
                 "um zur nächsten Spielphase zu gelangen.\n");
     }
@@ -69,25 +69,13 @@ public class Gameplay extends JFrame {
                 "\nKlicke auf 'Weiter' um deinen Zug zu beenden.\n");
     }
 
-    public void redistributionAbort(Player player) {
+    public void redistributionAbortText(Player player) {
         FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst keine Einheiten neuverteilen. Beende deinen Zug, " +
                 "indem du auf 'Weiter' klickst.\n");
     }
 
-    public void redistributionCont(Player player) {
-        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst " + player.getArmiesAvailableToMove() + " Einheiten neu verteilen.\n");
-    }
-
-    public void redistributionNext(int armies) {
-        FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("Verteile jetzt " + armies + " Armeen auf deinen Laendern um."
-                + "\nMit Linksklick fuegst du eine Einheit hinzu; mit Rechtsklick ziehst du eine Einheit ab."
-                + "Um deine Wahl rueckgaenig zu machen \nund neu zu verteilen, klicke auf 'Rueckgaengig'. \nAchtung: " +
-                "Dies setzt auch deine bereits neuverteilten Armeen zurueck.\n");
-    }
-
-    public void redistributionDel(int armies) {
-        FieldGUI.textfield.append("Du hast deine Umverteilung rueckgaengig gemacht. Verteile " + armies + " Armeen auf deine Laender.\n");
+    public void redistributionContText(Player player) {
+        FieldGUI.textfield.append("\n" + player.getColor() + ": Du kannst " + player.getArmiesAvailableToMove() + " Einheit/en neu verteilen.\n");
     }
 
     public void finishedGameText() {
