@@ -209,25 +209,25 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         JLabel playeronehr1 = new JLabel("");
         playeronehr1.setOpaque(true);
-        playeronehr1.setBackground(new java.awt.Color(204, 204, 204));
+        playeronehr1.setBackground(new java.awt.Color(208, 161, 131));
         playeronehr1.setBounds(20, 78, 170, 2);
         frame.add(playeronehr1);
 
         JLabel playeronehr2 = new JLabel("");
         playeronehr2.setOpaque(true);
-        playeronehr2.setBackground(new java.awt.Color(204, 204, 204));
+        playeronehr2.setBackground(new java.awt.Color(208, 161, 131));
         playeronehr2.setBounds(20, 100, 170, 1);
         frame.add(playeronehr2);
 
         JLabel playeronehr3 = new JLabel("");
         playeronehr3.setOpaque(true);
-        playeronehr3.setBackground(new java.awt.Color(204, 204, 204));
+        playeronehr3.setBackground(new java.awt.Color(208, 161, 131));
         playeronehr3.setBounds(20, 121, 170, 1);
         frame.add(playeronehr3);
 
         JLabel playeronehr4 = new JLabel("");
         playeronehr4.setOpaque(true);
-        playeronehr4.setBackground(new java.awt.Color(204, 204, 204));
+        playeronehr4.setBackground(new java.awt.Color(208, 161, 131));
         playeronehr4.setBounds(20, 142, 170, 1);
         frame.add(playeronehr4);
 
@@ -286,25 +286,25 @@ public class FieldGUI extends JFrame implements ActionListener {
 
         JLabel playertwohr1 = new JLabel("");
         playertwohr1.setOpaque(true);
-        playertwohr1.setBackground(new java.awt.Color(204, 204, 204));
+        playertwohr1.setBackground(new java.awt.Color(208, 161, 131));
         playertwohr1.setBounds(795, 78, 170, 2);
         frame.add(playertwohr1);
 
         JLabel playertwohr2 = new JLabel("");
         playertwohr2.setOpaque(true);
-        playertwohr2.setBackground(new java.awt.Color(204, 204, 204));
+        playertwohr2.setBackground(new java.awt.Color(208, 161, 131));
         playertwohr2.setBounds(795, 100, 170, 1);
         frame.add(playertwohr2);
 
         JLabel playertwohr3 = new JLabel("");
         playertwohr3.setOpaque(true);
-        playertwohr3.setBackground(new java.awt.Color(204, 204, 204));
+        playertwohr3.setBackground(new java.awt.Color(208, 161, 131));
         playertwohr3.setBounds(795, 121, 170, 1);
         frame.add(playertwohr3);
 
         JLabel playertwohr4 = new JLabel("");
         playertwohr4.setOpaque(true);
-        playertwohr4.setBackground(new java.awt.Color(204, 204, 204));
+        playertwohr4.setBackground(new java.awt.Color(208, 161, 131));
         playertwohr4.setBounds(795, 142, 170, 1);
         frame.add(playertwohr4);
 
@@ -345,62 +345,62 @@ public class FieldGUI extends JFrame implements ActionListener {
         Map<String, ArrayList<Integer>> hitBoxPanels = new HashMap<>();
         Map<String, ArrayList<Integer>> armyCountLabels = new HashMap<>();
 
-        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 70, 70, 15)));
-        hitBoxPanels.put("AMRA", new ArrayList<>(Arrays.asList(482, 80, 30, 30)));
-        armyCountLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 85, 70, 20)));
+        countryNameLabels.put("AMRA", new ArrayList<>(Arrays.asList(475, 35, 70, 15))); // Name
+        hitBoxPanels.put("AMRA", new ArrayList<>(Arrays.asList(475, 50, 30, 30))); // Box
+        armyCountLabels.put("AMRA", new ArrayList<>(Arrays.asList(487, 85, 70, 20))); // Zahl
 
-        countryNameLabels.put("BITA", new ArrayList<>(Arrays.asList(643, 83, 70, 15)));
-        hitBoxPanels.put("BITA", new ArrayList<>(Arrays.asList(638, 95, 30, 30)));
+        countryNameLabels.put("BITA", new ArrayList<>(Arrays.asList(675, 85, 70, 15)));
+        hitBoxPanels.put("BITA", new ArrayList<>(Arrays.asList(675, 100, 30, 30)));
         armyCountLabels.put("BITA", new ArrayList<>(Arrays.asList(643, 98, 70, 20)));
 
-        countryNameLabels.put("CAIA", new ArrayList<>(Arrays.asList(272, 92, 70, 15)));
-        hitBoxPanels.put("CAIA", new ArrayList<>(Arrays.asList(267, 95, 30, 30)));
+        countryNameLabels.put("CAIA", new ArrayList<>(Arrays.asList(275, 85, 70, 15)));
+        hitBoxPanels.put("CAIA", new ArrayList<>(Arrays.asList(275, 100, 30, 30)));
         armyCountLabels.put("CAIA", new ArrayList<>(Arrays.asList(272, 107, 70, 20)));
 
-        countryNameLabels.put("DEMI", new ArrayList<>(Arrays.asList(390, 101, 70, 15)));
-        hitBoxPanels.put("DEMI", new ArrayList<>(Arrays.asList(385, 110, 30, 30)));
+        countryNameLabels.put("DEMI", new ArrayList<>(Arrays.asList(475, 110, 70, 15)));
+        hitBoxPanels.put("DEMI", new ArrayList<>(Arrays.asList(475, 125, 30, 30)));
         armyCountLabels.put("DEMI", new ArrayList<>(Arrays.asList(390, 116, 70, 20)));
 
-        countryNameLabels.put("ESSA", new ArrayList<>(Arrays.asList(555, 184, 70, 15)));
-        hitBoxPanels.put("ESSA", new ArrayList<>(Arrays.asList(550, 193, 30, 30)));
+        countryNameLabels.put("ESSA", new ArrayList<>(Arrays.asList(550, 185, 70, 15)));
+        hitBoxPanels.put("ESSA", new ArrayList<>(Arrays.asList(550, 200, 30, 30)));
         armyCountLabels.put("ESSA", new ArrayList<>(Arrays.asList(555, 199, 70, 20)));
 
-        countryNameLabels.put("FRIA", new ArrayList<>(Arrays.asList(390, 189, 70, 15)));
-        hitBoxPanels.put("FRIA", new ArrayList<>(Arrays.asList(385, 193, 30, 30)));
+        countryNameLabels.put("FRIA", new ArrayList<>(Arrays.asList(400, 185, 70, 15)));
+        hitBoxPanels.put("FRIA", new ArrayList<>(Arrays.asList(400, 200, 30, 30)));
         armyCountLabels.put("FRIA", new ArrayList<>(Arrays.asList(390, 204, 70, 20)));
 
-        countryNameLabels.put("GYDA", new ArrayList<>(Arrays.asList(292, 206, 70, 15)));
-        hitBoxPanels.put("GYDA", new ArrayList<>(Arrays.asList(287, 210, 30, 30)));
+        countryNameLabels.put("GYDA", new ArrayList<>(Arrays.asList(350, 260, 70, 15)));
+        hitBoxPanels.put("GYDA", new ArrayList<>(Arrays.asList(350, 275, 30, 30)));
         armyCountLabels.put("GYDA", new ArrayList<>(Arrays.asList(292, 221, 70, 20)));
 
-        countryNameLabels.put("HELA", new ArrayList<>(Arrays.asList(680, 231, 70, 15)));
-        hitBoxPanels.put("HELA", new ArrayList<>(Arrays.asList(675, 236, 30, 30)));
+        countryNameLabels.put("HELA", new ArrayList<>(Arrays.asList(725, 260, 70, 15)));
+        hitBoxPanels.put("HELA", new ArrayList<>(Arrays.asList(725, 275, 30, 30)));
         armyCountLabels.put("HELA", new ArrayList<>(Arrays.asList(680, 243, 70, 20)));
 
-        countryNameLabels.put("IMMA", new ArrayList<>(Arrays.asList(455, 231, 70, 15)));
-        hitBoxPanels.put("IMMA", new ArrayList<>(Arrays.asList(450, 239, 30, 30)));
-        armyCountLabels.put("IMMA", new ArrayList<>(Arrays.asList(455, 246, 70, 20)));
+        countryNameLabels.put("IMMA", new ArrayList<>(Arrays.asList(480, 235, 70, 15)));
+        hitBoxPanels.put("IMMA", new ArrayList<>(Arrays.asList(480, 250, 30, 30)));
+        armyCountLabels.put("IMMA", new ArrayList<>(Arrays.asList(460, 246, 70, 20)));
 
-        countryNameLabels.put("JARI", new ArrayList<>(Arrays.asList(575, 258, 70, 15)));
-        hitBoxPanels.put("JARI", new ArrayList<>(Arrays.asList(570, 262, 30, 30)));
+        countryNameLabels.put("JARI", new ArrayList<>(Arrays.asList(600, 260, 70, 15)));
+        hitBoxPanels.put("JARI", new ArrayList<>(Arrays.asList(600, 275, 30, 30)));
         armyCountLabels.put("JARI", new ArrayList<>(Arrays.asList(575, 273, 70, 20)));
 
-        countryNameLabels.put("KILA", new ArrayList<>(Arrays.asList(545, 368, 70, 15)));
-        hitBoxPanels.put("KILA", new ArrayList<>(Arrays.asList(540, 374, 30, 30)));
+        countryNameLabels.put("KILA", new ArrayList<>(Arrays.asList(550, 360, 70, 15)));
+        hitBoxPanels.put("KILA", new ArrayList<>(Arrays.asList(550, 375, 30, 30)));
         armyCountLabels.put("KILA", new ArrayList<>(Arrays.asList(545, 383, 70, 20)));
 
-        countryNameLabels.put("LIYA", new ArrayList<>(Arrays.asList(250, 285, 70, 15)));
-        hitBoxPanels.put("LIYA", new ArrayList<>(Arrays.asList(245, 294, 30, 30)));
+        countryNameLabels.put("LIYA", new ArrayList<>(Arrays.asList(225, 260, 70, 15)));
+        hitBoxPanels.put("LIYA", new ArrayList<>(Arrays.asList(225, 275, 30, 30)));
         armyCountLabels.put("LIYA", new ArrayList<>(Arrays.asList(250, 300, 70, 20)));
 
-        countryNameLabels.put("MENA", new ArrayList<>(Arrays.asList(415, 373, 70, 15)));
-        hitBoxPanels.put("MENA", new ArrayList<>(Arrays.asList(410, 379, 30, 30)));
+        countryNameLabels.put("MENA", new ArrayList<>(Arrays.asList(400, 360, 70, 15)));
+        hitBoxPanels.put("MENA", new ArrayList<>(Arrays.asList(400, 375, 30, 28)));
         armyCountLabels.put("MENA", new ArrayList<>(Arrays.asList(415, 388, 70, 20)));
 
-        countryNameLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 373, 70, 15)));
-        hitBoxPanels.put("NEAH", new ArrayList<>(Arrays.asList(310, 380, 30, 30)));
+        countryNameLabels.put("NEAH", new ArrayList<>(Arrays.asList(275, 360, 70, 15)));
+        hitBoxPanels.put("NEAH", new ArrayList<>(Arrays.asList(275, 374, 30, 28)));
         armyCountLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 388, 70, 20)));
-
+        
         for (Country c : Gameplay.getInstance().getCountries()) {
             String n = c.getCountryName().toUpperCase();
             createHitBoxAndLabels(c, countryNameLabels.get(n), hitBoxPanels.get(n), armyCountLabels.get(n));
@@ -636,8 +636,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         check.setEnabled(true);
         ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
-        int diceAttacker = random.nextInt(6) + 1;
-        int diceDefender = random.nextInt(6) + 1;
+//        int diceAttacker = random.nextInt(6) + 1;
+//        int diceDefender = random.nextInt(6) + 1;
+        int diceAttacker = 6;
+        int diceDefender = 1;
         if (player == Gameplay.getInstance().getPlayerOne()) {
             dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
             dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
@@ -696,6 +698,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
                 if (Mission.testMission(player)) {
                     Gameplay.getInstance().finishedGameText();      //pruefe ob spiel gewonnen
+                    openWinning(player); // hier ein PopUp
                     return;
                 }
             }
@@ -853,7 +856,43 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void endProgram() {
         System.exit(0);
     }
+    
+    // Popup bei gewonnenem Spiel
+    ImageIcon icon = new ImageIcon("material/winning.png");
+    private void openWinning(Player player) {
+        Object[] options = {"Ja, gerne", "Ne, lieber nicht"};
+        int n = JOptionPane.showOptionDialog(frame,
+        		winningMessage(player),
+                "Spiel gewonnen und beendet",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        switch (n) {
+            case 0:
+                // alle Werte auf null
+                Gameplay.getInstance().getPlayerOne().emptyAll();
+                Gameplay.getInstance().getPlayerTwo().emptyAll();
+                // die Schleife danach ist eigentlich ueber - Bei der Initialisierung wird alles auf 1 gesetzt
+                for (Country i : Gameplay.getInstance().getCountries()) {
+                    i.setArmies();
+                }
+                frame.dispose();
+                new PlayersGUI();
+            case 1:
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        }
 
+    }
+
+    private String winningMessage(Player player) {
+    		return "Herzlichen Glueckwunsch, Spieler "
+        			+ player.getColor()
+        			+ "!\nDu hast das Spiel gewonnen."
+        			+ "\nWollt ihr noch eine Runde spielen?";
+    }
+    
     @Override
     public void actionPerformed(ActionEvent arg0) {
     }
