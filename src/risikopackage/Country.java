@@ -30,9 +30,9 @@ public class Country {
 
     /**
      * Sets value of armiesInCountry to 1.
-     * @see: loseArmy()
-     * @see: addArmy()
-     * @see: getArmiesInCountry()
+     * @see loseArmy()
+     * @see addArmy()
+     * @see getArmiesInCountry()
      */
     public void setArmies() {
         armiesInCountry = 1;
@@ -40,9 +40,9 @@ public class Country {
 
     /**
      * Reduces the value of armiesInCountry by 1.
-     * @see: setArmies()
-     * @see: addArmy()
-     * @see: getArmiesInCountry()
+     * @see setArmies()
+     * @see addArmy()
+     * @see getArmiesInCountry()
      */
     public void loseArmy() {
         this.armiesInCountry--;
@@ -50,9 +50,9 @@ public class Country {
 
     /**
      * Raises the value of armiesInCountry by 1.
-     * @see: setArmies()
-     * @see: loseArmy()
-     * @see: getArmiesInCountry()
+     * @see setArmies()
+     * @see loseArmy()
+     * @see getArmiesInCountry()
      */
     public void addArmy() {
         this.armiesInCountry++;
@@ -77,9 +77,9 @@ public class Country {
     /**
      * Gets the number of armies in the country
      * @return the number of armies in the country
-     * @see: setArmies()
-     * @see: loseArmy()
-     * @see: addArmy()
+     * @see setArmies()
+     * @see loseArmy()
+     * @see addArmy()
      */
     public int getArmiesInCountry() {
         return this.armiesInCountry;
@@ -88,9 +88,9 @@ public class Country {
     /**
      * Sets the color of the owner as code.
      * @param rgbCodesOne the color to become the new color of the owner
-     * @see: getColorOfOwnerCode()
-     * @see: getColorOfOwnerString()
-     * @see: setColorOfOwnerString(String colorOfOwnerString)
+     * @see getColorOfOwnerCode()
+     * @see getColorOfOwnerString()
+     * @see setColorOfOwnerString(String colorOfOwnerString)
      */
     public void setColorOfOwnerCode(Color rgbCodesOne) {
         this.colorOfOwnerCode = rgbCodesOne;
@@ -98,10 +98,10 @@ public class Country {
 
     /**
      * Gets the code of the color of the owner
-     * @return: the code of the color of the owner
-     * @see: setColorOfOwnerCode(Color rgbCodesOne)
-     * @see: setColorOfOwnerString(String colorOfOwnerString)
-     * @see: getColorOfOwnerString()
+     * @return the code of the color of the owner
+     * @see setColorOfOwnerCode(Color rgbCodesOne)
+     * @see setColorOfOwnerString(String colorOfOwnerString)
+     * @see getColorOfOwnerString()
      */
     public Color getColorOfOwnerCode() {
         return this.colorOfOwnerCode;
@@ -110,9 +110,9 @@ public class Country {
     /**
      * Sets the color of the owner as string.
      * @param colorOfOwnerString the color to become the new color of the owner
-     * @see: getColorOfOwnerString()
-     * @see: getColorOfOwnerCode()
-     * @see: setColorOfOwnerCode(Color rgbCodesOne)
+     * @see getColorOfOwnerString()
+     * @see getColorOfOwnerCode()
+     * @see setColorOfOwnerCode(Color rgbCodesOne)
      */
     public void setColorOfOwnerString(String colorOfOwnerString) {
         this.colorOfOwnerString = colorOfOwnerString;
@@ -120,10 +120,10 @@ public class Country {
 
     /**
      * Gets the string of the color of the owner
-     * @return: the string of the color of the owner
-     * @see: setColorOfOwnerString(String colorOfOwnerString)
-     * @see: setColorOfOwnerCode(Color rgbCodesOne)
-     * @see: getColorOfOwnerCode()
+     * @return the string of the color of the owner
+     * @see setColorOfOwnerString(String colorOfOwnerString)
+     * @see setColorOfOwnerCode(Color rgbCodesOne)
+     * @see getColorOfOwnerCode()
      */
     public String getColorOfOwnerString() {
         return colorOfOwnerString;
@@ -132,7 +132,7 @@ public class Country {
     /**
      * Returns whether two countries are neighbors.
      * @param neighboringCountry the country to be checked of neighborhood
-     * @return: true if the countries are neighbors; false otherwise
+     * @return true if the countries are neighbors; false otherwise
      */
     public boolean isNeighbor(Country neighboringCountry) {
         for (String s : this.neighboringCountries) {
