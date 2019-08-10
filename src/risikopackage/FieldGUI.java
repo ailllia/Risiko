@@ -17,7 +17,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
     public static JTextArea textfield;
     public static JButton next;
-    private JButton rollDice, check; //undo
+    private JButton rollDice, check;
     private MouseListener hitBoxListener;
     private int counterNext = 0;
     private int counterHitbox = 0;
@@ -577,32 +577,6 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private boolean hasEnemyNeighbours(Country country) {
-        /*
-        -> make Country.neighboringCountries a List<Country> instead of List<String>
-            therefore:
-            -> read countries from static file like .xml or .java instead of (mutable) .txt file
-            <countries>
-                <country name=HELA>
-                    <neighbors>
-                        <country name=TIRA>
-                        <country name=TIRA>
-                        <country name=TIRA>
-                    </neighbors>
-                </country>
-            </countries>
-            -> change creation
-                -> first: create all countries with empty neighbors
-                -> second: fill neighbors
-        (-> introduce a class variable Country.owner of type Player)
-
-
-        c = color of country
-        for country in neighbors:
-            //search countryName in countries (loop)
-                if color of owner of country != c
-                    return true
-        return false
-         */
         for (String s : country.getNeighboringCountries()) {
             Country neighbor = Gameplay.getInstance().getCountries().stream()
                     .filter(country1 -> country1.getCountryName().equals(s))
@@ -807,7 +781,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         JPanel hitboxPanel = new JPanel();
         hitboxPanel.setName(country.getCountryName().toUpperCase());
         hitboxPanel.setBounds(hitBoxCoord.get(0), hitBoxCoord.get(1), hitBoxCoord.get(2), hitBoxCoord.get(3));
-        //hitboxPanel.setVisible(false);
+        hitboxPanel.setBackground(new java.awt.Color(255, 255, 255, 0));
         hitboxPanel.addMouseListener(this.hitBoxListener);
 
         //JLabel Army Count
