@@ -31,21 +31,21 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel dicePlayerOne, dicePlayerTwo;
 
     private Player getPlayer() {
-        if ((counterPlayer % 2) != 0)
+        if ((counterPlayer % 2) != 0) {
             player = Gameplay.getInstance().getPlayerOne();
-        else
+            textfield.setForeground(Player.PlayerColorCode(player));
+        } else {
             player = Gameplay.getInstance().getPlayerTwo();
+            textfield.setForeground(Player.PlayerColorCode(player));
+        }
         return player;
     }
 
     private void setRemaining() {
-        if (counterNext == 1) {
+        if (counterNext == 1)
             remaining = this.getPlayer().getNewArmies();
-        } /*else if (counterNext == 3) {
-            remaining = this.getPlayer().getArmiesAvailableToMove();
-        }*/ else {
+        else
             remaining = 0;
-        }
     }
 
     public FieldGUI() {
@@ -79,8 +79,9 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
 
                 if (country != null) {  // wenn geklicktes land gefunden
-                    //setRemaining();     //wie viele Armeen duerfen verteilt werden
-                    if (counterNext == 1 && counterHitbox == 0) {       //spieler 1 kann einheiten neu verteilen
+                    if (counterNext == 1)
+                        setRemaining();
+                    if (counterNext == 1 && counterHitbox == 0) {       //einheiten setzen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             deployArmiesLeftClick(armyLabel, country);
                         }
@@ -99,7 +100,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                             && country.equals(selectedCountry1)) {
                         chooseOwnCountryRightClick();
                     }
-                    if (counterNext == 2 && counterHitbox == 2) {   //angriffsphase, auswahl des gegnerlandes
+                    if (counterNext == 2 && counterHitbox == 2) {       //angriffsphase, auswahl des gegnerlandes
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             chooseEnemyCountryLeftClick(armyLabel, country);
                         }
@@ -108,8 +109,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                             && country.equals(selectedCountry2)) {
                         chooseEnemyCountryRightClick();
                     }
-                    if (counterNext == 0 && counterHitbox == 0) {
-                        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {         //linksklick
+                    if (counterNext == 0 && counterHitbox != 0) {       //einheiten neu verteilen
+                        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             redistributionLeftClick(armyLabel, country);
                         }
                     }
@@ -451,8 +452,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
                 && remaining >= 0) { //es sind noch einheiten ueber
             country.addArmy();
-            //counter++;
-            remaining--;
+            counter++;
+            remaining -= counter;
             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
             setArmyText(getPlayer());
             if (remaining > 0) {
@@ -530,7 +531,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void redistributionLeftClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor())
-                && remaining >= 0) {
+                && remaining > 0) {
             country.addArmy();
             remaining--;
             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
@@ -541,6 +542,9 @@ public class FieldGUI extends JFrame implements ActionListener {
                 textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
                 next.setEnabled(true);
             }
+        } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && remaining == 0) {
+            textfield.append("Ziehe zuerst mindestens eine Einheit aus einem Land ab.\n");
         }
     }
 
@@ -553,7 +557,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             remaining++;
             setArmyText(getPlayer());
             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
-            textfield.append("Noch " + remaining + "Einheit/en zu verteilen.\n");
+            textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
         } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())) {
             armyLabel.setText(Integer.toString(country.getArmiesInCountry()));
             textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
@@ -600,23 +604,26 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
+        if (counterNext == 0) {
+            textfield.setText("");
+            counterHitbox = 0;
+        }
         counterNext++;
         switch (counterNext) {
             case 1:
                 counterPlayer++;
                 check.setEnabled(false);
-                this.setRemaining();
                 Gameplay.getInstance().deployArmiesText(this.getPlayer());
                 break;
             case 2:
                 counter = 0;
-                Gameplay.getInstance().attackphaseText(this.getPlayer());
+                this.setRemaining();
+                Gameplay.getInstance().attackphaseText();
                 check.setEnabled(true);
                 break;
             case 3:
-                Gameplay.getInstance().redistributionText(this.getPlayer());
+                Gameplay.getInstance().redistributionText();
                 check.setEnabled(true);
-                counterHitbox = 0;
                 counterNext = 0;
                 rollDice.setEnabled(false);
                 dicePlayerOne.setVisible(false);
@@ -629,8 +636,6 @@ public class FieldGUI extends JFrame implements ActionListener {
         check.setEnabled(true);
         ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
-        //int diceAttacker = 6;
-        //int diceDefender = 1;
         int diceAttacker = random.nextInt(6) + 1;
         int diceDefender = random.nextInt(6) + 1;
         if (player == Gameplay.getInstance().getPlayerOne()) {
@@ -704,8 +709,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         rollDice.setEnabled(false);
         setArmyText(Gameplay.getInstance().getPlayerOne());
         setArmyText(Gameplay.getInstance().getPlayerTwo());
-        counterHitbox = 1;      // damit wieder ein neues land gew�hlt werden kann
-        textfield.append("Waehle erneut zwei Laender oder beene die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
+        counterHitbox = 1;      // damit wieder ein neues land gewaehlt werden kann
+        textfield.append("Waehle erneut zwei Laender oder beende die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
 
     private ImageIcon getImageForDiceRoll(int roll) {
@@ -740,7 +745,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         switch (counterNext) {
             case 0:
                 if (this.getPlayer().getPlayerArmies() == this.getPlayer().numberOfCountries()) {
-                    Gameplay.getInstance().redistributionAbortText(this.getPlayer());
+                    Gameplay.getInstance().redistributionAbortText();
                     check.setEnabled(false);
                 } else {
                     Gameplay.getInstance().redistributionContText(this.getPlayer());
@@ -748,10 +753,10 @@ public class FieldGUI extends JFrame implements ActionListener {
                 } break;
             case 2:
                 if (this.getPlayer().attackPossible()) {
-                    Gameplay.getInstance().attackPossibleText(this.getPlayer());
+                    Gameplay.getInstance().attackPossibleText();
                     check.setEnabled(false);
                 } else {
-                    Gameplay.getInstance().attackNotPossibleText(this.getPlayer());
+                    Gameplay.getInstance().attackNotPossibleText();
                     check.setEnabled(false);
                 }
                 break;
