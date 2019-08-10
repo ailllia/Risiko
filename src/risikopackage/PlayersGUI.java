@@ -16,6 +16,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.setLayout(null);
         this.setTitle("Risiko - Spielvorbereitung");
         this.setSize(500, 300);
+        this.getContentPane().setBackground(new java.awt.Color(242, 228, 218));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
