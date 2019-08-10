@@ -18,6 +18,10 @@ public class Gameplay extends JFrame {
     private Gameplay() {
     }
 
+    /**
+     *
+     * @return
+     */
     public static Gameplay getInstance() {
         if (instance == null) {
             instance = new Gameplay();
@@ -25,6 +29,9 @@ public class Gameplay extends JFrame {
         return instance;
     }
 
+    /**
+     *
+     */
     public void initialising() {
         Random chance = new Random();
         spreadCountries(playerOne, playerTwo, countries, chance);
@@ -32,12 +39,19 @@ public class Gameplay extends JFrame {
         chooseMission(playerOne, playerTwo, missions, chance);
     }
 
-    public void welcomeText() { // Erste Textausgaben
+    /**
+     *
+     */
+    public void welcomeText() {
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt." +
                 " Die Anzahl der Armeen steht in der Farbe des Spielers auf dem Land.\nIn den Spielregeln werden" +
                 " die Phasen eines Spielzuges erklärt.\nKlicke auf 'Weiter' um fortzufahren.\n");
     }
 
+    /**
+     *
+     * @param player
+     */
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + ".\n\n\tVerteile " + player.getNewArmies() +
@@ -45,6 +59,9 @@ public class Gameplay extends JFrame {
                 " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n");
     }
 
+    /**
+     *
+     */
     public void attackphaseText() {
         FieldGUI.textfield.append("\n\tBefreie Laender, die von deinem Gegner besetzt sind.\nWaehle dazu ein Land aus," +
                 " das in deinem Besitz ist und in dem mindestens 2 Armeen stationiert sind. Waehle danach\n ein gegnerisches" +
@@ -53,16 +70,25 @@ public class Gameplay extends JFrame {
                 " klicke 'Pruefen'.\nKlicke auf 'Weiter', um zur nächsten Spielphase zu gelangen.\n");
     }
 
+    /**
+     *
+     */
     public void attackPossibleText() {
         FieldGUI.textfield.append("\nEs ist ein Angriff möglich. Starte einen Befreiungsversuch, oder klicke auf" +
                 " 'Weiter', um zur nächsten Spielphase zu gelangen.\n");
     }
 
+    /**
+     *
+     */
     public void attackNotPossibleText() {
         FieldGUI.textfield.append("\nEs ist kein Angriff möglich. Klicke auf 'Weiter', um zur nächsten Spielphase zu" +
                 " gelangen.\n");
     }
 
+    /**
+     *
+     */
     public void redistributionText() {
         FieldGUI.textfield.append("\n\tVersetze deine Armeen.\nZiehe dafür" +
                 " zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab. Mit Linksklick fuegst" +
@@ -70,21 +96,37 @@ public class Gameplay extends JFrame {
                 " kannst, klicke 'Pruefen'.\nKlicke auf 'Weiter', um deinen Zug zu beenden.\n");
     }
 
+    /**
+     *
+     */
     public void redistributionAbortText() {
         FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, indem du auf 'Weiter' klickst.\n");
     }
 
+    /**
+     *
+     * @param player
+     */
     public void redistributionContText(Player player) {
         FieldGUI.textfield.append("\nDu kannst " + player.getArmiesAvailableToMove() + " Einheit/en neu verteilen.\n");
     }
 
+    /**
+     *
+     */
     public void finishedGameText() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
                 "erfuellt und damit dieses Spiel gewonnen!\nStarte eine neue Runde ueber 'Spiel abbrechen' ->" +
                 " 'neues Spiel starten'.");
     }
 
-    // verteilt Laender an die beiden Spieler
+    /**
+     *
+     * @param playerOne
+     * @param playerTwo
+     * @param countries
+     * @param chance
+     */
     private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
         List<Country> countriesCopy = new ArrayList<>(countries);
         int j = 13;
@@ -120,7 +162,12 @@ public class Gameplay extends JFrame {
     }
     */
 
-    // faerbt beim Spielaufbau die Laender ein und setzt in jedes eine Armee
+    /**
+     *
+     * @param playerOne
+     * @param playerTwo
+     * @param countries
+     */
     private static void paintCountries(Player playerOne, Player playerTwo, List<Country> countries) {
         Color rgbCodesOne = Player.PlayerColorCode(playerOne);
         Color rgbCodesTwo = Player.PlayerColorCode(playerTwo);
@@ -144,7 +191,13 @@ public class Gameplay extends JFrame {
         }
     }
 
-    //teilt Missionen zu
+    /**
+     *
+     * @param playerOne
+     * @param playerTwo
+     * @param missions
+     * @param chance
+     */
     private static void chooseMission(Player playerOne, Player playerTwo, List<Mission> missions, Random chance) {
         List<Mission> missionsCopy = new ArrayList<>(missions);
         int j = 5;
@@ -155,60 +208,43 @@ public class Gameplay extends JFrame {
         k = chance.nextInt(j);
         playerTwo.setPlayerMission(missionsCopy.get(k).getMissionTitle());
     }
-/*
-    public static void addArmiesInCountry(Country country, Player player) {
-        if (player.armiesAvailableToMove()) {
-            country.addArmy();
-        } else {
-            //Ausgabe, dass keine Armeen bewegt werden koennen
-        }
-    }
-*/
-/*
-    public static void loseArmyInCountry(Country country, Player player) {
-        if (player.armiesAvailableToWithdraw(country)) {
-            country.loseArmy();
-        } else {
-            //Ausgabe, dass aus diesem Land keine Armee abgezogen werden kann
-        }
-    }
-*/
-    public void setPlayerOne(Player playerOne) {
-        this.playerOne = playerOne;
-    }
 
-    public void setPlayerTwo(Player playerTwo) {
-        this.playerTwo = playerTwo;
-    }
-
-    public void setCountries(List<Country> countries) {
-        this.countries = countries;
-    }
-
-    public void setContinents(List<Continent> continents) {
-        this.continents = continents;
-    }
-
-    public void setMissions(List<Mission> missions) {
-        this.missions = missions;
-    }
-
+    /**
+     *
+     * @return
+     */
     public Player getPlayerOne() {
         return playerOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayerTwo() {
         return playerTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Country> getCountries() {
         return countries;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Continent> getContinents() {
         return continents;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Mission> getMissions() {
         return missions;
     }
