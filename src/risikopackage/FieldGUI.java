@@ -425,19 +425,19 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.add(scrollbar);
 
         next = new JButton("Weiter");
-        next.setBounds(810, 465, 105, 25);
+        next.setBounds(685, 472, 105, 20);
         next.addActionListener(e -> next());
         frame.add(next);
 
         rollDice = new JButton("Wuerfeln");
-        rollDice.setBounds(380, 470, 105, 20);
+        rollDice.setBounds(450, 472, 105, 20);
         rollDice.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         rollDice.setEnabled(false);
         rollDice.addActionListener(e -> attack());
         frame.add(rollDice);
 
         check = new JButton("Pruefen");
-        check.setBounds(650, 470, 105, 20);
+        check.setBounds(197, 472, 105, 20);
         check.setFont(new Font("Sans-Serif", Font.PLAIN, 11));
         check.setEnabled(false);
         check.addActionListener(e -> checking());
@@ -823,6 +823,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     // erklaert Spielende
     private void openEndingRules() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         JOptionPane.showMessageDialog(frame,
                 "<html>Das Spiel Risiko endet, wenn der erste Spieler seine Mission erfuellt hat.<html>",
                 "Ende des Spiels",
@@ -831,6 +833,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     //erklaert die Spielregeln
     private void openPlayingRules() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         JOptionPane.showMessageDialog(frame,
                 "In der zweiten Phase koennen Laender befreit werden. Eine Befreiungsaktion ist moeglich, wenn" +
                         "\n- in dem Land, von dem die Aktion gestartet werden soll, mehr als eine Armee stationiert ist und" +
@@ -849,6 +853,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openGoalRules() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         JOptionPane.showMessageDialog(frame,
                 "<html>Ziel des Spieles ist es, deine Mission vor deinem Gegner zu erfuellen.<html>",
                 "Ziel des Spieles",
@@ -856,6 +862,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openRedistributionRules() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         JOptionPane.showMessageDialog(frame,
                 "Am Ende jeden Spielzugs hat jeder Spieler die Moeglichkeit, seine Armeen umzusetzen." +
                         "\nMit Rechtsklick wird eine Armee aus einem Land abgezogen, in dem zwei oder mehr Armeen" +
@@ -867,6 +875,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openNewArmiesRules() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         JOptionPane.showMessageDialog(frame,
                 "Am Anfang jeden Spielzugs bekommt jeder Spieler neue Armeen, die verteilt werden müssen." +
                         "\nJeder Spieler bekommt (Anzahl der besetzten Laender / 3) Armeen, mindestens aber 2." +
@@ -879,6 +889,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     private void openProgramme() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         JOptionPane.showMessageDialog(frame,
                 "Auf dem Spielplan sind 7 Laender abgebildet. Diese sind in der Farbe eines der" +
                         "\ndrei Kontinente eingefaerbt. Die Legende ist in der rechten unteren Ecke." +
@@ -893,6 +905,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     // oeffnet Abfrage bzgl. neuem Spiel
     private void openSelection() {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
         int n = JOptionPane.showOptionDialog(frame,
                 "Willst du wirklich ein neues Spiel anfangen?",
@@ -926,6 +940,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     // Popup bei gewonnenem Spiel
     ImageIcon icon = new ImageIcon("material/winning.png");
     private void openWinning(Player player) {
+    	UIManager.put("OptionPane.background", new java.awt.Color(242, 228, 218));
+        UIManager.put("Panel.background", new java.awt.Color(242, 228, 218));
         Object[] options = {"Ja, gerne", "Ne, lieber nicht"};
         int n = JOptionPane.showOptionDialog(frame,
         		winningMessage(player),
