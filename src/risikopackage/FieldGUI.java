@@ -315,11 +315,11 @@ public class FieldGUI extends JFrame implements ActionListener {
         otea.setBounds(580, 421, 170, 12);
         frame.add(otea);
 
-        JLabel prya = new JLabel("PRYA", SwingConstants.RIGHT);
-        prya.setFont(new Font("Sans-Serif", Font.BOLD, 11));
-        prya.setForeground(Color.white);
-        prya.setBounds(580, 434, 170, 12);
-        frame.add(prya);
+        JLabel priya = new JLabel("PRIYA", SwingConstants.RIGHT);
+        priya.setFont(new Font("Sans-Serif", Font.BOLD, 11));
+        priya.setForeground(Color.white);
+        priya.setBounds(580, 434, 170, 12);
+        frame.add(priya);
 
         JLabel solva = new JLabel("SOLVA", SwingConstants.RIGHT);
         solva.setFont(new Font("Sans-Serif", Font.BOLD, 11));
