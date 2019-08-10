@@ -21,7 +21,7 @@ public class Loadtxtfiles {
 
     private static void readCountries(String separator) throws FileNotFoundException {
         File f = new File("material/Countries.txt");
-        InputStream istream = new FileInputStream(f); //Anwendung wie in den Seminaren, keine Ahnung warum es nicht funktioniert
+        InputStream istream = new FileInputStream(f);
         Scanner reader = new Scanner(istream);
         while (reader.hasNext()) {
             if (reader.hasNext(separator))
