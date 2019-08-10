@@ -13,12 +13,22 @@ public class Loadtxtfiles {
     public Loadtxtfiles() {
     }
 
+    /**
+     *
+     * @param separator
+     * @throws FileNotFoundException
+     */
     public static void readFiles(String separator) throws FileNotFoundException {
         readContinents(separator);
         readCountries(separator);
         readMissions(separator);
     }
 
+    /**
+     *
+     * @param separator
+     * @throws FileNotFoundException
+     */
     private static void readCountries(String separator) throws FileNotFoundException {
         File f = new File("material/Countries.txt");
         InputStream istream = new FileInputStream(f);
@@ -28,13 +38,8 @@ public class Loadtxtfiles {
                 reader.nextLine();
             else {
                 String countryName = reader.nextLine();
-                //test if country with countryName in countries
-                //dont add again
-                List<String> neighboringCountries = new LinkedList<>(); //list<country>
+                List<String> neighboringCountries = new LinkedList<>();
                 while (reader.hasNext() && !reader.hasNext(separator)) {
-                    //test if neighbor in countries
-                    // if not: create new country and add to countries (with empty neighbors)
-                    //add neighbor to country.neighbors
                     neighboringCountries.add(reader.nextLine());
                 }
                 Country country = new Country(countryName, neighboringCountries);
@@ -44,6 +49,11 @@ public class Loadtxtfiles {
         reader.close();
     }
 
+    /**
+     *
+     * @param separator
+     * @throws FileNotFoundException
+     */
     private static void readContinents(String separator) throws FileNotFoundException {
         File f = new File("material/Continents.txt");
         InputStream istream = new FileInputStream(f);
@@ -64,7 +74,13 @@ public class Loadtxtfiles {
         reader.close();
     }
 
+    /**
+     *
+     * @param separator
+     * @throws FileNotFoundException
+     */
     private static void readMissions(String separator) throws FileNotFoundException {
+        Gameplay gameplayInstance = Gameplay.getInstance();
         File f = new File("material/Missions.txt");
         InputStream istream = new FileInputStream(f);
         Scanner reader = new Scanner(istream);
@@ -81,18 +97,18 @@ public class Loadtxtfiles {
                     while (reader.hasNext() && !reader.hasNext(separator)) {
                         int index = 0;
                         String missionContinent = reader.nextLine();
-                        for (int i = 0; i < Gameplay.getInstance().getContinents().size(); i++) {
-                            if (Gameplay.getInstance().getContinents().get(i).getName().equals(missionContinent)) {
+                        for (int i = 0; i < gameplayInstance.getContinents().size(); i++) {
+                            if (gameplayInstance.getContinents().get(i).getName().equals(missionContinent)) {
                                 index = i;
                                 break;
                             }
                         }
-                        continentsInMission.add(Gameplay.getInstance().getContinents().get(index));
+                        continentsInMission.add(gameplayInstance.getContinents().get(index));
                     }
                     mission = new FreeContinents(missionName, missionTitle, missionDescription, continentsInMission);
                 } else
                     mission = new FreeCountries(missionName, missionTitle, missionDescription);
-                Gameplay.getInstance().getMissions().add(mission);
+                gameplayInstance.getMissions().add(mission);
             }
         }
         reader.close();
