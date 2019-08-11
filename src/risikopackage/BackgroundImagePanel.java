@@ -1,7 +1,7 @@
 package risikopackage;
 
 import java.awt.*;
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /*
  * BackgroundImagePanel ist in der Lage ein Hintergrundbild zu empfangen und dieses zu zeichnen.

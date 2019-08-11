@@ -1,14 +1,20 @@
 package risikopackage;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class PlayersGUI extends JFrame implements ActionListener {
     private JComboBox<String> colorone, colortwo;
-    private JLabel wrongcolor, choosename;
+    private JLabel wrongcolor, choosename, nameTooLong;
     private JTextField nameOne, nameTwo;
+
     /**
      * is a new window which welcomes the players and asks for their playing colors
      */
@@ -52,7 +58,13 @@ public class PlayersGUI extends JFrame implements ActionListener {
         choosename.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         choosename.setVisible(false);
         this.add(choosename);
-        choosename.setBounds(75,210, 360, 20);
+        choosename.setBounds(75, 210, 360, 20);
+
+        nameTooLong = new JLabel("Ein Name darf maximal 15 Zeichen lang sein!", SwingConstants.CENTER);
+        nameTooLong.setFont(new Font("Sans-Serif", Font.BOLD, 12));
+        nameTooLong.setVisible(false);
+        this.add(nameTooLong);
+        nameTooLong.setBounds(75, 210, 360, 20);
 
         JLabel inputNameOne = new JLabel("Name:");
         this.add(inputNameOne);
@@ -111,10 +123,17 @@ public class PlayersGUI extends JFrame implements ActionListener {
         if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {
             wrongcolor.setVisible(true);
             choosename.setVisible(false);
+            nameTooLong.setVisible(false);
         } else if (nameOne.getText().equals(nameTwo.getText())
+                || nameOne.getText().equals("") || nameTwo.getText().equals("")
                 || nameOne.getText().trim().isEmpty() || nameTwo.getText().trim().isEmpty()) {
             wrongcolor.setVisible(false);
             choosename.setVisible(true);
+            nameTooLong.setVisible(false);
+        } else if (nameOne.getText().length() > 15 || nameTwo.getText().length() > 15) {
+            wrongcolor.setVisible(false);
+            choosename.setVisible(false);
+            nameTooLong.setVisible(true);
         } else {
             Gameplay.getInstance().getPlayerOne().setColor((String) colorone.getSelectedItem());
             Gameplay.getInstance().getPlayerTwo().setColor((String) colortwo.getSelectedItem());
@@ -127,3 +146,4 @@ public class PlayersGUI extends JFrame implements ActionListener {
         }
     }
 }
+
