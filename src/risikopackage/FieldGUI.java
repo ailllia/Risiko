@@ -1,15 +1,36 @@
 package risikopackage;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.Font;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class FieldGUI extends JFrame implements ActionListener {
 
@@ -140,7 +161,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             }
         };
 
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+//        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -976,28 +997,26 @@ public class FieldGUI extends JFrame implements ActionListener {
      * @param player the player who won the game
      */
     private void openWinning(Player player) {
-        ImageIcon icon = new ImageIcon("material/winning.png");
-        this.setUIManager();
-        Object[] options = {"Ja, gerne", "Ne, lieber nicht"};
+    	 ImageIcon icon = new ImageIcon("material/winning.png");
+    	this.setUIManager();
+        Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
         int n = JOptionPane.showOptionDialog(frame,
-                getWinningMessage(player),
+        		getWinningMessage(player),
                 "Spiel gewonnen und beendet",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.QUESTION_MESSAGE,
                 icon,
                 options,
                 options[0]);
         switch (n) {
             case 0:
-                // alle Werte auf null
                 Gameplay.getInstance().getPlayerOne().emptyAll();
                 Gameplay.getInstance().getPlayerTwo().emptyAll();
                 frame.dispose();
                 new PlayersGUI();
             case 1:
-                System.exit(0);
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
-
     }
 
     /**
@@ -1012,7 +1031,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 + "!\nDu hast das Spiel gewonnen."
                 + "\nWollt ihr noch eine Runde spielen?";
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent arg0) {
     }
