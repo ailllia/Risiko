@@ -14,9 +14,9 @@ public class FreeContinents extends Mission {
      * @param continents  is the lists of possible continents to free
      */
     public FreeContinents(String name, String title, String description, List<Continent> continents) {
-        missionName = name;
-        missionTitle = title;
-        missionDescription = description;
+        setMissionName(name);
+        setMissionTitle(title);
+        setMissionDescription(description);
         this.continents = continents;
     }
 

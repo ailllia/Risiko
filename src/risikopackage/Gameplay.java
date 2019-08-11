@@ -8,7 +8,6 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 public class Gameplay extends JFrame {
-    // hier werden die spielzuege in einzelnen funktionen aufgerufen
     private static Gameplay instance;
     private Player playerOne = new Player(null, null);
     private Player playerTwo = new Player(null, null);

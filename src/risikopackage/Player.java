@@ -26,15 +26,6 @@ public class Player {
     }
 
     /**
-     * Returns the whole list with the names of the countries of the player.
-     *
-     * @return the names of occupied countries
-     */
-    public List<String> getCountryNames() {
-        return occupiedCountriesNames;
-    }
-
-    /**
      * Returns the whole list with countries of the player.
      *
      * @return the occupied countries
