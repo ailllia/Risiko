@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class FieldGUI extends JFrame implements ActionListener {
@@ -37,8 +38,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
     private JLabel dicePlayerOne, dicePlayerTwo;
     public static JTextArea textfield;
-    public static JButton next;
-    private JButton rollDice, check;
+    private JButton next, rollDice, check;
     private MouseListener hitBoxListener;
     private int remaining;
     private int counterNext = 0;
@@ -49,6 +49,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private Player player;
     private String dice_source1, dice_source2;
     private ArrayList<Country> increasedCountries = new ArrayList<>();
+    private LinkedList<Country> clickedCountries = new LinkedList<>();
 
     /**
      * Gets the player whose turn it is.
@@ -77,7 +78,8 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Creates a new FieldGUI.
+     * Creates a new FieldGUI. It creates a playing field with a map with hitboxes, player statistics, a menu bar, buttons
+     * concerning the game play and a textfield which guides the players through the game.
      */
     public FieldGUI() {
         hitBoxListener = new MouseListener() {
@@ -500,7 +502,10 @@ public class FieldGUI extends JFrame implements ActionListener {
                 counterHitbox++;
             }
         } else {
-            textfield.append("\nVerteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
+            if (!clickedCountries.contains(country)) {
+                textfield.append("\nVerteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
+                clickedCountries.add(country);
+            }
         }
     }
 
@@ -546,6 +551,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                     " auf ein benachbartes Land deines Gegners.\n");
             counterHitbox++;
             check.setEnabled(false);
+            next.setEnabled(false);
         } else {
             textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
                     " Es muss mindestens ein gegnerisches Land als Nachbar haben.\n");
@@ -564,6 +570,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         selectedCountry1 = null;
         textfield.append("Auswahl aufgehoben.\n");
         check.setEnabled(true);
+        next.setEnabled(true);
     }
 
     /**
@@ -627,7 +634,15 @@ public class FieldGUI extends JFrame implements ActionListener {
             }
         } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                 && remaining == 0) {
-            textfield.append("Ziehe zuerst mindestens eine Einheit aus einem Land ab.\n");
+            if (!clickedCountries.contains(country)) {
+                textfield.append("Ziehe zuerst mindestens eine Einheit aus einem Land ab.\n");
+                clickedCountries.add(country);
+            }
+        } else {
+            if (!clickedCountries.contains(country)) {
+                textfield.append("\nVerteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
+                clickedCountries.add(country);
+            }
         }
     }
 
@@ -650,7 +665,15 @@ public class FieldGUI extends JFrame implements ActionListener {
             textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
         } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                 && country.getArmiesInCountry() == 1) {
-            textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
+            if (!clickedCountries.contains(country)) {
+                textfield.append("Dein Land muss mindestens zwei Armeen beinhalten.\n");
+                clickedCountries.add(country);
+            }
+        } else {
+            if (!clickedCountries.contains(country)) {
+                textfield.append("Du kannst nur Einheiten in den Laendern abziehen, die deiner Farbe entsprechen.\n");
+                clickedCountries.add(country);
+            }
         }
     }
 
@@ -681,16 +704,19 @@ public class FieldGUI extends JFrame implements ActionListener {
         if (counterNext == 0) {
             textfield.setText("");
             counterHitbox = 0;
+            clickedCountries.clear();
         }
         counterNext++;
         switch (counterNext) {
             case 1:
                 counterPlayer++;
                 check.setEnabled(false);
+                next.setEnabled(false);
                 gameplayInstance.deployArmiesText(this.getPlayer());
                 break;
             case 2:
                 increasedCountries.clear();
+                clickedCountries.clear();
                 counter = 0;
                 this.setRemaining();
                 gameplayInstance.attackphaseText();
@@ -788,6 +814,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             playertwop3.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfArmies(gameplayInstance.getPlayerTwo())));
         }
         rollDice.setEnabled(false);
+        next.setEnabled(true);
         setArmyText(gameplayInstance.getPlayerOne());
         setArmyText(gameplayInstance.getPlayerTwo());
         counterHitbox = 1;
