@@ -21,7 +21,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null
+     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null.
      * @return instance
      */
     public static Gameplay getInstance() {
@@ -52,7 +52,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Informs the player that he has to deploy armies.
+     * Informs the player that they have to deploy armies.
      * @param player the player whose turn it is
      */
     public void deployArmiesText(Player player) {
@@ -63,7 +63,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Informs the player that he can attack other countries if he wants.
+     * Informs the player that they can attack other countries if they want.
      */
     public void attackphaseText() {
         FieldGUI.textfield.append("\n\tBefreie Laender, die von deinem Gegner besetzt sind.\nWaehle dazu ein Land aus," +
@@ -90,7 +90,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Informs the player that he can redistribute armies if he wants.
+     * Informs the player that they can redistribute armies if they want.
      */
     public void redistributionText() {
         FieldGUI.textfield.append("\n\tVersetze deine Armeen.\nZiehe dafuer" +
@@ -100,16 +100,14 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Appends a message to the textfield that no armies can be redistributed.
-     * Informs the player that he has no armies to be redistributed.
+     * Informs the player that they have no armies they can redistribute.
      */
     public void redistributionAbortText() {
         FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, indem du auf 'Weiter' klickst.\n");
     }
 
     /**
-     * Appends a message to the textfield that the player can redistribute armies.
-     * Informs the player that he has armies to be redistributed.
+     * Informs the player that they have armies they can redistribute.
      * @param player the player whose turn it is
      */
     public void redistributionContText(Player player) {
@@ -117,7 +115,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Appends a congratulatory message to the textfield and signifies the end of the game.
+     * Informs the player that they completed the mission and signifies the end of the game.
      */
     public void finishedGameText() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
@@ -125,7 +123,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Randomly distributes seven countries to the players
+     * Randomly distributes seven countries to the players.
      * @param chance the random generator to determine the positions of the seven first countries to be distributed in countries
      */
     private void spreadCountries(Random chance) {
@@ -163,6 +161,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Sets armies and the owner of countries.
+     * @param player the player whose turn it is
      */
     private void paintCountries(Player player) {
         for (int i = 0; i < 14; i++) {
@@ -208,7 +207,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the list containing countries
+     * Gets the list containing countries.
      * @return countries
      */
     public List<Country> getCountries() {
@@ -216,7 +215,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the list containing continents
+     * Gets the list containing continents.
      * @return continents
      */
     public List<Continent> getContinents() {
@@ -224,7 +223,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the list containing missions
+     * Gets the list containing missions.
      * @return missions
      */
     public List<Mission> getMissions() {
