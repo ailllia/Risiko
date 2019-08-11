@@ -13,7 +13,7 @@ public class Country {
     /**
      * Creates a new Country.
      *
-     * @param name      the name of the country
+     * @param name the name of the country
      * @param neighbors the list of neighboring countries
      */
     public Country(String name, List<String> neighbors) {
@@ -82,7 +82,7 @@ public class Country {
     }
 
     /**
-     * Gets the number of armies in the country
+     * Gets the number of armies in the country.
      *
      * @return the number of armies in the country
      * @see Country#setArmies()
@@ -106,7 +106,7 @@ public class Country {
     }
 
     /**
-     * Gets the code of the color of the owner
+     * Gets the code of the color of the owner.
      *
      * @return the code of the color of the owner
      * @see Country#setColorOfOwnerCode(Color rgbCodesOne)
@@ -130,7 +130,7 @@ public class Country {
     }
 
     /**
-     * Gets the string of the color of the owner
+     * Gets the string of the color of the owner.
      *
      * @return the string of the color of the owner
      * @see Country#setColorOfOwnerString(String colorOfOwnerString)
