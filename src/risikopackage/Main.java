@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 public class Main {
 
-    public void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
 
     	/**
     	 * Reads countries, continents and missions from text file.

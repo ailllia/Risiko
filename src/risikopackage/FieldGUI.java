@@ -416,7 +416,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         armyCountLabels.put("LIYA", new ArrayList<>(Arrays.asList(250, 300, 70, 20)));
 
         countryNameLabels.put("MENA", new ArrayList<>(Arrays.asList(400, 360, 70, 15)));
-        hitBoxPanels.put("MENA", new ArrayList<>(Arrays.asList(400, 375, 30, 28)));
+        hitBoxPanels.put("MENA", new ArrayList<>(Arrays.asList(403, 375, 30, 28)));
         armyCountLabels.put("MENA", new ArrayList<>(Arrays.asList(415, 388, 70, 20)));
 
         countryNameLabels.put("NEAH", new ArrayList<>(Arrays.asList(275, 360, 70, 15)));
@@ -806,7 +806,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         JPanel hitboxPanel = new JPanel();
         hitboxPanel.setName(country.getCountryName().toUpperCase());
         hitboxPanel.setBounds(hitBoxCoord.get(0), hitBoxCoord.get(1), hitBoxCoord.get(2), hitBoxCoord.get(3));
-        hitboxPanel.setBackground(new java.awt.Color(255, 255, 255, 0));
+        hitboxPanel.setBackground(new java.awt.Color(242, 228, 218));
         hitboxPanel.addMouseListener(this.hitBoxListener);
 
         //JLabel Army Count
