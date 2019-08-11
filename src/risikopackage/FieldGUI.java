@@ -139,7 +139,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             }
         };
 
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+//        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -971,28 +971,26 @@ public class FieldGUI extends JFrame implements ActionListener {
      * @param player the player who won the game
      */
     private void openWinning(Player player) {
-        ImageIcon icon = new ImageIcon("material/winning.png");
+    	 ImageIcon icon = new ImageIcon("material/winning.png");
     	this.setUIManager();
-        Object[] options = {"Ja, gerne", "Ne, lieber nicht"};
+        Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
         int n = JOptionPane.showOptionDialog(frame,
         		getWinningMessage(player),
                 "Spiel gewonnen und beendet",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.QUESTION_MESSAGE,
                 icon,
                 options,
                 options[0]);
         switch (n) {
             case 0:
-                // alle Werte auf null
                 Gameplay.getInstance().getPlayerOne().emptyAll();
                 Gameplay.getInstance().getPlayerTwo().emptyAll();
                 frame.dispose();
                 new PlayersGUI();
             case 1:
-                System.exit(0);
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
-
     }
 
     /**
