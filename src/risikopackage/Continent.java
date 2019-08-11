@@ -9,7 +9,7 @@ public class Continent {
 
     /**
      * Creates a new Continent.
-     * @param name the name of the country
+     * @param name the name of the continent
      * @param countries the list of countries belonging to the continent
      */
     public Continent(String name, List<String> countries) {
@@ -20,7 +20,7 @@ public class Continent {
 
     /**
      * Sets bonus armies that come with the continent.
-     * @see getBonusArmies()
+     * @see Continent#getBonusArmies()
      */
     private void setBonusArmies() {
         if (belongingCountries.size() < 5)
@@ -58,7 +58,7 @@ public class Continent {
     /**
      * Gets the number of bonus armies.
      * @return the number of bonus armies
-     * @see setBonusArmies()
+     * @see Continent#setBonusArmies()
      */
     public int getBonusArmies() {
         return bonusArmies;
