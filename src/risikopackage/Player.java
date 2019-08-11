@@ -15,6 +15,7 @@ public class Player {
      * Creates a new player.
      *
      * @param pcolor the chosen color for this player
+     * @param name the chosen name for this player
      */
     public Player(String pcolor, String name) {
         this.name = name;
