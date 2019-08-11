@@ -7,22 +7,25 @@ import javax.swing.*;
  * BackgroundImagePanel ist in der Lage ein Hintergrundbild zu empfangen und dieses zu zeichnen.
  *
  * @author Gernot Segieth
+ *
+ * Quelle: Hintergrundbild in eine GUI einfuegen (Java). In: Byte-Welt Wiki. 
+ * URL: https://wiki.byte-welt.net/wiki/Hintergrundbild_in_eine_GUI_einf√ºgen_(Java) [11.08.2019]
  */
 class BackgroundImagePanel extends JPanel {
    private Image image;
    private boolean fitImage;
 
    /**
-    * Erzeugt ein BackgroundImagePanel, das sich zun‰chst wie ein "normales" JPanel verh‰lt.
+    * Erzeugt ein BackgroundImagePanel, das sich zun√§chst wie ein "normales" JPanel verh√§lt.
     */
    BackgroundImagePanel() {
       super();
    }
 
    /**
-    * Erzeugt ein BackgroundImagePanel, das sich zun‰chst wie ein "normales" JPanel verh‰lt.
+    * Erzeugt ein BackgroundImagePanel, das sich zun√§chst wie ein "normales" JPanel verh√§lt.
     *
-    * @param layout ein LayoutManager zur Anordnung von GUI-Komponenten f¸r das Panel.
+    * @param layout ein LayoutManager zur Anordnung von GUI-Komponenten f√ºr das Panel.
     */
    BackgroundImagePanel(LayoutManager layout) {
       super(layout);
@@ -43,7 +46,7 @@ class BackgroundImagePanel extends JPanel {
     * <b>oder in Format und Dimension des Panels ausgeben werden.</b>
     *
     * @param image das zu zeichnende Bild
-    * @param fitImage bei ‹bergabe von true wird das Bild immer an die Grˆﬂe des Panel angepasst (kann zu Verzerrung f¸hren),
+    * @param fitImage bei √úbergabe von true wird das Bild immer an die Gr√∂√üe des Panel angepasst (kann zu Verzerrung f√ºhren),
     * ansonsten wird immer das Original gezeichnet.
     */
    void setImage(Image image, boolean fitImage) {
