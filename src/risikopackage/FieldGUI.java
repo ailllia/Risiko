@@ -33,6 +33,11 @@ import java.util.Map;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * FieldGUI displays the status of the game and lets the players interact with the program.
+ *
+ * @author Swantje Wiechmann
+ */
 public class FieldGUI extends JFrame implements ActionListener {
     private JFrame frame;
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
@@ -482,7 +487,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Raises the number of armies in a country by 1 and updates the label.
      *
      * @param armyLabel the label that has been left-clicked on
-     * @param country the country that has been left-clicked on
+     * @param country   the country that has been left-clicked on
      * @see FieldGUI#deployArmiesRightClick(JLabel armyLabel, Country country)
      */
     private void deployArmiesLeftClick(JLabel armyLabel, Country country) {
@@ -513,7 +518,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Reduces the number of armies in a country by 1 and updates the label.
      *
      * @param armyLabel the label that has been right-clicked on
-     * @param country the country that has been right-clicked on
+     * @param country   the country that has been right-clicked on
      * @see FieldGUI#deployArmiesLeftClick(JLabel armyLabel, Country country)
      */
     private void deployArmiesRightClick(JLabel armyLabel, Country country) {
@@ -537,7 +542,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Sets country of the player whose turn it is for an attack.
      *
      * @param armyLabel the label that has been left-clicked in
-     * @param country the country that has been left-clicked on
+     * @param country   the country that has been left-clicked on
      * @see FieldGUI#chooseOwnCountryRightClick()
      * @see FieldGUI#chooseEnemyCountryLeftClick(JLabel armyLabel, Country country)
      * @see FieldGUI#chooseEnemyCountryRightClick()
@@ -577,7 +582,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Sets country of the opposing player to attack.
      *
      * @param armyLabel the label that has been left-clicked
-     * @param country the country that has been left-clicked
+     * @param country   the country that has been left-clicked
      * @see FieldGUI#chooseEnemyCountryRightClick()
      * @see FieldGUI#chooseOwnCountryLeftClick(JLabel armyLabel, Country country)
      * @see FieldGUI#chooseOwnCountryRightClick()
@@ -616,7 +621,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Raises the number of armies in a country by 1 and updates the label.
      *
      * @param armyLabel the label that has been left-clicked on
-     * @param country the country that has been left-clicked on
+     * @param country   the country that has been left-clicked on
      * @see FieldGUI#redistributionRightClick(JLabel armyLabel, Country country)
      */
     private void redistributionLeftClick(JLabel armyLabel, Country country) {
@@ -650,7 +655,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Reduces the number of armies in a country by 1 and updates the label.
      *
      * @param armyLabel the label that has been right-clicked on
-     * @param country the country that has been right-clicked on
+     * @param country   the country that has been right-clicked on
      * @see FieldGUI#redistributionLeftClick(JLabel armyLabel, Country country)
      */
     private void redistributionRightClick(JLabel armyLabel, Country country) {
