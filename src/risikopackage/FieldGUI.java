@@ -511,12 +511,12 @@ public class FieldGUI extends JFrame implements ActionListener {
                 && country.getArmiesInCountry() > 1 && hasEnemyNeighbours(country)) {
             selectedCountry1 = country;
             armiesattacking = armyLabel;
-            textfield.append("Du hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
-                    " auf ein benachbartes Land (mit schwarzem Strich verbunden) deines Gegners.\n");
+            textfield.append("\nDu hast " + country.getCountryName() + " ausgewaehlt, klicke jetzt" +
+                    " auf ein benachbartes Land deines Gegners.\n");
             counterHitbox++;
             check.setEnabled(false);
         } else {
-            textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
+            textfield.append("\nWaehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
                     " Es muss mindestens ein gegnerisches Land als Nachbar haben.\n");
         }
     }
@@ -535,10 +535,10 @@ public class FieldGUI extends JFrame implements ActionListener {
             armiesdefending = armyLabel;
             rollDice.setEnabled(true);
             counterHitbox++;
-            textfield.append("Du hast " + selectedCountry2.getCountryName() + " ausgewaehlt." +
+            textfield.append("\nDu hast " + selectedCountry2.getCountryName() + " ausgewaehlt." +
                     " Klicke 'Wuerfeln' um eine Befreiungsaktion zu starten.\n");
         } else {
-            textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
+            textfield.append("\nWaehle ein Nachbarland deines Gegners aus.\n");
         }
     }
 
@@ -561,7 +561,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             if (remaining > 0) {
                 textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
             } else {
-                textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
+                textfield.append("\nAlle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
                 next.setEnabled(true);
             }
         } else if (country.getColorOfOwnerString().equals(getPlayer().getColor())
@@ -779,6 +779,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Creates a panel with a background image.
+     * @return the created panel
+     */
     private JPanel createMainPanel() {
         Image image = null;
         try {
@@ -794,6 +798,13 @@ public class FieldGUI extends JFrame implements ActionListener {
         return mainPanel;
     }
 
+    /**
+     * Creates a hit box with a name and number of armies.
+     * @param country the country whose hit box will be created
+     * @param nameCoord the coordinates where the name will be placed
+     * @param hitBoxCoord the coordinates where the hit box will be placed
+     * @param armyCoord the coordinates where the number of armies will be placed
+     */
     private void createHitBoxAndLabels(Country country, ArrayList<Integer> nameCoord,
                                        ArrayList<Integer> hitBoxCoord, ArrayList<Integer> armyCoord) {
         // JLabel Country Name
@@ -851,7 +862,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                         "\nLand wird auf die gleiche Weise ausgewaehlt. Mit Rechtsklick kann die jeweilige Auswahl" +
                         "\nrueckgaengig gemacht werden." +
                         "\nSind die beiden Laender ausgewaehlt, muss mit dem 'Wuerfeln'-Button gewuerfelt werden." +
-                        "\nEs gewinnt der Spieler mit dem hoeheren Ergebnis; bei Gleichstand gewinnt der Verteidiger." +
+                        "\nEs gewinnt der Spieler mit dem hoeheren Ergebnis; bei Gleichstand gewinnt der Besetzer." +
                         "\nVon den Armeen des Verlierers wird eine Einheit abgezogen." +
                         "\nVerliert die Besatzungsmacht alle Armeen in einem Land, zieht der Befreier mit einer Armee ein." +
                         "\nUeber den 'Pruefen'-Button kann getestet werden, ob eine Befreiungsaktion moeglich ist." +
@@ -887,7 +898,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Explains the distributing of new armies.
+     * Explains the distribution of new armies.
      */
     private void openNewArmiesRules() {
     	this.setUIManager();
@@ -939,6 +950,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 Gameplay.getInstance().getPlayerTwo().emptyAll();
                 frame.dispose();
                 new PlayersGUI();
+                break;
             case 1:
                 setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
@@ -969,6 +981,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     /**
      * Informs the player of the end of the game and either starts a new game or ends the program.
      * @param player the player who won the game
+     * @see FieldGUI#getWinningMessage(Player player)
      */
     private void openWinning(Player player) {
     	 ImageIcon icon = new ImageIcon("material/winning.png");
@@ -988,15 +1001,17 @@ public class FieldGUI extends JFrame implements ActionListener {
                 Gameplay.getInstance().getPlayerTwo().emptyAll();
                 frame.dispose();
                 new PlayersGUI();
+                break;
             case 1:
-                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                System.exit(0);
         }
     }
 
     /**
-     * Gets the message that a player has won
+     * Gets the message that a player has won.
      * @param player the player who won the game
      * @return the message that the player has won
+     * @see FieldGUI#openWinning(Player player)
      */
     private String getWinningMessage(Player player) {
     		return "Herzlichen Glueckwunsch, Spieler "
@@ -1025,19 +1040,23 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     /**
      * Gets the mission description over several lines.
-     * @param playerNow the player whose mission angezeigt werden sollen
+     * @param playerNow the player whose mission is to be displayed
      * @return the multiline mission description of the player
      */
     private static String breakDescription(Player playerNow) {
         return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
     }
 
-    // sorgt fuer eine Aktualisierung der Armeeanzeige
+    /**
+     * Sets the displayed number of armies of a player.
+     * @param player the player whose turn it is
+     */
     private void setArmyText(Player player) {
-        if (player.getColor().equals(Gameplay.getInstance().getPlayerOne().getColor())) {
-            playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
+        Gameplay gameplayInstance = Gameplay.getInstance();
+        if (player.getColor().equals(gameplayInstance.getPlayerOne().getColor())) {
+            playeronep3.setText(Integer.toString(gameplayInstance.getPlayerOne().numberOfArmies(gameplayInstance.getPlayerOne())));
         } else {
-            playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+            playertwop3.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfArmies(gameplayInstance.getPlayerTwo())));
         }
 
     }
