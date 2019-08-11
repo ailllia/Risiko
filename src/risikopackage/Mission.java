@@ -9,6 +9,7 @@ public abstract class Mission {
 
     /**
     * Returns the title of a mission.
+     *
     * @return the title of a mission
     */
     public String getMissionTitle() {
@@ -16,7 +17,8 @@ public abstract class Mission {
     }
 
     /**
-    * Searches for the wanted description of a mission
+    * Searches for the wanted description of a mission.
+     *
     * @param title the mission's name
     * @return the description of that mission
     */
@@ -31,22 +33,23 @@ public abstract class Mission {
     }
 
     /**
-    * tests whether a mission is complete
-    * @param currentPlayer is the current player
-    * @return true if a mission is complete and false if it is not
-    */
+     * tests whether a mission is complete
+     *
+     * @param currentPlayer is the current player
+     * @return true if a mission is complete and false if it is not
+     */
     public static boolean testMission(Player currentPlayer) {
         switch (currentPlayer.getPlayerMission()) {
-            case "Iwein":       
+            case "Iwein":
                 return (Continent.complete("Otea", currentPlayer) && Continent.complete("Solva", currentPlayer));
 
-            case "Gawein":      
+            case "Gawein":
                 return (Continent.complete("Priya", currentPlayer) && Continent.complete("Solva", currentPlayer));
 
-            case "Parzival":    
+            case "Parzival":
                 return (Continent.complete("Priya", currentPlayer) && Continent.complete("Otea", currentPlayer));
 
-            case "Tristan":     
+            case "Tristan":
             case "Keie":
             case "Erec":
                 return (currentPlayer.numberOfCountries() >= 11);

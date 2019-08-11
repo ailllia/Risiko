@@ -22,6 +22,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Gets the Gameplay. Initialises a new Gameplay if value of instance is null.
+     *
      * @return instance
      */
     public static Gameplay getInstance() {
@@ -53,6 +54,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Informs the player that they have to deploy armies.
+     *
      * @param player the player whose turn it is
      */
     public void deployArmiesText(Player player) {
@@ -108,6 +110,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Informs the player that they have armies they can redistribute.
+     *
      * @param player the player whose turn it is
      */
     public void redistributionContText(Player player) {
@@ -124,6 +127,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Randomly distributes seven countries to the players.
+     *
      * @param chance the random generator to determine the positions of the seven first countries to be distributed in countries
      */
     private void spreadCountries(Random chance) {
@@ -139,11 +143,12 @@ public class Gameplay extends JFrame {
 
         for (int i = 0; i < 7; i++) {
             playerTwo.addCountryToList(countriesCopy.get(i).getCountryName(), countriesCopy.get(i));
-        }        	
+        }
     }
 
     /**
      * Sets armies and the owner of countries.
+     *
      * @param player the player whose turn it is
      */
     private void paintCountries(Player player) {
@@ -160,6 +165,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Randomly distributes a mission to the two players.
+     *
      * @param chance the random generator to determine the position of the chosen mission in missions
      */
     private void chooseMission(Random chance) {
@@ -175,6 +181,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Gets the first player.
+     *
      * @return playerOne
      */
     public Player getPlayerOne() {
@@ -183,6 +190,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Gets the second player.
+     *
      * @return playerTwo
      */
     public Player getPlayerTwo() {
@@ -191,6 +199,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Gets the list containing countries.
+     *
      * @return countries
      */
     public List<Country> getCountries() {
@@ -199,6 +208,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Gets the list containing continents.
+     *
      * @return continents
      */
     public List<Continent> getContinents() {
@@ -207,6 +217,7 @@ public class Gameplay extends JFrame {
 
     /**
      * Gets the list containing missions.
+     *
      * @return missions
      */
     public List<Mission> getMissions() {
