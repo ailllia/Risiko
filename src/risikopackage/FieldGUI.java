@@ -502,12 +502,12 @@ public class FieldGUI extends JFrame implements ActionListener {
             if (remaining > 0) {
                 textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
             } else {
-                textfield.append("Alle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
+                textfield.append("\nAlle Einheiten verteilt, klicke 'Weiter' um forzufahren.\n");
                 next.setEnabled(true);
                 counterHitbox++;
             }
         } else {
-            textfield.append("Verteile die Einheiten in den Laender, die deiner Farbe entsprechen.\n");
+            textfield.append("\nVerteile die Einheiten in den Laendern, die deiner Farbe entsprechen.\n");
         }
     }
 
@@ -537,7 +537,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             counterHitbox++;
             check.setEnabled(false);
         } else {
-            textfield.append("\nWaehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
+            textfield.append("Waehle zuerst ein Land von dir mit mehr als einer Einheit aus." +
                     " Es muss mindestens ein gegnerisches Land als Nachbar haben.\n");
         }
     }
@@ -559,7 +559,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             textfield.append("\nDu hast " + selectedCountry2.getCountryName() + " ausgewaehlt." +
                     " Klicke 'Wuerfeln' um eine Befreiungsaktion zu starten.\n");
         } else {
-            textfield.append("\nWaehle ein Nachbarland deines Gegners aus.\n");
+            textfield.append("Waehle ein Nachbarland deines Gegners aus.\n");
         }
     }
 
@@ -675,10 +675,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         dicePlayerTwo.setIcon(dicePlayerTwo_img);
         dicePlayerOne.setVisible(true);
         dicePlayerTwo.setVisible(true);
-        textfield.append("Du wuerfelst eine " + diceAttacker + "!\nDer Besetzer wuerfelt eine " + diceDefender + "!\n");
+        textfield.append("\nDu wuerfelst eine " + diceAttacker + "!\nDer Besetzer wuerfelt eine " + diceDefender + "!\n");
         if (diceAttacker > diceDefender) {
             if (selectedCountry2.getArmiesInCountry() > 1) {
-                textfield.append("Der Besetzer verliert eine Einheit!\n");
+                textfield.append("\nDer Besetzer verliert eine Einheit!\n");
                 selectedCountry2.loseArmy();
                 armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
             } else {
@@ -719,7 +719,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
 
 
-                textfield.append("Du hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
+                textfield.append("\nDu hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
                 if (Mission.testMission(player)) {
                     Gameplay.getInstance().finishedGameText();      //pruefe ob spiel gewonnen
                     openWinning(player); // hier ein PopUp
@@ -727,7 +727,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
             }
         } else {
-            textfield.append("Du verlierst eine Einheit.\n");
+            textfield.append("\nDu verlierst eine Einheit.\n");
             selectedCountry1.loseArmy();
             armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
             playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
@@ -737,7 +737,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         setArmyText(Gameplay.getInstance().getPlayerOne());
         setArmyText(Gameplay.getInstance().getPlayerTwo());
         counterHitbox = 1;      // damit wieder ein neues land gewaehlt werden kann
-        textfield.append("Waehle erneut zwei Laender oder beende die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
+        textfield.append("\nWaehle erneut zwei Laender oder beende die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
 
     /**
