@@ -1,7 +1,5 @@
 package risikopackage;
 
-import java.util.List;
-
 public abstract class Mission {
     protected String missionName;
     protected String missionTitle;

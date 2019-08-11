@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PlayersGUI extends JFrame implements ActionListener {
-
     private JComboBox<String> colorone, colortwo;
     private JLabel wrongcolor, choosename;
     private JTextField nameOne, nameTwo;
