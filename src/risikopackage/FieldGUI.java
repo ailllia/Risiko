@@ -162,7 +162,6 @@ public class FieldGUI extends JFrame implements ActionListener {
             }
         };
 
-//        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -371,20 +370,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         solva.setBounds(580, 447, 170, 12);
         frame.add(solva);
 
-
         //Angaben Laender
-        //Laender werden in Maps geladen die die zugehoerigen Koordinaten enthalten
-        //for-Schleife ruft dann fuer jedes land die funktion auf die die elemente dem frame / panel hinzufuegt
-
-        /*
-        List of countries
-        Map<String,List<int>>  maps country names to coordinates of JLabel country name
-        Map<String,List<int>>  maps country names to coordinates of JPanel hit box
-        Map<String,List<int>>  maps country names to coordinates of JLabel army count
-        example:
-        country names: AMRA :  487, 70, 70, 15
-        */
-
         Map<String, ArrayList<Integer>> countryNameLabels = new HashMap<>();
         Map<String, ArrayList<Integer>> hitBoxPanels = new HashMap<>();
         Map<String, ArrayList<Integer>> armyCountLabels = new HashMap<>();
@@ -492,9 +478,16 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setResizable(false);
     }
 
+    /**
+     * Raises the number of armies in a country by 1 and updates the label.
+     *
+     * @param armyLabel the label that has been left-clicked on
+     * @param country the country that has been left-clicked on
+     * @see FieldGUI#deployArmiesRightClick(JLabel armyLabel, Country country)
+     */
     private void deployArmiesLeftClick(JLabel armyLabel, Country country) {
-        if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
-                && remaining >= 0) { //es sind noch einheiten ueber
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && remaining >= 0) {
             increasedCountries.add(country);
             country.addArmy();
             counter++;
@@ -513,9 +506,16 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Reduces the number of armies in a country by 1 and updates the label.
+     *
+     * @param armyLabel the label that has been right-clicked on
+     * @param country the country that has been right-clicked on
+     * @see FieldGUI#deployArmiesLeftClick(JLabel armyLabel, Country country)
+     */
     private void deployArmiesRightClick(JLabel armyLabel, Country country) {
-        if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
-                && increasedCountries.contains(country)) {                  //es sind noch einheiten ueber
+        if (country.getColorOfOwnerString().equals(getPlayer().getColor())
+                && increasedCountries.contains(country)) {
             increasedCountries.remove(country);
             country.loseArmy();
             counter--;
@@ -530,6 +530,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Sets country of the player whose turn it is for an attack.
+     *
+     * @param armyLabel the label that has been left-clicked in
+     * @param country the country that has been left-clicked on
+     * @see FieldGUI#chooseOwnCountryRightClick()
+     * @see FieldGUI#chooseEnemyCountryLeftClick(JLabel armyLabel, Country country)
+     * @see FieldGUI#chooseEnemyCountryRightClick()
+     */
     private void chooseOwnCountryLeftClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                 && country.getArmiesInCountry() > 1 && hasEnemyNeighbours(country)) {
@@ -545,6 +554,13 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Deselects country that had been chosen for an attack.
+     *
+     * @see FieldGUI#chooseOwnCountryLeftClick(JLabel armyLabel, Country country)
+     * @see FieldGUI#chooseEnemyCountryRightClick()
+     * @see FieldGUI#chooseEnemyCountryLeftClick(JLabel armyLabel, Country country)
+     */
     private void chooseOwnCountryRightClick() {
         counterHitbox--;
         selectedCountry1 = null;
@@ -552,6 +568,15 @@ public class FieldGUI extends JFrame implements ActionListener {
         check.setEnabled(true);
     }
 
+    /**
+     * Sets country of the opposing player to attack.
+     *
+     * @param armyLabel the label that has been left-clicked
+     * @param country the country that has been left-clicked
+     * @see FieldGUI#chooseEnemyCountryRightClick()
+     * @see FieldGUI#chooseOwnCountryLeftClick(JLabel armyLabel, Country country)
+     * @see FieldGUI#chooseOwnCountryRightClick()
+     */
     private void chooseEnemyCountryLeftClick(JLabel armyLabel, Country country) {
         if (!country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert gegner
                 && country.isNeighbor(selectedCountry1)) {      //land ist nachbar
@@ -566,6 +591,13 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Deselects country that had been chosen to attack.
+     *
+     * @see FieldGUI#chooseEnemyCountryLeftClick(JLabel armyLabel, Country country)
+     * @see FieldGUI#chooseOwnCountryLeftClick(JLabel armyLabel, Country country)
+     * @see FieldGUI#chooseOwnCountryRightClick()
+     */
     private void chooseEnemyCountryRightClick() {
         if (counterHitbox == 4) {
             rollDice.setEnabled(false);
@@ -575,6 +607,13 @@ public class FieldGUI extends JFrame implements ActionListener {
         textfield.append("Auswahl aufgehoben.\n");
     }
 
+    /**
+     * Raises the number of armies in a country by 1 and updates the label.
+     *
+     * @param armyLabel the label that has been left-clicked on
+     * @param country the country that has been left-clicked on
+     * @see FieldGUI#redistributionRightClick(JLabel armyLabel, Country country)
+     */
     private void redistributionLeftClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                 && remaining > 0) {
@@ -594,6 +633,13 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Reduces the number of armies in a country by 1 and updates the label.
+     *
+     * @param armyLabel the label that has been right-clicked on
+     * @param country the country that has been right-clicked on
+     * @see FieldGUI#redistributionLeftClick(JLabel armyLabel, Country country)
+     */
     private void redistributionRightClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor())
                 && country.getArmiesInCountry() > 1) {
@@ -663,13 +709,18 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Simulates an attack and informs the player about the outcome. Depending on which player wins the attack, the
+     * information on armies and countries get updated.
+     */
     private void attack() {
         check.setEnabled(true);
+        Gameplay gameplayInstance = Gameplay.getInstance();
         ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
         int diceAttacker = random.nextInt(6) + 1;
         int diceDefender = random.nextInt(6) + 1;
-        if (player == Gameplay.getInstance().getPlayerOne()) {
+        if (player == gameplayInstance.getPlayerOne()) {
             dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
             dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
         } else {
@@ -695,39 +746,39 @@ public class FieldGUI extends JFrame implements ActionListener {
                 armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
                 armiesdefending.setText(Integer.toString(selectedCountry2.getArmiesInCountry()));
 
-                if (selectedCountry1.getColorOfOwnerString().equals(Gameplay.getInstance().getPlayerOne().getColor())) {
+                if (selectedCountry1.getColorOfOwnerString().equals(gameplayInstance.getPlayerOne().getColor())) {
                     int j = 0;
-                    for (int i = 0; i < Gameplay.getInstance().getPlayerTwo().numberOfCountries(); i++) {
-                        if (selectedCountry2.getCountryName().equals(Gameplay.getInstance().getPlayerTwo().getCountryName(i))) {
+                    for (int i = 0; i < gameplayInstance.getPlayerTwo().numberOfCountries(); i++) {
+                        if (selectedCountry2.getCountryName().equals(gameplayInstance.getPlayerTwo().getCountryName(i))) {
                             j = i;
                         }
                     }
-                    Gameplay.getInstance().getPlayerOne().addCountryToList(Gameplay.getInstance().getPlayerTwo().getCountryName(j), Gameplay.getInstance().getPlayerTwo().getCountry(j));
-                    Gameplay.getInstance().getPlayerTwo().deleteCountryFromList(j);
-                    playeronep2.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()));
-                    playertwop2.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()));
-                    playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
-                    playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+                    gameplayInstance.getPlayerOne().addCountryToList(gameplayInstance.getPlayerTwo().getCountryName(j), gameplayInstance.getPlayerTwo().getCountry(j));
+                    gameplayInstance.getPlayerTwo().deleteCountryFromList(j);
+                    playeronep2.setText(Integer.toString(gameplayInstance.getPlayerOne().numberOfCountries()));
+                    playertwop2.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfCountries()));
+                    playeronep3.setText(Integer.toString(gameplayInstance.getPlayerOne().numberOfArmies(gameplayInstance.getPlayerOne())));
+                    playertwop3.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfArmies(gameplayInstance.getPlayerTwo())));
                 } else {
                     int j = 0;
-                    for (int i = 0; i < Gameplay.getInstance().getPlayerOne().numberOfCountries(); i++) {
-                        if (selectedCountry2.getCountryName().equals(Gameplay.getInstance().getPlayerOne().getCountryName(i))) {
+                    for (int i = 0; i < gameplayInstance.getPlayerOne().numberOfCountries(); i++) {
+                        if (selectedCountry2.getCountryName().equals(gameplayInstance.getPlayerOne().getCountryName(i))) {
                             j = i;
                         }
                     }
-                    Gameplay.getInstance().getPlayerTwo().addCountryToList(Gameplay.getInstance().getPlayerOne().getCountryName(j), Gameplay.getInstance().getPlayerOne().getCountry(j));
-                    Gameplay.getInstance().getPlayerOne().deleteCountryFromList(j);
-                    playeronep2.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()));
-                    playertwop2.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()));
+                    gameplayInstance.getPlayerTwo().addCountryToList(gameplayInstance.getPlayerOne().getCountryName(j), gameplayInstance.getPlayerOne().getCountry(j));
+                    gameplayInstance.getPlayerOne().deleteCountryFromList(j);
+                    playeronep2.setText(Integer.toString(gameplayInstance.getPlayerOne().numberOfCountries()));
+                    playertwop2.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfCountries()));
                 }
-                playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
-                playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+                playeronep3.setText(Integer.toString(gameplayInstance.getPlayerOne().numberOfArmies(gameplayInstance.getPlayerOne())));
+                playertwop3.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfArmies(gameplayInstance.getPlayerTwo())));
 
 
                 textfield.append("\nDu hast " + selectedCountry2.getCountryName() + " erfolgreich befreit!\n");
                 if (Mission.testMission(player)) {
-                    Gameplay.getInstance().finishedGameText();      //pruefe ob spiel gewonnen
-                    openWinning(player); // hier ein PopUp
+                    gameplayInstance.finishedGameText();
+                    openWinning(player);
                     return;
                 }
             }
@@ -735,13 +786,13 @@ public class FieldGUI extends JFrame implements ActionListener {
             textfield.append("\nDu verlierst eine Einheit.\n");
             selectedCountry1.loseArmy();
             armiesattacking.setText(Integer.toString(selectedCountry1.getArmiesInCountry()));
-            playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
-            playertwop3.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfArmies(Gameplay.getInstance().getPlayerTwo())));
+            playeronep3.setText(Integer.toString(gameplayInstance.getPlayerOne().numberOfArmies(gameplayInstance.getPlayerOne())));
+            playertwop3.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfArmies(gameplayInstance.getPlayerTwo())));
         }
         rollDice.setEnabled(false);
-        setArmyText(Gameplay.getInstance().getPlayerOne());
-        setArmyText(Gameplay.getInstance().getPlayerTwo());
-        counterHitbox = 1;      // damit wieder ein neues land gewaehlt werden kann
+        setArmyText(gameplayInstance.getPlayerOne());
+        setArmyText(gameplayInstance.getPlayerTwo());
+        counterHitbox = 1;
         textfield.append("\nWaehle erneut zwei Laender oder beende die Befreiungsphase durch einen Klick auf 'Weiter'.\n");
     }
 
@@ -959,7 +1010,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Ends the game and starts a new game if the player answers in the affirmative.
+     * Ends the game and starts a new game if the players want.
      */
     private void openSelection() {
         this.setUIManager();
@@ -985,7 +1036,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Ends the program if the player answers in the affirmative.
+     * Ends the program if the players want.
      */
     private void endProgram() {
         this.setUIManager();
@@ -1050,10 +1101,6 @@ public class FieldGUI extends JFrame implements ActionListener {
                 + "\nWollt ihr noch eine Runde spielen?";
     }
 
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
-    }
-
     /**
      * Searches for a country.
      *
@@ -1092,5 +1139,9 @@ public class FieldGUI extends JFrame implements ActionListener {
             playertwop3.setText(Integer.toString(gameplayInstance.getPlayerTwo().numberOfArmies(gameplayInstance.getPlayerTwo())));
         }
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
     }
 }
