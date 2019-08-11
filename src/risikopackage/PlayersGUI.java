@@ -16,7 +16,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
     private JTextField nameOne, nameTwo;
 
     /**
-     * is a new window which welcomes the players and asks for their playing colors
+     * is a new window which welcomes the players and asks for their names and playing colors
      */
     public PlayersGUI() {
         this.setLayout(null);
@@ -33,7 +33,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(title);
         title.setBounds(0, 20, 500, 20);
 
-        JLabel order = new JLabel("Waehlt euren Namen und Farbe", SwingConstants.CENTER);
+        JLabel order = new JLabel("Waehlt euren Namen und eure Farbe", SwingConstants.CENTER);
         order.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(order);
         order.setBounds(0, 60, 500, 20);
@@ -68,19 +68,19 @@ public class PlayersGUI extends JFrame implements ActionListener {
 
         JLabel inputNameOne = new JLabel("Name:");
         this.add(inputNameOne);
-        inputNameOne.setBounds(0, 110, 100, 20);
+        inputNameOne.setBounds(30, 110, 45, 20);
 
         JLabel inputNameTwo = new JLabel("Name:");
         this.add(inputNameTwo);
-        inputNameTwo.setBounds(250, 110, 100, 20);
+        inputNameTwo.setBounds(280, 110, 45, 20);
 
         JLabel inputColorOne = new JLabel("Farbe:");
         this.add(inputColorOne);
-        inputColorOne.setBounds(0, 130, 100, 20);
+        inputColorOne.setBounds(30, 130, 45, 20);
 
         JLabel inputColorTwo = new JLabel("Farbe:");
         this.add(inputColorTwo);
-        inputColorTwo.setBounds(250, 130, 100, 20);
+        inputColorTwo.setBounds(280, 130, 45, 20);
 
         nameOne = new JTextField();
         this.add(nameOne);
@@ -116,7 +116,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
     /**
      * belongs to the button "Spiel starten"
      * opens a new window with the playing field
-     * sets the color of the players from SelectedItem
+     * sets the name and the color of the players from InputFields and SelectedItems
      * closes this window
      */
     private void startfct() {
