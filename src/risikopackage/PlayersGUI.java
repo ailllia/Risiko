@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 
 public class PlayersGUI extends JFrame implements ActionListener {
 
-    private final String[] colorsone = {"blau", "rot", "lila", "pink", "grau"};
-    private final String[] colorstwo = {"blau", "rot", "lila", "pink", "grau"};
     private JComboBox<String> colorone, colortwo;
     private JLabel wrongcolor;
 
@@ -49,13 +47,15 @@ public class PlayersGUI extends JFrame implements ActionListener {
         wrongcolor.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         wrongcolor.setVisible(false);
         this.add(wrongcolor);
-        wrongcolor.setBounds(90, 210, 300, 20);
+        wrongcolor.setBounds(85, 210, 320, 20);
 
+        String[] colorsone = {"blau", "rot", "lila", "pink", "grau"};
         colorone = new JComboBox<>(colorsone);
         colorone.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(colorone);
         colorone.setBounds(75, 120, 100, 20);
 
+        String[] colorstwo = {"blau", "rot", "lila", "pink", "grau"};
         colortwo = new JComboBox<>(colorstwo);
         colortwo.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(colortwo);

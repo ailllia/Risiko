@@ -1,7 +1,6 @@
 package risikopackage;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -37,9 +36,10 @@ public class Gameplay extends JFrame {
      */
     public void initialising() {
         Random chance = new Random();
-        spreadCountries(playerOne, playerTwo, countries, chance);
-        paintCountries(playerOne, playerTwo, countries);
-        chooseMission(playerOne, playerTwo, missions, chance);
+        spreadCountries(chance);
+        paintCountries(playerOne);
+        paintCountries(playerTwo);
+        chooseMission(chance);
     }
 
     /**
@@ -126,12 +126,9 @@ public class Gameplay extends JFrame {
 
     /**
      * Randomly distributes seven countries to the players
-     * @param playerOne the first player to get seven countries
-     * @param playerTwo the second player to get seven countries
-     * @param countries the list with countries to be distributed to the players
      * @param chance the random generator to determine the positions of the seven first countries to be distributed in countries
      */
-    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
+    private void spreadCountries(Random chance) {
         List<Country> countriesCopy = new ArrayList<>(countries);
         int j = 13;
 
@@ -166,27 +163,13 @@ public class Gameplay extends JFrame {
 
     /**
      * Sets armies and the owner of countries.
-     * @param playerOne
-     * @param playerTwo
-     * @param countries the list of countries which contains the countries of the player
      */
-    private static void paintCountries(Player playerOne, Player playerTwo, List<Country> countries) {
-        Color rgbCodesOne = Player.PlayerColorCode(playerOne);
-        Color rgbCodesTwo = Player.PlayerColorCode(playerTwo);
+    private void paintCountries(Player player) {
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 7; j++) {
-                if (playerOne.getCountryName(j).equals(countries.get(i).getCountryName())) {
-                    countries.get(i).setColorOfOwnerCode(rgbCodesOne);
-                    countries.get(i).setColorOfOwnerString(playerOne.getColor());
-                    countries.get(i).setArmies();
-                }
-            }
-        }
-        for (int i = 0; i < 14; i++) {
-            for (int j = 0; j < 7; j++) {
-                if (playerTwo.getCountryName(j).equals(countries.get(i).getCountryName())) {
-                    countries.get(i).setColorOfOwnerCode(rgbCodesTwo);
-                    countries.get(i).setColorOfOwnerString(playerTwo.getColor());
+                if (player.getCountryName(j).equals(countries.get(i).getCountryName())) {
+                    countries.get(i).setColorOfOwnerCode(Player.PlayerColorCode(player));
+                    countries.get(i).setColorOfOwnerString(player.getColor());
                     countries.get(i).setArmies();
                 }
             }
@@ -195,12 +178,9 @@ public class Gameplay extends JFrame {
 
     /**
      * Randomly distributes a mission to the two players.
-     * @param playerOne the first player to get a mission
-     * @param playerTwo the second player to get a mission
-     * @param missions the list with missions from which the chosen missions will come from
      * @param chance the random generator to determine the position of the chosen mission in missions
      */
-    private static void chooseMission(Player playerOne, Player playerTwo, List<Mission> missions, Random chance) {
+    private void chooseMission(Random chance) {
         List<Mission> missionsCopy = new ArrayList<>(missions);
         int j = 5;
         int k = chance.nextInt(j);

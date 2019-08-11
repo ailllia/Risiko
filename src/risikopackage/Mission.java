@@ -15,7 +15,7 @@ public abstract class Mission {
     * @param continents is the lists of possible continents to free
     * @return returns a complete mission
     */
-    public static Mission create(String name, String title, String description, List<Continent> continents) {
+    public Mission create(String name, String title, String description, List<Continent> continents) {
         switch (name) {
             case "Laender befreien":
                 return new FreeCountries(name, title, description);
