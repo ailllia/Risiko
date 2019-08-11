@@ -1,9 +1,11 @@
 package risikopackage;
 
-import javax.swing.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.JFrame;
 
 public class Gameplay extends JFrame {
     // hier werden die spielzuege in einzelnen funktionen aufgerufen
