@@ -6,10 +6,14 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        //Das Einlesen
+    	/**
+    	 * reads countries, continents and missions from text file
+    	 */
         Loadtxtfiles.readFiles(".");
 
-        //Erste GUI, Startfenster
+        /**
+         * opens the GUI where the colors of the players must be chosen 
+         */
         new PlayersGUI();
     }
 }
