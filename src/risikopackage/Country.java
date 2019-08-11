@@ -33,9 +33,9 @@ public class Country {
     /**
      * Sets value of armiesInCountry to 1.
      *
-     * @see loseArmy()
-     * @see addArmy()
-     * @see getArmiesInCountry()
+     * @see Country#loseArmy()
+     * @see Country#addArmy()
+     * @see Country#getArmiesInCountry()
      */
     public void setArmies() {
         armiesInCountry = 1;
@@ -44,9 +44,9 @@ public class Country {
     /**
      * Reduces the value of armiesInCountry by 1.
      *
-     * @see setArmies()
-     * @see addArmy()
-     * @see getArmiesInCountry()
+     * @see Country#setArmies()
+     * @see Country#addArmy()
+     * @see Country#getArmiesInCountry()
      */
     public void loseArmy() {
         this.armiesInCountry--;
@@ -55,9 +55,9 @@ public class Country {
     /**
      * Raises the value of armiesInCountry by 1.
      *
-     * @see setArmies()
-     * @see loseArmy()
-     * @see getArmiesInCountry()
+     * @see Country#setArmies()
+     * @see Country#loseArmy()
+     * @see Country#getArmiesInCountry()
      */
     public void addArmy() {
         this.armiesInCountry++;
@@ -85,9 +85,9 @@ public class Country {
      * Gets the number of armies in the country
      *
      * @return the number of armies in the country
-     * @see setArmies()
-     * @see loseArmy()
-     * @see addArmy()
+     * @see Country#setArmies()
+     * @see Country#loseArmy()
+     * @see Country#addArmy()
      */
     public int getArmiesInCountry() {
         return this.armiesInCountry;
@@ -97,9 +97,9 @@ public class Country {
      * Sets the color of the owner as code.
      *
      * @param rgbCodesOne the color to become the new color of the owner
-     * @see getColorOfOwnerCode()
-     * @see getColorOfOwnerString()
-     * @see setColorOfOwnerString(String colorOfOwnerString)
+     * @see Country#getColorOfOwnerCode()
+     * @see Country#getColorOfOwnerString()
+     * @see Country#setColorOfOwnerString(String colorOfOwnerString)
      */
     public void setColorOfOwnerCode(Color rgbCodesOne) {
         this.colorOfOwnerCode = rgbCodesOne;
@@ -109,9 +109,9 @@ public class Country {
      * Gets the code of the color of the owner
      *
      * @return the code of the color of the owner
-     * @see setColorOfOwnerCode(Color rgbCodesOne)
-     * @see setColorOfOwnerString(String colorOfOwnerString)
-     * @see getColorOfOwnerString()
+     * @see Country#setColorOfOwnerCode(Color rgbCodesOne)
+     * @see Country#setColorOfOwnerString(String colorOfOwnerString)
+     * @see Country#getColorOfOwnerString()
      */
     public Color getColorOfOwnerCode() {
         return this.colorOfOwnerCode;
@@ -121,9 +121,9 @@ public class Country {
      * Sets the color of the owner as string.
      *
      * @param colorOfOwnerString the color to become the new color of the owner
-     * @see getColorOfOwnerString()
-     * @see getColorOfOwnerCode()
-     * @see setColorOfOwnerCode(Color rgbCodesOne)
+     * @see Country#getColorOfOwnerString()
+     * @see Country#getColorOfOwnerCode()
+     * @see Country#setColorOfOwnerCode(Color rgbCodesOne)
      */
     public void setColorOfOwnerString(String colorOfOwnerString) {
         this.colorOfOwnerString = colorOfOwnerString;
@@ -133,9 +133,9 @@ public class Country {
      * Gets the string of the color of the owner
      *
      * @return the string of the color of the owner
-     * @see setColorOfOwnerString(String colorOfOwnerString)
-     * @see setColorOfOwnerCode(Color rgbCodesOne)
-     * @see getColorOfOwnerCode()
+     * @see Country#setColorOfOwnerString(String colorOfOwnerString)
+     * @see Country#setColorOfOwnerCode(Color rgbCodesOne)
+     * @see Country#getColorOfOwnerCode()
      */
     public String getColorOfOwnerString() {
         return colorOfOwnerString;

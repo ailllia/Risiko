@@ -21,7 +21,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null
+     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null.
      *
      * @return instance
      */
@@ -53,23 +53,23 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Informs the player that he has to deploy armies.
+     * Informs the player that they have to deploy armies.
      *
      * @param player the player whose turn it is
      */
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + ".\n\n\tVerteile " + player.getNewArmies() +
+        FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + ".\n\n   Verteile " + player.getNewArmies() +
                 " neue Armeen auf deine Laender.\nKlicke dafuer auf die Zahlen in den Laendern.\nMit Linksklick" +
-                " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n");
+                " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n\n");
     }
 
     /**
-     * Informs the player that he can attack other countries if he wants.
+     * Informs the player that they can attack other countries if they want.
      */
     public void attackphaseText() {
-        FieldGUI.textfield.append("\n\tBefreie Laender, die von deinem Gegner besetzt sind.\nWaehle dazu ein Land aus," +
-                " das in deinem Besitz ist und in dem mindestens 2 Armeen stationiert sind. Waehle danach\n ein gegnerisches" +
+        FieldGUI.textfield.append("\n   Befreie Laender, die von deinem Gegner besetzt sind.\nWaehle dazu ein Land aus," +
+                " das in deinem Besitz ist und in dem mindestens 2 Armeen stationiert sind. Waehle danach\nein gegnerisches" +
                 " Nachbarland aus.\nMit Rechtsklick kannst du deine jeweilige Auswahl aufheben.\nKlicke auf 'Wuerfeln' um" +
                 " den Befreiungsversuch zu starten.\nWenn du nicht weisst, ob du einen Befreiungsversuch starten kannst," +
                 " klicke 'Pruefen'.\nKlicke auf 'Weiter', um zur naechsten Spielphase zu gelangen.\n");
@@ -92,26 +92,24 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Informs the player that he can redistribute armies if he wants.
+     * Informs the player that they can redistribute armies if they want.
      */
     public void redistributionText() {
-        FieldGUI.textfield.append("\n\tVersetze deine Armeen.\nZiehe dafuer" +
+        FieldGUI.textfield.append("\n   Versetze deine Armeen.\nZiehe dafuer" +
                 " zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab. Mit Linksklick fuegst" +
                 " du\ndie abgezogenen Einheiten einem Land hinzu.\nWenn du nicht weisst, ob du Einheiten verteilen" +
-                " kannst, klicke 'Pruefen'.\nKlicke auf 'Weiter', um deinen Zug zu beenden.\n");
+                " kannst, klicke 'Pruefen'.\nKlicke auf 'Weiter', um deinen Zug zu beenden.\n\n");
     }
 
     /**
-     * Appends a message to the textfield that no armies can be redistributed.
-     * Informs the player that he has no armies to be redistributed.
+     * Informs the player that they have no armies they can redistribute.
      */
     public void redistributionAbortText() {
         FieldGUI.textfield.append("\nDu kannst keine Einheiten neuverteilen. Beende deinen Zug, indem du auf 'Weiter' klickst.\n");
     }
 
     /**
-     * Appends a message to the textfield that the player can redistribute armies.
-     * Informs the player that he has armies to be redistributed.
+     * Informs the player that they have armies they can redistribute.
      *
      * @param player the player whose turn it is
      */
@@ -120,15 +118,15 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Appends a congratulatory message to the textfield and signifies the end of the game.
+     * Informs the player that they completed the mission and signifies the end of the game.
      */
     public void finishedGameText() {
-        FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
+        FieldGUI.textfield.append("\nHERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
                 "erfuellt und damit dieses Spiel gewonnen!");
     }
 
     /**
-     * Randomly distributes seven countries to the players
+     * Randomly distributes seven countries to the players.
      *
      * @param chance the random generator to determine the positions of the seven first countries to be distributed in countries
      */
@@ -147,26 +145,11 @@ public class Gameplay extends JFrame {
             playerTwo.addCountryToList(countriesCopy.get(i).getCountryName(), countriesCopy.get(i));
         }
     }
-    
-    /* Testfall: Spieler 1 hat zu Beginn bereits Kontinent Otea
-    private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
-        List<Country> countriesCopy = new ArrayList<>(countries);
-        int j = 13;
-        for (int i = 1; i < 8; i++) {
-            int k = i;
-            playerOne.addCountryToList(countries.get(k).getCountryName(), countries.get(k));
-            countriesCopy.remove(k);
-            j -= 1;
-        }
-        for (int i = 0; i < 14; i++) {
-            playerTwo.addCountryToList(countries.get(i).getCountryName(), countries.get(i));
-            if(i == 0) i = 7;
-        }
-    }
-    */
 
     /**
      * Sets armies and the owner of countries.
+     *
+     * @param player the player whose turn it is
      */
     private void paintCountries(Player player) {
         for (int i = 0; i < 14; i++) {
@@ -215,7 +198,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the list containing countries
+     * Gets the list containing countries.
      *
      * @return countries
      */
@@ -224,7 +207,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the list containing continents
+     * Gets the list containing continents.
      *
      * @return continents
      */
@@ -233,7 +216,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the list containing missions
+     * Gets the list containing missions.
      *
      * @return missions
      */
