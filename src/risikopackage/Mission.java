@@ -7,6 +7,14 @@ public abstract class Mission {
     protected String missionTitle;
     protected String missionDescription;
 
+    /**
+    * creates new missions either in subclass "FreeContinents" or in "FreeCountries"   
+    * @param name is the category of a mission
+    * @param title is the title of one particular mission
+    * @param description is the description of that mission
+    * @param continents is the lists of possible continents to free
+    * @return returns a complete mission
+    */
     public static Mission create(String name, String title, String description, List<Continent> continents) {
         switch (name) {
             case "Laender befreien":
@@ -18,14 +26,27 @@ public abstract class Mission {
         }
     }
 
+    /**
+    * returns the category of a mission
+    * @return returns the category of a mission
+    */
     public String getMissionName() {
         return missionName;
     }
 
+    /**
+    * returns the title of a mission
+    * @return returns the title of a mission
+    */
     public String getMissionTitle() {
         return this.missionTitle;
     }
 
+    /**
+    * searches for and returns the wanted description of a mission 
+    * @param title is the mission's name
+    * @return returns the description of that mission
+    */
     public static String getDescription(String title) {
         String thatMissionDescription = "blubb";
         for (int i = 0; i < 6; i++) {
@@ -36,19 +57,23 @@ public abstract class Mission {
         return thatMissionDescription;
     }
 
-    // testet, ob Mission komplett ist
+    /**
+    * tests whether a mission is complete
+    * @param currentPlayer is the current player
+    * @return true if a mission is complete and false if it is not
+    */
     public static boolean testMission(Player currentPlayer) {
         switch (currentPlayer.getPlayerMission()) {
-            case "Iwein":       // Befreie die Kontinente Otea und Solva.
+            case "Iwein":       
                 return (Continent.complete("Otea", currentPlayer) && Continent.complete("Solva", currentPlayer));
 
-            case "Gawein":      // Befreie die Kontinente Solva und Priya.
+            case "Gawein":      
                 return (Continent.complete("Priya", currentPlayer) && Continent.complete("Solva", currentPlayer));
 
-            case "Parzival":    // Befreie die Kontinente Priya und Otea.
+            case "Parzival":    
                 return (Continent.complete("Priya", currentPlayer) && Continent.complete("Otea", currentPlayer));
 
-            case "Tristan":     // Befreie und besetze insgesamt 11 Laender.
+            case "Tristan":     
             case "Keie":
             case "Erec":
                 return (currentPlayer.numberOfCountries() >= 11);

@@ -12,6 +12,9 @@ public class PlayersGUI extends JFrame implements ActionListener {
     private JComboBox<String> colorone, colortwo;
     private JLabel wrongcolor;
 
+    /**
+     * is a new window which welcomes the players and asks for their playing colors
+     */
     public PlayersGUI() {
         this.setLayout(null);
         this.setTitle("Risiko - Spielvorbereitung");
@@ -69,7 +72,12 @@ public class PlayersGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent arg0) {
     }
 
-    //create players, "close" PrepWindow, open playingfield
+    /**
+     * belongs to the button "Spiel starten"
+     * opens a new window with the playing field
+     * sets the color of the players from SelectedItem
+     * closes this window
+     */
     private void startfct() {
         if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {
             wrongcolor.setVisible(true);
