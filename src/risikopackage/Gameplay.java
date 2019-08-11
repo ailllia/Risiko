@@ -8,8 +8,8 @@ import java.util.Random;
 public class Gameplay extends JFrame {
     // hier werden die spielzuege in einzelnen funktionen aufgerufen
     private static Gameplay instance;
-    private Player playerOne = new Player(null);
-    private Player playerTwo = new Player(null);
+    private Player playerOne = new Player(null, null);
+    private Player playerTwo = new Player(null, null);
     private List<Country> countries = new ArrayList<>();
     private List<Continent> continents = new ArrayList<>();
     private List<Mission> missions = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Gameplay extends JFrame {
     }
 
     /**
-     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null.
+     * Gets the Gameplay. Initialises a new Gameplay if value of instance is null
      *
      * @return instance
      */
@@ -59,7 +59,7 @@ public class Gameplay extends JFrame {
      */
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
-        FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + ".\n\n   Verteile " + player.getNewArmies() +
+        FieldGUI.textfield.append("Du bist am Zug, " + player.getName() + ".\n\n   Verteile " + player.getNewArmies() +
                 " neue Armeen auf deine Laender.\nKlicke dafuer auf die Zahlen in den Laendern.\nMit Linksklick" +
                 " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n\n");
     }

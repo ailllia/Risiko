@@ -6,10 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Player {
-    private String color;
-    private String playerMission;
-    private int playerArmies;
-    private int availableArmies;
+    private String color, playerMission, name;
+    private int playerArmies, availableArmies;
     private List<String> occupiedCountriesNames;
     private List<Country> occupiedCountries;
 
@@ -18,7 +16,8 @@ public class Player {
      *
      * @param pcolor the chosen color for this player
      */
-    public Player(String pcolor) {
+    public Player(String pcolor, String name) {
+        this.name = name;
         color = pcolor;
         this.occupiedCountriesNames = new ArrayList<>();
         this.occupiedCountries = new ArrayList<>();
@@ -241,6 +240,14 @@ public class Player {
      */
     public String getPlayerMission() {
         return playerMission;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**

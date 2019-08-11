@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 public class PlayersGUI extends JFrame implements ActionListener {
 
     private JComboBox<String> colorone, colortwo;
-    private JLabel wrongcolor;
-
+    private JLabel wrongcolor, choosename;
+    private JTextField nameOne, nameTwo;
     /**
      * is a new window which welcomes the players and asks for their playing colors
      */
@@ -28,7 +28,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(title);
         title.setBounds(0, 20, 500, 20);
 
-        JLabel order = new JLabel("Waehlt eure Farbe", SwingConstants.CENTER);
+        JLabel order = new JLabel("Waehlt euren Namen und Farbe", SwingConstants.CENTER);
         order.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(order);
         order.setBounds(0, 60, 500, 20);
@@ -36,30 +36,60 @@ public class PlayersGUI extends JFrame implements ActionListener {
         JLabel chooseone = new JLabel("Spieler Eins", SwingConstants.CENTER);
         chooseone.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         this.add(chooseone);
-        chooseone.setBounds(0, 100, 250, 20);
+        chooseone.setBounds(0, 90, 250, 20);
 
         JLabel choosetwo = new JLabel("Spieler Zwei", SwingConstants.CENTER);
         choosetwo.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         this.add(choosetwo);
-        choosetwo.setBounds(250, 100, 250, 20);
+        choosetwo.setBounds(250, 90, 250, 20);
 
-        wrongcolor = new JLabel("Die Spieler muessen unterschiedliche Farben waehlen!", SwingConstants.CENTER);
+        wrongcolor = new JLabel("Jeder Spieler muss eine unterschiedliche Farbe waehlen!", SwingConstants.CENTER);
         wrongcolor.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         wrongcolor.setVisible(false);
         this.add(wrongcolor);
-        wrongcolor.setBounds(85, 210, 320, 20);
+        wrongcolor.setBounds(75, 210, 360, 20);
+
+        choosename = new JLabel("Jeder Spieler muss einen (unterschiedelichen) Namen wählen!", SwingConstants.CENTER);
+        choosename.setFont(new Font("Sans-Serif", Font.BOLD, 12));
+        choosename.setVisible(false);
+        this.add(choosename);
+        choosename.setBounds(75,210, 360, 20);
+
+        JLabel inputNameOne = new JLabel("Name:");
+        this.add(inputNameOne);
+        inputNameOne.setBounds(0, 110, 100, 20);
+
+        JLabel inputNameTwo = new JLabel("Name:");
+        this.add(inputNameTwo);
+        inputNameTwo.setBounds(250, 110, 100, 20);
+
+        JLabel inputColorOne = new JLabel("Farbe:");
+        this.add(inputColorOne);
+        inputColorOne.setBounds(0, 130, 100, 20);
+
+        JLabel inputColorTwo = new JLabel("Farbe:");
+        this.add(inputColorTwo);
+        inputColorTwo.setBounds(250, 130, 100, 20);
+
+        nameOne = new JTextField();
+        this.add(nameOne);
+        nameOne.setBounds(75, 110, 101, 20);
+
+        nameTwo = new JTextField();
+        this.add(nameTwo);
+        nameTwo.setBounds(325, 110, 101, 20);
 
         String[] colorsone = {"blau", "rot", "lila", "pink", "grau"};
         colorone = new JComboBox<>(colorsone);
         colorone.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(colorone);
-        colorone.setBounds(75, 120, 100, 20);
+        colorone.setBounds(75, 130, 100, 20);
 
         String[] colorstwo = {"blau", "rot", "lila", "pink", "grau"};
         colortwo = new JComboBox<>(colorstwo);
         colortwo.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         this.add(colortwo);
-        colortwo.setBounds(325, 120, 100, 20);
+        colortwo.setBounds(325, 130, 100, 20);
 
         JButton startplaying = new JButton("Spiel starten");
         this.add(startplaying);
@@ -81,9 +111,16 @@ public class PlayersGUI extends JFrame implements ActionListener {
     private void startfct() {
         if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {
             wrongcolor.setVisible(true);
+            choosename.setVisible(false);
+        } else if (nameOne.getText().equals(nameTwo.getText())
+                || nameOne.getText().trim().isEmpty() || nameTwo.getText().trim().isEmpty()) {
+            wrongcolor.setVisible(false);
+            choosename.setVisible(true);
         } else {
             Gameplay.getInstance().getPlayerOne().setColor((String) colorone.getSelectedItem());
             Gameplay.getInstance().getPlayerTwo().setColor((String) colortwo.getSelectedItem());
+            Gameplay.getInstance().getPlayerOne().setName((nameOne.getText()));
+            Gameplay.getInstance().getPlayerTwo().setName((nameTwo.getText()));
             this.setVisible(false);
             Gameplay.getInstance().initialising();
             new FieldGUI();

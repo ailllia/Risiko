@@ -1,36 +1,15 @@
 package risikopackage;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Font;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class FieldGUI extends JFrame implements ActionListener {
 
@@ -201,7 +180,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         frame.setJMenuBar(bar);
 
         //Angaben Spieler Eins
-        JLabel playeroneh1 = new JLabel("Spieler Eins", SwingConstants.LEFT);
+        JLabel playeroneh1 = new JLabel(Gameplay.getInstance().getPlayerOne().getName(), SwingConstants.LEFT);
         playeroneh1.setFont(new Font("Sans-Serif", Font.BOLD, 13));
         playeroneh1.setBounds(20, 58, 170, 20);
         frame.add(playeroneh1);
@@ -276,9 +255,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         playeronehr4.setBounds(20, 142, 170, 1);
         frame.add(playeronehr4);
 
-
         //Angaben Spieler2
-        JLabel playertwoh1 = new JLabel("Spieler Zwei", SwingConstants.RIGHT);
+        JLabel playertwoh1 = new JLabel(Gameplay.getInstance().getPlayerTwo().getName(), SwingConstants.RIGHT);
         playertwoh1.setFont(new Font("Sans-Serif", Font.BOLD, 13));
         playertwoh1.setBounds(795, 58, 170, 20);
         frame.add(playertwoh1);
@@ -1046,7 +1024,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      */
     private String getWinningMessage(Player player) {
         return "Herzlichen Glueckwunsch, Spieler "
-                + player.getColor()
+                + player.getName()
                 + "!\nDu hast das Spiel gewonnen."
                 + "\nWollt ihr noch eine Runde spielen?";
     }
