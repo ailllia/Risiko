@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class FieldGUI extends JFrame implements ActionListener {
-
     private JFrame frame;
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
     private JLabel dicePlayerOne, dicePlayerTwo;
@@ -46,8 +45,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private int counterHitbox = 0;
     private int counter = 0;
     private int counterPlayer = 0;
-    private Country selectedCountry1;
-    private Country selectedCountry2;
+    private Country selectedCountry1, selectedCountry2;
     private Player player;
     private String dice_source1, dice_source2;
     private ArrayList<Country> increasedCountries = new ArrayList<>();
@@ -791,7 +789,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 } else {
                     gameplayInstance.redistributionContText(this.getPlayer());
                     check.setEnabled(false);
-                } break;
+                }
+                break;
             case 2:
                 if (this.getPlayer().attackPossible()) {
                     gameplayInstance.attackPossibleText();
@@ -799,7 +798,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 } else {
                     gameplayInstance.attackNotPossibleText();
                     check.setEnabled(false);
-                } break;
+                }
+                break;
             default:
                 check.setEnabled(false);
         }
@@ -828,10 +828,10 @@ public class FieldGUI extends JFrame implements ActionListener {
     /**
      * Creates a hit box with a name and number of armies.
      *
-     * @param country the country whose hit box will be created
-     * @param nameCoord the coordinates where the name will be placed
+     * @param country     the country whose hit box will be created
+     * @param nameCoord   the coordinates where the name will be placed
      * @param hitBoxCoord the coordinates where the hit box will be placed
-     * @param armyCoord the coordinates where the number of armies will be placed
+     * @param armyCoord   the coordinates where the number of armies will be placed
      */
     private void createHitBoxAndLabels(Country country, ArrayList<Integer> nameCoord,
                                        ArrayList<Integer> hitBoxCoord, ArrayList<Integer> armyCoord) {
@@ -1076,7 +1076,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * @return the multiline mission description of the player
      */
     private static String breakDescription(Player playerNow) {
-        return "<html>" + Mission.getDescription(playerNow.getPlayerMission()) + "<html>";
+        return "<html>" + Mission.getMissionDescription(playerNow.getPlayerMission()) + "<html>";
     }
 
     /**

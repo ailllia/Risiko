@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.util.List;
 
 public class Country {
-    private String countryName;
+    private String countryName, colorOfOwnerString;
     private List<String> neighboringCountries;
     private int armiesInCountry;
     private Color colorOfOwnerCode;
-    private String colorOfOwnerString;
 
     /**
      * Creates a new Country.

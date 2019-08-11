@@ -7,7 +7,7 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-/*
+/**
  * BackgroundImagePanel ist in der Lage ein Hintergrundbild zu empfangen und dieses zu zeichnen.
  *
  * @author Gernot Segieth
