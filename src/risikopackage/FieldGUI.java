@@ -641,8 +641,8 @@ public class FieldGUI extends JFrame implements ActionListener {
         check.setEnabled(true);
         ImageIcon dicePlayerOne_img, dicePlayerTwo_img;
         Random random = new Random();
-        int diceAttacker = 6; // random.nextInt(6) + 1;
-        int diceDefender = 1; // random.nextInt(6) + 1;
+        int diceAttacker = random.nextInt(6) + 1;
+        int diceDefender = random.nextInt(6) + 1;
         if (player == Gameplay.getInstance().getPlayerOne()) {
             dicePlayerOne_img = getImageForDiceRoll(diceAttacker);
             dicePlayerTwo_img = getImageForDiceRoll(diceDefender);
@@ -989,8 +989,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 frame.dispose();
                 new PlayersGUI();
             case 1:
-                // setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            	endProgram();
+                setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
     }
 
