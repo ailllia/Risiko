@@ -139,7 +139,7 @@ public class FieldGUI extends JFrame implements ActionListener {
             }
         };
 
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+//        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.frame = new JFrame("Risikospielfeld");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
