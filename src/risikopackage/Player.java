@@ -14,8 +14,8 @@ public class Player {
     private List<Country> occupiedCountries;
 
     /**
-     * creates a new player
-     * @param pcolor is the chosen color for this player
+     * Creates a new player.
+     * @param pcolor the chosen color for this player
      */
     public Player(String pcolor) {
         color = pcolor;
@@ -26,43 +26,43 @@ public class Player {
     }
 
     /**
-     * returns the whole list with the names countries of one player
-     * @return returns the names of occupied countries
+     * Returns the whole list with the names of the countries of the player.
+     * @return the names of occupied countries
      */
     public List<String> getCountryNames() {
         return occupiedCountriesNames;
     }
 
     /**
-     * returns the whole list with countries of one player
-     * @return returns the occupied countries
+     * Returns the whole list with countries of the player.
+     * @return the occupied countries
      */
     public List<Country> getCountries() {
         return occupiedCountries;
     }
 
     /**
-     * returns the Name of one country
-     * @param i is the index of the wanted country name
-     * @return returns the Name of a country
+     * Returns the name of a country owned by the player.
+     * @param i the index of the wanted country name
+     * @return the name of a country
      */
     public String getCountryName(int i) {
         return occupiedCountriesNames.get(i);
     }
     
     /**
-     * returns one country owned by a certain player
-     * @param i is the index of the wanted country
-     * @return returns the country
+     * Returns a country owned by the player.
+     * @param i the index of the wanted country
+     * @return the country
      */
     public Country getCountry(int i) {
         return occupiedCountries.get(i);
     }
 
     /**
-     * adds countries and their names to the lists
-     * @param countryName is the country name added
-     * @param country is the country added
+     * Adds countries and their names to the lists.
+     * @param countryName the country name to be added
+     * @param country the country to be added
      */
     public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);
@@ -70,35 +70,34 @@ public class Player {
     }
     
     /**
-     * deletes countries and their names from the list
-     * @param i is the index of the country which shall be deleted
+     * Deletes a country and its name from the lists.
+     * @param i the index of the country to be deleted
      */
-    public void deleteCountryToList(int i) {
+    public void deleteCountryFromList(int i) {
         this.occupiedCountriesNames.remove(i);
         this.occupiedCountries.remove(i);
     }
 
     /**
-     * returns the numbers of countries a player owns
-     * @return the returns the numbers of countries a player owns 
+     * Returns the number of countries a player owns.
+     * @return the number of countries a player owns
      */
     public int numberOfCountries() {
         return this.occupiedCountriesNames.size();
     }
 
-    // wertet aus, wie viele Armeen bei einem Angriff zur Verfuegung stehen
     /**
-     * tests whether a player owns a whole continent
-     * @param continent is the testet continent
-     * @return true if a whole continent is owned
+     * Tests whether a player owns a whole continent.
+     * @param continent the continent to be tested
+     * @return true if the whole continent is owned; false otherwise
      */
     public boolean continentComplete(Continent continent) {
         return (continent.completeContinent(occupiedCountriesNames));
     }
 
     /**
-     * tests whether another attack is possible
-     * @return true if another attack is possible
+     * Tests whether another attack is possible.
+     * @return true if another attack is possible; false otherwise
      */
     public boolean attackPossible() {
         boolean countryQualifies = false;
@@ -125,16 +124,16 @@ public class Player {
     }
 
     /**
-     * gets the armies of a player
-     * @return returns the armies of a player
+     * Gets the number of armies of a player.
+     * @return the number of armies of a player
      */
     public int getPlayerArmies() {
         return playerArmies;
     }
 
     /**
-     * calculates how may new armies a player gets
-     * @return returns the number of new armies
+     * Calculates the number of new armies a player gets and adds them to playerArmies.
+     * @return the number of new armies
      */
     public int getNewArmies() {
         if (occupiedCountriesNames.size() < 9)
@@ -150,15 +149,15 @@ public class Player {
     }
 
     /**
-     * calculates the number of available armies
+     * Calculates the number of available armies.
      */
     private void setAvailableArmies() {
         availableArmies = (playerArmies - this.numberOfCountries());
     }
 
     /**
-     * returns the number of available armies
-     * @return returns the number of available armies
+     * Returns the number of available armies.
+     * @return the number of available armies
      */
     public int getArmiesAvailableToMove() {
         this.setAvailableArmies();
@@ -166,9 +165,9 @@ public class Player {
     }
 
     /**
-     * calculates the number of armies on the playing field
-     * @param countries is the list of countries
-     * @param playerNow is the player who's armies shall be calculated
+     * Calculates the number of armies on the playing field.
+     * @param countries the list of countries
+     * @param playerNow the player whose armies get calculated
      */
     private void setNumberOfArmies(List<Country> countries, Player playerNow) {
         playerArmies = 0;
@@ -182,9 +181,9 @@ public class Player {
     }
 
     /**
-     * returns the number of armies a player has got in the playing field
-     * @param playerNow is the current player
-     * @return returns the number of armies 
+     * Returns the number of armies a player has got in the playing field.
+     * @param playerNow the current player
+     * @return the number of armies
      */
     public int numberOfArmies(Player playerNow) {
         setNumberOfArmies(Gameplay.getInstance().getCountries(), playerNow);
@@ -192,16 +191,18 @@ public class Player {
     }
     
     /**
-     * sets the color of a player
-     * @param color is the chosen color
+     * Sets the color of a player.
+     * @param color the color to become the color of the player
+     * @see getColor()
      */
     public void setColor(String color) {
         this.color = color;
     }
 
     /**
-     * gets the color of a player
-     * @return returns the color
+     * Gets the color of a player.
+     * @return the color of the player
+     * @see setColor(String color)
      */
     public String getColor() {
         return color;

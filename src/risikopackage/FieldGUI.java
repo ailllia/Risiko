@@ -677,7 +677,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                         }
                     }
                     Gameplay.getInstance().getPlayerOne().addCountryToList(Gameplay.getInstance().getPlayerTwo().getCountryName(j), Gameplay.getInstance().getPlayerTwo().getCountry(j));
-                    Gameplay.getInstance().getPlayerTwo().deleteCountryToList(j);
+                    Gameplay.getInstance().getPlayerTwo().deleteCountryFromList(j);
                     playeronep2.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()));
                     playertwop2.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()));
                     playeronep3.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfArmies(Gameplay.getInstance().getPlayerOne())));
@@ -690,7 +690,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                         }
                     }
                     Gameplay.getInstance().getPlayerTwo().addCountryToList(Gameplay.getInstance().getPlayerOne().getCountryName(j), Gameplay.getInstance().getPlayerOne().getCountry(j));
-                    Gameplay.getInstance().getPlayerOne().deleteCountryToList(j);
+                    Gameplay.getInstance().getPlayerOne().deleteCountryFromList(j);
                     playeronep2.setText(Integer.toString(Gameplay.getInstance().getPlayerOne().numberOfCountries()));
                     playertwop2.setText(Integer.toString(Gameplay.getInstance().getPlayerTwo().numberOfCountries()));
                 }
