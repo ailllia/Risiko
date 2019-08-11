@@ -58,7 +58,7 @@ public class Player {
      * Adds countries and their names to the lists.
      *
      * @param countryName the country name to be added
-     * @param country     the country to be added
+     * @param country the country to be added
      */
     public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);
@@ -199,7 +199,7 @@ public class Player {
      * Sets the color of a player.
      *
      * @param color the color to become the color of the player
-     * @see getColor()
+     * @see Player#getColor()
      */
     public void setColor(String color) {
         this.color = color;
@@ -209,40 +209,54 @@ public class Player {
      * Gets the color of a player.
      *
      * @return the color of the player
-     * @see setColor(String color)
+     * @see Player#setColor(String color)
      */
     public String getColor() {
         return color;
     }
 
     /**
-     * sets the mission for a player
+     * Sets the mission for a player.
      *
-     * @param mission is the chosen mission
+     * @param mission the mission to become the player's mission
+     * @see Player#getPlayerMission()
      */
     public void setPlayerMission(String mission) {
         this.playerMission = mission;
     }
 
     /**
-     * gets the mission of a player
+     * Gets the mission of a player.
      *
-     * @return returns the mission of a player
+     * @return the mission of a player
+     * @see Player#setPlayerMission(String mission)
      */
     public String getPlayerMission() {
         return playerMission;
     }
 
+    /**
+     * Sets the name of a player.
+     *
+     * @param name the name the player will get
+     * @see Player#getName()
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the name of a player.
+     *
+     * @return the name of a player
+     * @see Player#setName(String name)
+     */
     public String getName() {
         return name;
     }
 
     /**
-     * clears all values for a new game
+     * Clears all values for a new game.
      */
     public void emptyAll() {
         this.color = "black";
@@ -253,7 +267,7 @@ public class Player {
     }
 
     /**
-     * overrides the toString function to print all information about a player
+     * Overrides the toString function to print all information about a player.
      */
     @Override
     public String toString() {
@@ -261,10 +275,10 @@ public class Player {
     }
 
     /**
-     * creates rgb codes depending on a players color
+     * Creates rgb codes depending on a players color.
      *
-     * @param player is the current player
-     * @return returns the rgb code
+     * @param player the player whose turn it is
+     * @return the rgb code of the color of the player
      */
     public static Color PlayerColorCode(Player player) {
         Color color;

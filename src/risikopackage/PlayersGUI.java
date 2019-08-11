@@ -16,7 +16,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
     private JTextField nameOne, nameTwo;
 
     /**
-     * is a new window which welcomes the players and asks for their names and playing colors
+     * Creates a new PlayerGUI. It creates a new window which welcomes the players and asks for their names and playing colors.
      */
     public PlayersGUI() {
         this.setLayout(null);
@@ -54,7 +54,7 @@ public class PlayersGUI extends JFrame implements ActionListener {
         this.add(wrongcolor);
         wrongcolor.setBounds(75, 210, 360, 20);
 
-        choosename = new JLabel("Jeder Spieler muss einen (unterschiedelichen) Namen wählen!", SwingConstants.CENTER);
+        choosename = new JLabel("Jeder Spieler muss einen (unterschiedelichen) Namen wï¿½hlen!", SwingConstants.CENTER);
         choosename.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         choosename.setVisible(false);
         this.add(choosename);
@@ -114,10 +114,8 @@ public class PlayersGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * belongs to the button "Spiel starten"
-     * opens a new window with the playing field
-     * sets the name and the color of the players from InputFields and SelectedItems
-     * closes this window
+     * Opens a new window with the playing field, sets the name and the color of the players from InputFields and SelectedItems
+     * and closes this window.
      */
     private void startfct() {
         if (colorone.getSelectedItem() == colortwo.getSelectedItem()) {

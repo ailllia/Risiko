@@ -59,10 +59,9 @@ public class Gameplay extends JFrame {
      * @param player the player whose turn it is
      */
     public void deployArmiesText(Player player) {
-        FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("Du bist am Zug, " + player.getName() + ".\n\n   Verteile " + player.getNewArmies() +
                 " neue Armeen auf deine Laender.\nKlicke dafuer auf die Zahlen in den Laendern.\nMit Linksklick" +
-                " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n\n");
+                " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n");
     }
 
     /**

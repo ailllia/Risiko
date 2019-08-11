@@ -17,9 +17,13 @@ public class Loadtxtfiles {
     }
 
     /**
-     * Reads the files for continents, countries and missions of the game into the programme.
-     * @param separator sign that separates the entries in the files
+     * Reads the files for continents, countries and missions of the game into the program.
+     *
+     * @param separator the sign that separates the entries in the files
      * @throws FileNotFoundException if the file has a different name, or isn't saved at the named path
+     * @see Loadtxtfiles#readContinents(String seperator)
+     * @see Loadtxtfiles#readCountries(String seperator)
+     * @see Loadtxtfiles#readMissions(String seperator)
      */
     public static void readFiles(String separator) throws FileNotFoundException {
         readContinents(separator);
@@ -28,9 +32,13 @@ public class Loadtxtfiles {
     }
 
     /**
-     * Reads the file with countries into the programme.
-     * @param separator sign that separates the entries in the files
+     * Reads the file with countries into the program.
+     *
+     * @param separator the sign that separates the entries in the files
      * @throws FileNotFoundException if the file has a different name, or isn't saved at the named path
+     * @see Loadtxtfiles#readFiles(String seperator)
+     * @see Loadtxtfiles#readMissions(String seperator)
+     * @see Loadtxtfiles#readContinents(String seperator)
      */
     private static void readCountries(String separator) throws FileNotFoundException {
         File f = new File("material/Countries.txt");
@@ -53,9 +61,13 @@ public class Loadtxtfiles {
     }
 
     /**
-     * Reads the file with the continents into the programme.
-     * @param separator sign that separates the entries in the files
+     * Reads the file with the continents into the program.
+     *
+     * @param separator the sign that separates the entries in the files
      * @throws FileNotFoundException if the file has a different name, or isn't saved at the named path
+     * @see Loadtxtfiles#readFiles(String seperator)
+     * @see Loadtxtfiles#readCountries(String seperator)
+     * @see Loadtxtfiles#readMissions(String seperator)
      */
     private static void readContinents(String separator) throws FileNotFoundException {
         File f = new File("material/Continents.txt");
@@ -78,9 +90,13 @@ public class Loadtxtfiles {
     }
 
     /**
-     * Reads the file with the missions into the programme.
-     * @param separator sign that separates the entries in the files
+     * Reads the file with the missions into the program.
+     *
+     * @param separator the sign that separates the entries in the files
      * @throws FileNotFoundException if the file has a different name, or isn't saved at the named path
+     * @see Loadtxtfiles#readFiles(String seperator)
+     * @see Loadtxtfiles#readCountries(String seperator)
+     * @see Loadtxtfiles#readContinents(String seperator)
      */
     private static void readMissions(String separator) throws FileNotFoundException {
         Gameplay gameplayInstance = Gameplay.getInstance();
