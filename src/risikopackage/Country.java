@@ -1,6 +1,6 @@
 package risikopackage;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 public class Country {
