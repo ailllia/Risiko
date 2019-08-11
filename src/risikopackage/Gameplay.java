@@ -48,7 +48,7 @@ public class Gameplay extends JFrame {
     public void welcomeText() {
         FieldGUI.textfield.append("Willkommen bei einer Runde Risiko!\nJedem Spieler wurden 7 Laender zugeteilt." +
                 " Die Anzahl der Armeen steht in der Farbe des Spielers auf dem Land.\nIn den Spielregeln werden" +
-                " die Phasen eines Spielzuges erklärt.\nKlicke auf 'Weiter' um fortzufahren.\n");
+                " die Phasen eines Spielzuges erklaert.\nKlicke auf 'Weiter' um fortzufahren.\n");
     }
 
     /**
@@ -58,7 +58,7 @@ public class Gameplay extends JFrame {
     public void deployArmiesText(Player player) {
         FieldGUI.next.setEnabled(false);
         FieldGUI.textfield.append("Du bist am Zug, " + player.getColor() + ".\n\n\tVerteile " + player.getNewArmies() +
-                " neue Armeen auf deine Laender.\nKlicke dafür auf die Zahlen in den Laendern.\nMit Linksklick" +
+                " neue Armeen auf deine Laender.\nKlicke dafuer auf die Zahlen in den Laendern.\nMit Linksklick" +
                 " fuegst du einem Land eine Armee hinzu.\nMit Rechtsklick ziehst du eine verteilte Armee wieder ab.\n");
     }
 
@@ -70,22 +70,22 @@ public class Gameplay extends JFrame {
                 " das in deinem Besitz ist und in dem mindestens 2 Armeen stationiert sind. Waehle danach\n ein gegnerisches" +
                 " Nachbarland aus.\nMit Rechtsklick kannst du deine jeweilige Auswahl aufheben.\nKlicke auf 'Wuerfeln' um" +
                 " den Befreiungsversuch zu starten.\nWenn du nicht weisst, ob du einen Befreiungsversuch starten kannst," +
-                " klicke 'Pruefen'.\nKlicke auf 'Weiter', um zur nächsten Spielphase zu gelangen.\n");
+                " klicke 'Pruefen'.\nKlicke auf 'Weiter', um zur naechsten Spielphase zu gelangen.\n");
     }
 
     /**
      * Informs the player that an attack is possible.
      */
     public void attackPossibleText() {
-        FieldGUI.textfield.append("\nEs ist ein Angriff möglich. Starte einen Befreiungsversuch, oder klicke auf" +
-                " 'Weiter', um zur nächsten Spielphase zu gelangen.\n");
+        FieldGUI.textfield.append("\nEs ist ein Angriff moeglich. Starte einen Befreiungsversuch, oder klicke auf" +
+                " 'Weiter', um zur naechsten Spielphase zu gelangen.\n");
     }
 
     /**
      * Informs the player that an attack is impossible.
      */
     public void attackNotPossibleText() {
-        FieldGUI.textfield.append("\nEs ist kein Angriff möglich. Klicke auf 'Weiter', um zur nächsten Spielphase zu" +
+        FieldGUI.textfield.append("\nEs ist kein Angriff moeglich. Klicke auf 'Weiter', um zur naechsten Spielphase zu" +
                 " gelangen.\n");
     }
 
@@ -93,7 +93,7 @@ public class Gameplay extends JFrame {
      * Informs the player that he can redistribute armies if he wants.
      */
     public void redistributionText() {
-        FieldGUI.textfield.append("\n\tVersetze deine Armeen.\nZiehe dafür" +
+        FieldGUI.textfield.append("\n\tVersetze deine Armeen.\nZiehe dafuer" +
                 " zuerst mit Rechtsklick mindestens eine Einheit aus einem deiner Laender ab. Mit Linksklick fuegst" +
                 " du\ndie abgezogenen Einheiten einem Land hinzu.\nWenn du nicht weisst, ob du Einheiten verteilen" +
                 " kannst, klicke 'Pruefen'.\nKlicke auf 'Weiter', um deinen Zug zu beenden.\n");
@@ -152,14 +152,12 @@ public class Gameplay extends JFrame {
     private static void spreadCountries(Player playerOne, Player playerTwo, List<Country> countries, Random chance) {
         List<Country> countriesCopy = new ArrayList<>(countries);
         int j = 13;
-
         for (int i = 1; i < 8; i++) {
             int k = i;
             playerOne.addCountryToList(countries.get(k).getCountryName(), countries.get(k));
             countriesCopy.remove(k);
             j -= 1;
         }
-
         for (int i = 0; i < 14; i++) {
             playerTwo.addCountryToList(countries.get(i).getCountryName(), countries.get(i));
             if(i == 0) i = 7;
