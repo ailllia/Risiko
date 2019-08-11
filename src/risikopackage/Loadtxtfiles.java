@@ -8,6 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Loadtxtfiles reads files which are formatted in a specific way and saves the data.
+ *
+ * @author Swantje Wiechmann
+ */
 public class Loadtxtfiles {
 
     /**

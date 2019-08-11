@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Player handles data concerning the structure and functions of players in the game Risc.
+ *
+ * @author Wiebke Assenmacher
+ * @author Swantje Wiechmann
+ */
 public class Player {
     private String color, playerMission, name;
     private int playerArmies, availableArmies;
@@ -15,7 +21,7 @@ public class Player {
      * Creates a new player.
      *
      * @param pcolor the chosen color for this player
-     * @param name the chosen name for this player
+     * @param name   the chosen name for this player
      */
     public Player(String pcolor, String name) {
         this.name = name;
@@ -59,7 +65,7 @@ public class Player {
      * Adds countries and their names to the lists.
      *
      * @param countryName the country name to be added
-     * @param country the country to be added
+     * @param country     the country to be added
      */
     public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);

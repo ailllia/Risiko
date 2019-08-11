@@ -1,5 +1,11 @@
 package risikopackage;
 
+/**
+ * Mission handles data concerning the functions of missions in the game Risc.
+ *
+ * @author Wiebke Assenmacher
+ * @author Swantje Wiechmann
+ */
 public abstract class Mission {
     private String missionName, missionTitle, missionDescription;
 

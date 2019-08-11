@@ -1,12 +1,16 @@
 package risikopackage;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
+/**
+ * Gameplay communicates with FieldGUI and the data handled within other classes. It structures the game.
+ *
+ * @author Swantje Wiechmann
+ */
 public class Gameplay extends JFrame {
     private static Gameplay instance;
     private Player playerOne = new Player(null, null);

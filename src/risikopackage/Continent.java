@@ -2,6 +2,11 @@ package risikopackage;
 
 import java.util.List;
 
+/**
+ * Continent handles data concerning the structure and functions of continents in the game Risc.
+ *
+ * @author Swantje Wiechmann
+ */
 public class Continent {
     private String continentName;
     private int bonusArmies;
@@ -10,7 +15,7 @@ public class Continent {
     /**
      * Creates a new Continent.
      *
-     * @param name the name of the continent
+     * @param name      the name of the continent
      * @param countries the list of countries belonging to the continent
      */
     public Continent(String name, List<String> countries) {
@@ -72,7 +77,7 @@ public class Continent {
     /**
      * Returns true if a continent is owned completely by a player.
      *
-     * @param cName the name of the continent
+     * @param cName     the name of the continent
      * @param PlayerNow the player whose turn it is
      * @return false by default
      */

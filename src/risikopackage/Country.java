@@ -3,6 +3,11 @@ package risikopackage;
 import java.awt.Color;
 import java.util.List;
 
+/**
+ * Country handles data concerning the structure and functions of countries in the game Risc.
+ *
+ * @author Swantje Wiechmann
+ */
 public class Country {
     private String countryName, colorOfOwnerString;
     private List<String> neighboringCountries;
@@ -12,7 +17,7 @@ public class Country {
     /**
      * Creates a new Country.
      *
-     * @param name the name of the country
+     * @param name      the name of the country
      * @param neighbors the list of neighboring countries
      */
     public Country(String name, List<String> neighbors) {

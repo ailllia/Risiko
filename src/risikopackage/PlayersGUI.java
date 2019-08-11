@@ -10,6 +10,12 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+/**
+ * PlayersGUI starts the game and initializes the players.
+ *
+ * @author Wiebke Assenmacher
+ * @author Swantje Wiechmann
+ */
 public class PlayersGUI extends JFrame implements ActionListener {
     private JComboBox<String> colorone, colortwo;
     private JLabel wrongcolor, choosename, nameTooLong;

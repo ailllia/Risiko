@@ -2,6 +2,11 @@ package risikopackage;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Main starts the program. It reads files into the program with Loadtxtfiles and initializes a PlayersGUI.
+ *
+ * @author Swantje Wiechmann
+ */
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
