@@ -1,58 +1,39 @@
 package risikopackage;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Font;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class FieldGUI extends JFrame implements ActionListener {
 
     private JFrame frame;
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
+    private JLabel dicePlayerOne, dicePlayerTwo;
     public static JTextArea textfield;
     public static JButton next;
     private JButton rollDice, check;
     private MouseListener hitBoxListener;
+    private int remaining;
     private int counterNext = 0;
     private int counterHitbox = 0;
     private int counter = 0;
-    private int remaining;
+    private int counterPlayer = 0;
     private Country selectedCountry1;
     private Country selectedCountry2;
     private Player player;
-    private int counterPlayer = 0;
     private String dice_source1, dice_source2;
-    private JLabel dicePlayerOne, dicePlayerTwo;
+    private ArrayList<Country> increasedCountries = new ArrayList<>();
 
     /**
      * Gets the player whose turn it is.
+     *
      * @return the player whose turn it is
      */
     private Player getPlayer() {
@@ -110,8 +91,9 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
 
                 if (country != null) {  // wenn geklicktes land gefunden
-                    if (counterNext == 1)
+                    if (counterNext == 1) {
                         setRemaining();
+                    }
                     if (counterNext == 1 && counterHitbox == 0) {       //einheiten setzen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             deployArmiesLeftClick(armyLabel, country);
@@ -443,7 +425,7 @@ public class FieldGUI extends JFrame implements ActionListener {
         countryNameLabels.put("NEAH", new ArrayList<>(Arrays.asList(275, 360, 70, 15)));
         hitBoxPanels.put("NEAH", new ArrayList<>(Arrays.asList(275, 374, 30, 28)));
         armyCountLabels.put("NEAH", new ArrayList<>(Arrays.asList(315, 388, 70, 20)));
-        
+
         for (Country c : Gameplay.getInstance().getCountries()) {
             String n = c.getCountryName().toUpperCase();
             createHitBoxAndLabels(c, countryNameLabels.get(n), hitBoxPanels.get(n), armyCountLabels.get(n));
@@ -494,6 +476,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void deployArmiesLeftClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
                 && remaining >= 0) { //es sind noch einheiten ueber
+            increasedCountries.add(country);
             country.addArmy();
             counter++;
             remaining -= counter;
@@ -513,7 +496,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void deployArmiesRightClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
-                && remaining > 1) {                                       //es sind noch einheiten ueber
+                && increasedCountries.contains(country)) {                  //es sind noch einheiten ueber
+            increasedCountries.remove(country);
             country.loseArmy();
             counter--;
             remaining -= counter;
@@ -523,8 +507,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 counterHitbox--;
                 next.setEnabled(false);
             }
+            textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
         }
-        textfield.append("Noch " + remaining + " Einheit/en zu verteilen.\n");
     }
 
     private void chooseOwnCountryLeftClick(JLabel armyLabel, Country country) {
@@ -609,6 +593,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     /**
      * Checks a country for neighboring countries belonging to the enemy.
+     *
      * @param country the country being checked for neighboring countries belonging to the enemy
      * @return true if country has a neighboring country belonging to the enemy; false otherwise
      */
@@ -642,6 +627,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 gameplayInstance.deployArmiesText(this.getPlayer());
                 break;
             case 2:
+                increasedCountries.clear();
                 counter = 0;
                 this.setRemaining();
                 gameplayInstance.attackphaseText();
@@ -742,6 +728,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     /**
      * Gets an image of a dice with a certain amount of eyes.
+     *
      * @param roll the number of eyes to be displayed on the dice
      * @return the image showing a dice with the right amount of eyes
      */
@@ -785,7 +772,8 @@ public class FieldGUI extends JFrame implements ActionListener {
                 } else {
                     gameplayInstance.redistributionContText(this.getPlayer());
                     check.setEnabled(false);
-                } break;
+                }
+                break;
             case 2:
                 if (this.getPlayer().attackPossible()) {
                     gameplayInstance.attackPossibleText();
@@ -852,7 +840,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Explains the end of the game.
      */
     private void openEndingRules() {
-    	this.setUIManager();
+        this.setUIManager();
         JOptionPane.showMessageDialog(frame,
                 "<html>Das Spiel Risiko endet, wenn der erste Spieler seine Mission erfuellt hat.<html>",
                 "Ende des Spiels",
@@ -863,7 +851,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Explains the attack phase.
      */
     private void openPlayingRules() {
-    	this.setUIManager();
+        this.setUIManager();
         JOptionPane.showMessageDialog(frame,
                 "In der zweiten Phase koennen Laender befreit werden. Eine Befreiungsaktion ist moeglich, wenn" +
                         "\n- in dem Land, von dem die Aktion gestartet werden soll, mehr als eine Armee stationiert ist und" +
@@ -872,7 +860,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                         "\nLand wird auf die gleiche Weise ausgewaehlt. Mit Rechtsklick kann die jeweilige Auswahl" +
                         "\nrueckgaengig gemacht werden." +
                         "\nSind die beiden Laender ausgewaehlt, muss mit dem 'Wuerfeln'-Button gewuerfelt werden." +
-                        "\nEs gewinnt der Spieler mit dem hoeheren Ergebnis; bei Gleichstand gewinnt der Verteidiger." +
+                        "\nEs gewinnt der Spieler mit dem hoeheren Ergebnis; bei Gleichstand gewinnt der Besetzer." +
                         "\nVon den Armeen des Verlierers wird eine Einheit abgezogen." +
                         "\nVerliert die Besatzungsmacht alle Armeen in einem Land, zieht der Befreier mit einer Armee ein." +
                         "\nUeber den 'Pruefen'-Button kann getestet werden, ob eine Befreiungsaktion moeglich ist." +
@@ -885,7 +873,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Explains the goal of the game.
      */
     private void openGoalRules() {
-    	this.setUIManager();
+        this.setUIManager();
         JOptionPane.showMessageDialog(frame,
                 "<html>Ziel des Spieles ist es, deine Mission vor deinem Gegner zu erfuellen.<html>",
                 "Ziel des Spieles",
@@ -896,7 +884,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Explains the redistribution of armies.
      */
     private void openRedistributionRules() {
-    	this.setUIManager();
+        this.setUIManager();
         JOptionPane.showMessageDialog(frame,
                 "Am Ende jeden Spielzugs hat jeder Spieler die Moeglichkeit, seine Armeen umzusetzen." +
                         "\nMit Rechtsklick wird eine Armee aus einem Land abgezogen, in dem zwei oder mehr Armeen" +
@@ -911,9 +899,9 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Explains the distributing of new armies.
      */
     private void openNewArmiesRules() {
-    	this.setUIManager();
+        this.setUIManager();
         JOptionPane.showMessageDialog(frame,
-                "Am Anfang jeden Spielzugs bekommt jeder Spieler neue Armeen, die verteilt werden müssen." +
+                "Am Anfang jeden Spielzugs bekommt jeder Spieler neue Armeen, die verteilt werden muessen." +
                         "\nJeder Spieler bekommt (Anzahl der besetzten Laender / 3) Armeen, mindestens aber 2." +
                         "\nBesitzt ein Spieler einen kompletten Kontinent, bekommt er Bonusarmeen:" +
                         "\nOtea: 1 Bonusarmee\nPriya: 2 Bonusarmeen\nSolva: 2 Bonusarmeen" +
@@ -927,7 +915,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Explains the structure of the playing field.
      */
     private void openPlayingFieldRules() {
-    	this.setUIManager();
+        this.setUIManager();
         JOptionPane.showMessageDialog(frame,
                 "Auf dem Spielplan sind 7 Laender abgebildet. Diese sind in der Farbe eines der" +
                         "\ndrei Kontinente eingefaerbt. Die Legende ist in der rechten unteren Ecke." +
@@ -944,7 +932,7 @@ public class FieldGUI extends JFrame implements ActionListener {
      * Ends the game and starts a new game if the player answers in the affirmative.
      */
     private void openSelection() {
-    	this.setUIManager();
+        this.setUIManager();
         Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
         int n = JOptionPane.showOptionDialog(frame,
                 "Willst du wirklich ein neues Spiel anfangen?",
@@ -989,14 +977,15 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     /**
      * Informs the player of the end of the game and either starts a new game or ends the program.
+     *
      * @param player the player who won the game
      */
     private void openWinning(Player player) {
-    	 ImageIcon icon = new ImageIcon("material/winning.png");
-    	this.setUIManager();
+        ImageIcon icon = new ImageIcon("material/winning.png");
+        this.setUIManager();
         Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
         int n = JOptionPane.showOptionDialog(frame,
-        		getWinningMessage(player),
+                getWinningMessage(player),
                 "Spiel gewonnen und beendet",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -1016,22 +1005,24 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     /**
      * Gets the message that a player has won
+     *
      * @param player the player who won the game
      * @return the message that the player has won
      */
     private String getWinningMessage(Player player) {
-    		return "Herzlichen Glueckwunsch, Spieler "
-        			+ player.getColor()
-        			+ "!\nDu hast das Spiel gewonnen."
-        			+ "\nWollt ihr noch eine Runde spielen?";
+        return "Herzlichen Glueckwunsch, Spieler "
+                + player.getColor()
+                + "!\nDu hast das Spiel gewonnen."
+                + "\nWollt ihr noch eine Runde spielen?";
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
     }
 
     /**
      * Searches for a country.
+     *
      * @param name the name of the country that needs to be found
      * @return the found country; null otherwise
      */
@@ -1046,6 +1037,7 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     /**
      * Gets the mission description over several lines.
+     *
      * @param playerNow the player whose mission angezeigt werden sollen
      * @return the multiline mission description of the player
      */

@@ -15,6 +15,7 @@ public class Player {
 
     /**
      * Creates a new player.
+     *
      * @param pcolor the chosen color for this player
      */
     public Player(String pcolor) {
@@ -27,6 +28,7 @@ public class Player {
 
     /**
      * Returns the whole list with the names of the countries of the player.
+     *
      * @return the names of occupied countries
      */
     public List<String> getCountryNames() {
@@ -35,6 +37,7 @@ public class Player {
 
     /**
      * Returns the whole list with countries of the player.
+     *
      * @return the occupied countries
      */
     public List<Country> getCountries() {
@@ -43,15 +46,17 @@ public class Player {
 
     /**
      * Returns the name of a country owned by the player.
+     *
      * @param i the index of the wanted country name
      * @return the name of a country
      */
     public String getCountryName(int i) {
         return occupiedCountriesNames.get(i);
     }
-    
+
     /**
      * Returns a country owned by the player.
+     *
      * @param i the index of the wanted country
      * @return the country
      */
@@ -61,16 +66,18 @@ public class Player {
 
     /**
      * Adds countries and their names to the lists.
+     *
      * @param countryName the country name to be added
-     * @param country the country to be added
+     * @param country     the country to be added
      */
     public void addCountryToList(String countryName, Country country) {
         this.occupiedCountriesNames.add(countryName);
         this.occupiedCountries.add(country);
     }
-    
+
     /**
      * Deletes a country and its name from the lists.
+     *
      * @param i the index of the country to be deleted
      */
     public void deleteCountryFromList(int i) {
@@ -80,6 +87,7 @@ public class Player {
 
     /**
      * Returns the number of countries a player owns.
+     *
      * @return the number of countries a player owns
      */
     public int numberOfCountries() {
@@ -88,6 +96,7 @@ public class Player {
 
     /**
      * Tests whether a player owns a whole continent.
+     *
      * @param continent the continent to be tested
      * @return true if the whole continent is owned; false otherwise
      */
@@ -97,6 +106,7 @@ public class Player {
 
     /**
      * Tests whether another attack is possible.
+     *
      * @return true if another attack is possible; false otherwise
      */
     public boolean attackPossible() {
@@ -125,6 +135,7 @@ public class Player {
 
     /**
      * Gets the number of armies of a player.
+     *
      * @return the number of armies of a player
      */
     public int getPlayerArmies() {
@@ -133,6 +144,7 @@ public class Player {
 
     /**
      * Calculates the number of new armies a player gets and adds them to playerArmies.
+     *
      * @return the number of new armies
      */
     public int getNewArmies() {
@@ -157,6 +169,7 @@ public class Player {
 
     /**
      * Returns the number of available armies.
+     *
      * @return the number of available armies
      */
     public int getArmiesAvailableToMove() {
@@ -166,13 +179,14 @@ public class Player {
 
     /**
      * Calculates the number of armies on the playing field.
+     *
      * @param countries the list of countries
      * @param playerNow the player whose armies get calculated
      */
     private void setNumberOfArmies(List<Country> countries, Player playerNow) {
         playerArmies = 0;
-    	for (int i = 0; i < 14; i++) {
-            for (int j = 0; j <  playerNow.numberOfCountries(); j++) {
+        for (int i = 0; i < 14; i++) {
+            for (int j = 0; j < playerNow.numberOfCountries(); j++) {
                 if (this.getCountryName(j).equals(countries.get(i).getCountryName())) {
                     this.playerArmies += countries.get(i).getArmiesInCountry();
                 }
@@ -182,6 +196,7 @@ public class Player {
 
     /**
      * Returns the number of armies a player has got in the playing field.
+     *
      * @param playerNow the current player
      * @return the number of armies
      */
@@ -189,9 +204,10 @@ public class Player {
         setNumberOfArmies(Gameplay.getInstance().getCountries(), playerNow);
         return playerArmies;
     }
-    
+
     /**
      * Sets the color of a player.
+     *
      * @param color the color to become the color of the player
      * @see getColor()
      */
@@ -201,6 +217,7 @@ public class Player {
 
     /**
      * Gets the color of a player.
+     *
      * @return the color of the player
      * @see setColor(String color)
      */
@@ -210,6 +227,7 @@ public class Player {
 
     /**
      * sets the mission for a player
+     *
      * @param mission is the chosen mission
      */
     public void setPlayerMission(String mission) {
@@ -218,6 +236,7 @@ public class Player {
 
     /**
      * gets the mission of a player
+     *
      * @return returns the mission of a player
      */
     public String getPlayerMission() {
@@ -245,6 +264,7 @@ public class Player {
 
     /**
      * creates rgb codes depending on a players color
+     *
      * @param player is the current player
      * @return returns the rgb code
      */

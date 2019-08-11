@@ -9,7 +9,8 @@ public class Continent {
 
     /**
      * Creates a new Continent.
-     * @param name the name of the country
+     *
+     * @param name      the name of the country
      * @param countries the list of countries belonging to the continent
      */
     public Continent(String name, List<String> countries) {
@@ -20,6 +21,7 @@ public class Continent {
 
     /**
      * Sets bonus armies that come with the continent.
+     *
      * @see getBonusArmies()
      */
     private void setBonusArmies() {
@@ -31,6 +33,7 @@ public class Continent {
 
     /**
      * Gets the name of the continent.
+     *
      * @return name of the continent
      */
     public String getName() {
@@ -39,6 +42,7 @@ public class Continent {
 
     /**
      * Returns whether a list contains the complete continent.
+     *
      * @param countries the list of countries that might contain the complete continent
      * @return true if countries contains the complete continent; false otherwise
      */
@@ -57,6 +61,7 @@ public class Continent {
 
     /**
      * Gets the number of bonus armies.
+     *
      * @return the number of bonus armies
      * @see setBonusArmies()
      */
@@ -66,7 +71,8 @@ public class Continent {
 
     /**
      * Returns true if a continent is owned completely by a player.
-     * @param cName the name of the continent
+     *
+     * @param cName     the name of the continent
      * @param PlayerNow the player whose turn it is
      * @return false by default
      */

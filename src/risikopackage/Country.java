@@ -12,7 +12,8 @@ public class Country {
 
     /**
      * Creates a new Country.
-     * @param name the name of the country
+     *
+     * @param name      the name of the country
      * @param neighbors the list of neighboring countries
      */
     public Country(String name, List<String> neighbors) {
@@ -22,6 +23,7 @@ public class Country {
 
     /**
      * Sets value of colorOfOwnerString.
+     *
      * @param color the color to become the new value of colorOfOwnerString
      */
     public void changeOwner(String color) {
@@ -30,6 +32,7 @@ public class Country {
 
     /**
      * Sets value of armiesInCountry to 1.
+     *
      * @see loseArmy()
      * @see addArmy()
      * @see getArmiesInCountry()
@@ -40,6 +43,7 @@ public class Country {
 
     /**
      * Reduces the value of armiesInCountry by 1.
+     *
      * @see setArmies()
      * @see addArmy()
      * @see getArmiesInCountry()
@@ -50,6 +54,7 @@ public class Country {
 
     /**
      * Raises the value of armiesInCountry by 1.
+     *
      * @see setArmies()
      * @see loseArmy()
      * @see getArmiesInCountry()
@@ -60,6 +65,7 @@ public class Country {
 
     /**
      * Gets list of the neighboring countries.
+     *
      * @return the list of neighboring countries
      */
     public List<String> getNeighboringCountries() {
@@ -68,6 +74,7 @@ public class Country {
 
     /**
      * Gets the name of the country.
+     *
      * @return the name of the country
      */
     public String getCountryName() {
@@ -76,6 +83,7 @@ public class Country {
 
     /**
      * Gets the number of armies in the country
+     *
      * @return the number of armies in the country
      * @see setArmies()
      * @see loseArmy()
@@ -87,6 +95,7 @@ public class Country {
 
     /**
      * Sets the color of the owner as code.
+     *
      * @param rgbCodesOne the color to become the new color of the owner
      * @see getColorOfOwnerCode()
      * @see getColorOfOwnerString()
@@ -98,6 +107,7 @@ public class Country {
 
     /**
      * Gets the code of the color of the owner
+     *
      * @return the code of the color of the owner
      * @see setColorOfOwnerCode(Color rgbCodesOne)
      * @see setColorOfOwnerString(String colorOfOwnerString)
@@ -109,6 +119,7 @@ public class Country {
 
     /**
      * Sets the color of the owner as string.
+     *
      * @param colorOfOwnerString the color to become the new color of the owner
      * @see getColorOfOwnerString()
      * @see getColorOfOwnerCode()
@@ -120,6 +131,7 @@ public class Country {
 
     /**
      * Gets the string of the color of the owner
+     *
      * @return the string of the color of the owner
      * @see setColorOfOwnerString(String colorOfOwnerString)
      * @see setColorOfOwnerCode(Color rgbCodesOne)
@@ -131,6 +143,7 @@ public class Country {
 
     /**
      * Returns whether two countries are neighbors.
+     *
      * @param neighboringCountry the country to be checked of neighborhood
      * @return true if the countries are neighbors; false otherwise
      */
