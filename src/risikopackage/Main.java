@@ -6,9 +6,9 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-    	/**
-    	 * Reads countries, continents and missions from text file.
-    	 */
+        /**
+         * Reads countries, continents and missions from text file.
+         */
         Loadtxtfiles.readFiles(".");
 
         /**
