@@ -121,8 +121,7 @@ public class Gameplay extends JFrame {
      */
     public void finishedGameText() {
         FieldGUI.textfield.append("HERZLICHEN GLUECKWUNSCH! Du hast deine Mission vor deinem Gegner \n" +
-                "erfuellt und damit dieses Spiel gewonnen!\nStarte eine neue Runde ueber 'Spiel abbrechen' ->" +
-                " 'neues Spiel starten'.");
+                "erfuellt und damit dieses Spiel gewonnen!");
     }
 
     /**
