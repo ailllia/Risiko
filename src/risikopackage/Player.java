@@ -165,7 +165,6 @@ public class Player {
         return availableArmies;
     }
 
-    // bestimmt und nennt Armeen im Spiel
     /**
      * calculates the number of armies on the playing field
      * @param countries is the list of countries
