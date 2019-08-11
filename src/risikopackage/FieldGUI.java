@@ -1,55 +1,35 @@
 package risikopackage;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Font;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class FieldGUI extends JFrame implements ActionListener {
 
     private JFrame frame;
     private JLabel armiesattacking, armiesdefending, playertwop3, playertwop2, playeronep2, playeronep3;
+    private JLabel dicePlayerOne, dicePlayerTwo;
     public static JTextArea textfield;
     public static JButton next;
     private JButton rollDice, check;
     private MouseListener hitBoxListener;
+    private int remaining;
     private int counterNext = 0;
     private int counterHitbox = 0;
     private int counter = 0;
-    private int remaining;
+    private int counterPlayer = 0;
     private Country selectedCountry1;
     private Country selectedCountry2;
     private Player player;
-    private int counterPlayer = 0;
     private String dice_source1, dice_source2;
-    private JLabel dicePlayerOne, dicePlayerTwo;
+    private ArrayList<Country> increasedCountries = new ArrayList<>();
 
     /**
      * Gets the player whose turn it is.
@@ -111,8 +91,9 @@ public class FieldGUI extends JFrame implements ActionListener {
                 }
 
                 if (country != null) {  // wenn geklicktes land gefunden
-                    if (counterNext == 1)
+                    if (counterNext == 1) {
                         setRemaining();
+                    }
                     if (counterNext == 1 && counterHitbox == 0) {       //einheiten setzen
                         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                             deployArmiesLeftClick(armyLabel, country);
@@ -495,6 +476,7 @@ public class FieldGUI extends JFrame implements ActionListener {
     private void deployArmiesLeftClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
                 && remaining >= 0) { //es sind noch einheiten ueber
+            increasedCountries.add(country);
             country.addArmy();
             counter++;
             remaining -= counter;
@@ -514,7 +496,8 @@ public class FieldGUI extends JFrame implements ActionListener {
 
     private void deployArmiesRightClick(JLabel armyLabel, Country country) {
         if (country.getColorOfOwnerString().equals(getPlayer().getColor()) //land gehoert dem spieler
-                && remaining > 1) {                                       //es sind noch einheiten ueber
+                && increasedCountries.contains(country)) {                  //es sind noch einheiten ueber
+            increasedCountries.remove(country);
             country.loseArmy();
             counter--;
             remaining -= counter;
@@ -644,6 +627,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 gameplayInstance.deployArmiesText(this.getPlayer());
                 break;
             case 2:
+                increasedCountries.clear();
                 counter = 0;
                 this.setRemaining();
                 gameplayInstance.attackphaseText();
@@ -997,11 +981,11 @@ public class FieldGUI extends JFrame implements ActionListener {
      * @param player the player who won the game
      */
     private void openWinning(Player player) {
-    	 ImageIcon icon = new ImageIcon("material/winning.png");
-    	this.setUIManager();
+        ImageIcon icon = new ImageIcon("material/winning.png");
+        this.setUIManager();
         Object[] options = {"Ja, wirklich", "Ne, doch nicht"};
         int n = JOptionPane.showOptionDialog(frame,
-        		getWinningMessage(player),
+                getWinningMessage(player),
                 "Spiel gewonnen und beendet",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -1031,7 +1015,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                 + "!\nDu hast das Spiel gewonnen."
                 + "\nWollt ihr noch eine Runde spielen?";
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
     }
