@@ -30,6 +30,10 @@ public class FieldGUI extends JFrame implements ActionListener {
     private String dice_source1, dice_source2;
     private JLabel dicePlayerOne, dicePlayerTwo;
 
+    /**
+     * Gets the player whose turn it is.
+     * @return the player whose turn it is
+     */
     private Player getPlayer() {
         if ((counterPlayer % 2) != 0) {
             player = Gameplay.getInstance().getPlayerOne();
@@ -41,6 +45,9 @@ public class FieldGUI extends JFrame implements ActionListener {
         return player;
     }
 
+    /**
+     * Sets the value of remaining.
+     */
     private void setRemaining() {
         if (counterNext == 1)
             remaining = this.getPlayer().getNewArmies();
@@ -48,6 +55,9 @@ public class FieldGUI extends JFrame implements ActionListener {
             remaining = 0;
     }
 
+    /**
+     * Creates a new FieldGUI.
+     */
     public FieldGUI() {
         hitBoxListener = new MouseListener() {
             @Override
@@ -114,7 +124,7 @@ public class FieldGUI extends JFrame implements ActionListener {
                             redistributionLeftClick(armyLabel, country);
                         }
                     }
-                    if (counterNext == 0 && mouseEvent.getButton() == MouseEvent.BUTTON3) {
+                    if (counterNext == 0 && counterHitbox != 0 && mouseEvent.getButton() == MouseEvent.BUTTON3) {
                         redistributionRightClick(armyLabel, country);
                     }
                 }
@@ -576,6 +586,11 @@ public class FieldGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Checks a country for neighboring countries belonging to the enemy
+     * @param country country being checked for neighboring countries belonging to the enemy
+     * @return true if country has a neighboring country belonging to the enemy; false otherwise
+     */
     private boolean hasEnemyNeighbours(Country country) {
         for (String s : country.getNeighboringCountries()) {
             Country neighbor = Gameplay.getInstance().getCountries().stream()
@@ -589,7 +604,10 @@ public class FieldGUI extends JFrame implements ActionListener {
         return false;
     }
 
-    private void next() {       //ruft je nach spielzug die naechste spielfunktion auf
+    /**
+     * Sets parameters as needed for the next phase of the game and calls the function explaining the phase up.
+     */
+    private void next() {
         Gameplay gameplayInstance = Gameplay.getInstance();
         if (counterNext == 0) {
             textfield.setText("");
